@@ -4,8 +4,14 @@
 
 <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="AES对称加密算法, 睡到自然醒">
-    <meta name="description" content="AES算法的特点AES算法（Advanced Encryption Standard）是DES算法的替代者，也是当今最流行的对称加密算法之一。跟上篇博客《MD5底层实现和解密方法》所提到的摘要算法不同，摘要算法是不可逆的，主要作用是对信息一">
+    <meta name="keywords" content="JVM底层原理与性能优化, 睡到自然醒">
+    <meta name="description" content="1、JVM基础知识JVM由哪些部分组成？
+类加载器（ClassLoader）
+运行时数据区（Runtime Data Area）
+执行引擎（Execution Engine）
+本地库接口（Native Interface）
+
+各组成部分的用">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -13,7 +19,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>AES对称加密算法 | 睡到自然醒</title>
+    <title>JVM底层原理与性能优化 | 睡到自然醒</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -374,12 +380,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/6.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/11.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">AES对称加密算法</h1>
+                    <h1 class="description center-align post-title">JVM底层原理与性能优化</h1>
                 </div>
             </div>
         </div>
@@ -496,27 +502,14 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/算法/">
-                                <span class="chip bg-color">算法</span>
-                            </a>
-                        
-                            <a href="/tags/AES算法/">
-                                <span class="chip bg-color">AES算法</span>
+                            <a href="/tags/jvm/">
+                                <span class="chip bg-color">jvm</span>
                             </a>
                         
                     </div>
                     
                 </div>
                 <div class="col s5 right-align">
-                    
-                    <div class="post-cate">
-                        <i class="fas fa-bookmark fa-fw icon-category"></i>
-                        
-                            <a href="/categories/算法/" class="post-category">
-                                算法
-                            </a>
-                        
-                    </div>
                     
                 </div>
             </div>
@@ -525,7 +518,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2019-11-05
+                    2020-02-22
                 </div>
                 
 
@@ -534,14 +527,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    2.1k
+                    4k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    7 分
+                    14 分
                 </div>
                 
 
@@ -557,82 +550,211 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="AES算法的特点"><a href="#AES算法的特点" class="headerlink" title="AES算法的特点"></a>AES算法的特点</h2><p>AES算法（Advanced Encryption Standard）是DES算法的替代者，也是当今最流行的对称加密算法之一。跟上篇博客<a href="http://www.lishaojie.top/2019/07/04/MD5/" target="_blank" rel="noopener">《MD5底层实现和解密方法》</a>所提到的摘要算法不同，摘要算法是不可逆的，主要作用是对信息一致性和完整性的校验。而对称加密算法是可逆的，它的主要作用是保证私密信息不被泄露。</p>
-<h3 id="密钥"><a href="#密钥" class="headerlink" title="密钥"></a>密钥</h3><p>密钥是AES算法实现加密和解密的根本。对称加密算法之所以对称，是因为这类算法对明文的加密和解密需要使用<strong>同一个密钥</strong>。AES支持三种长度的密钥：<strong>128位，192位，256位</strong>。平时大家所说的AES128，AES192，AES256，实际上就是指的AES算法对不同长度密钥的使用。</p>
-<p>从安全性来看，AES256安全性最高；从性能来看，AES128性能最高；因为加密处理轮数不同。<a id="more"></a></p>
-<h3 id="填充"><a href="#填充" class="headerlink" title="填充"></a>填充</h3><p>AES算法在对明文加密的时候，并不是把整个明文一股脑加密成一整段密文，而是把明文拆分成一个个独立的明文块，每一个明文块长度128bit。这些明文块经过AES加密器的复杂处理，生成一个个独立的密文块，这些密文块拼接在一起，就是最终的AES加密结果。</p>
-<p>假如一段明文长度是192bit，如果按每128bit一个明文块来拆分的话，第二个明文块只有64bit，不足128bit。这时候怎么办呢？就需要对明文块进行<strong>填充</strong>（Padding）。</p>
-<h4 id="NoPadding"><a href="#NoPadding" class="headerlink" title="NoPadding"></a>NoPadding</h4><p>不做任何填充，但是要求明文必须是16字节的整数倍。</p>
-<h4 id="PKCS5Padding（默认）"><a href="#PKCS5Padding（默认）" class="headerlink" title="PKCS5Padding（默认）"></a>PKCS5Padding（默认）</h4><p>如果明文块少于16个字节（128bit），在明文块末尾补足相应数量的字符，且每个字节的值等于缺少的字符数。</p>
-<p>比如明文：{1,2,3,4,5,a,b,c,d,e},缺少6个字节，则补全为{1,2,3,4,5,a,b,c,d,e,6,6,6,6,6,6}</p>
-<h4 id="ISO10126Padding"><a href="#ISO10126Padding" class="headerlink" title="ISO10126Padding"></a>ISO10126Padding</h4><p>如果明文块少于16个字节（128bit），在明文块末尾补足相应数量的字节，最后一个字符值等于缺少的字符数，其他字符填充随机数。</p>
-<p>比如明文：{1,2,3,4,5,a,b,c,d,e},缺少6个字节，则可能补全为{1,2,3,4,5,a,b,c,d,e,5,c,3,G,$,6}</p>
-<p><strong>注意：如果在AES加密时使用了某一种填充方式，解密的时候也必须采用同样的填充方式。</strong></p>
-<h3 id="模式"><a href="#模式" class="headerlink" title="模式"></a>模式</h3><p>AES的工作模式，体现在把明文块加密成密文块的处理过程中。AES加密算法提供了五种不同的工作模式：ECB、CBC、CTR、CFB、OFB，模式之间的主题思想是近似的，在处理细节上有一些差别。</p>
-<h4 id="ECB模式（默认）"><a href="#ECB模式（默认）" class="headerlink" title="ECB模式（默认）"></a>ECB模式（默认）</h4><p>电码本模式  Electronic Codebook Book</p>
-<p><img src="https://tva1.sinaimg.cn/large/006tNbRwgy1gazosrcxlxj30j60apdg3.jpg" alt></p>
-<p>ECB模式是最简单的工作模式，在该模式下，每一个明文块的加密都是独立完成的，互不干涉。好处是简单，有利于并行计算。缺点也很明显，相同的明文块经过加密会变成相同的密文块，因此安全性较差。</p>
-<h4 id="CBC模式"><a href="#CBC模式" class="headerlink" title="CBC模式"></a>CBC模式</h4><p>密码分组链接模式  Cipher Block Chaining</p>
-<p><img src="https://tva1.sinaimg.cn/large/006tNbRwgy1gazou8zo61j30l40bcdgu.jpg" alt></p>
-<p>CBC模式引入了一个新的概念：初始向量IV（Initialization Vector），它的作用和MD5的“加盐”有些类似，目的是防止同样的明文块始终加密成同样的密文块。从图中可以看出，CBC模式在每一个明文块加密前会让明文块和一个值先做异或操作。IV作为初始化变量，参与第一个明文块的异或，后续的每一个明文块和它<strong>前一个明文块所加密出的密文块</strong>相异或。这样以来，相同的明文块加密出的密文块显然是不一样的。好处是安全性更好，缺点是无法并行计算，性能上不如ECB；引入初始化向量IV，增加复杂度。</p>
-<h4 id="CTR模式"><a href="#CTR模式" class="headerlink" title="CTR模式"></a>CTR模式</h4><p>计算器模式  Counter（实现省略……）</p>
-<h4 id="CFB模式"><a href="#CFB模式" class="headerlink" title="CFB模式"></a>CFB模式</h4><p>密码反馈模式  Cipher FeedBack（实现省略……）</p>
-<h4 id="OFB模式"><a href="#OFB模式" class="headerlink" title="OFB模式"></a>OFB模式</h4><p>输出反馈模式  Output FeedBack（实现省略……）</p>
-<p><strong>注意：如果在AES加密时使用了某一种工作模式，解密的时候也必须采用同样的工作模式。</strong></p>
-<p>在Java代码中，如何修改不同长度的密钥和填充模式？</p>
-<p>AES算法在Java的 javax.crypto 包里有很好的封装，调用方式如下：</p>
-<p><img src="https://tva1.sinaimg.cn/large/006tNbRwgy1gazo71c7glj30f90963zq.jpg" alt></p>
-<ol>
-<li>kgen.init传入的第一个参数128决定了密钥的长度是<strong>128bit</strong>。</li>
-<li>Cipher.getInstance(“AES/CBC/NoPadding”)决定了AES选择的填充方式是<strong>NoPadding</strong>，工作模式是<strong>CBC</strong>模式。</li>
+                <h3 id="1、JVM基础知识"><a href="#1、JVM基础知识" class="headerlink" title="1、JVM基础知识"></a>1、JVM基础知识</h3><h4 id="JVM由哪些部分组成？"><a href="#JVM由哪些部分组成？" class="headerlink" title="JVM由哪些部分组成？"></a>JVM由哪些部分组成？</h4><ol>
+<li><strong>类加载器</strong>（ClassLoader）</li>
+<li><strong>运行时数据区</strong>（Runtime Data Area）</li>
+<li><strong>执行引擎</strong>（Execution Engine）</li>
+<li><strong>本地库接口</strong>（Native Interface）</li>
 </ol>
-<h2 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h2><ol>
-<li>我们在调用封装好的AES算法时，表面上使用的Key并不是真正用于AES加密解密的密钥，而是用于生成真正密钥的“种子”。</li>
-<li>填充明文时，如果明文长度原本就是16字节的整数倍，那么除了NoPadding以外，其他的填充方式都会填充一组额外的16字节明文块。</li>
+<h4 id="各组成部分的用途？"><a href="#各组成部分的用途？" class="headerlink" title="各组成部分的用途？"></a>各组成部分的用途？</h4><p>程序在执行之前先要把java代码转换成字节码(class文件)，jvm需要把字节码通过<strong>类加载器</strong>把文件加载到内存中<strong>(运行时数据区)</strong>，而字节码文件是jvm的一套指令集规范，并不能直接交给底层操作系统去执行，因此需要特定的命令解析器<strong>(执行引擎)</strong>将字节码翻译成底层系统指令再交由CPU去执行，而这个过程中需要调用其他语言的接口<strong>(本地库接口)</strong>来实现整个程序的功能。</p>
+<h4 id="类加载器是什么？"><a href="#类加载器是什么？" class="headerlink" title="类加载器是什么？"></a>类加载器是什么？</h4><p>顾名思义，类加载器用来加载 Java 类到 jvm 中。</p>
+<p>类加载器把 Java 字节码转换成 java.lang.Class 类的一个实例。通过此实例的 newInstance()方法就可以创建出该类的一个对象。实际的情况可能更加复杂，比如 Java 字节代码可能是通过工具动态生成的，也可能是通过网络下载的。</p>
+<h4 id="类的加载过程"><a href="#类的加载过程" class="headerlink" title="类的加载过程"></a>类的加载过程</h4><ol>
+<li><p>加载：程序运行之前jvm通过<strong>类加载器</strong>把编译完成的.class二进制文件加载到内存，供程序使用。</p>
+</li>
+<li><p>连接：</p>
+<p>验证：确保类加载的正确性。（可能有的class文件是通过其他方式编译出来的）</p>
+<p>准备：为类的<strong>静态变量</strong>分配内存，将其初始化为<strong>默认值</strong> 。（int为0，boolean为false）</p>
+<p>解析：把类中的符号引用转化为直接引用。（比如把方法名改为方法的内存地址）</p>
+</li>
+<li><p>初始化：为类的静态变量赋予正确的初始值。（程序编写的值是真正的初始值）</p>
+</li>
 </ol>
-<h2 id="AES加密算法底层原理"><a href="#AES加密算法底层原理" class="headerlink" title="AES加密算法底层原理"></a>AES加密算法底层原理</h2><h3 id="AES加密步骤"><a href="#AES加密步骤" class="headerlink" title="AES加密步骤"></a>AES加密步骤</h3><ol>
-<li>把明文按照128bit拆分成若干个明文块。</li>
-<li>按照选择的填充方式来填充最后一个明文块。</li>
-<li>每一个明文块利用AES加密器和密钥，加密成密文块。</li>
-<li>拼接所有的密文块，成为最终的密文结果。</li>
+<p><img src="https://tva1.sinaimg.cn/large/0082zybpgy1gcb1tmkh5oj30hl05j3zc.jpg" alt></p>
+<h3 id="2、Java内存模型"><a href="#2、Java内存模型" class="headerlink" title="2、Java内存模型"></a>2、Java内存模型</h3><h4 id="JMM（Java-Memory-Model）"><a href="#JMM（Java-Memory-Model）" class="headerlink" title="JMM（Java Memory Model）"></a>JMM（Java Memory Model）</h4><ul>
+<li>Java内存模型本身是一种抽象的概念，并不真实存在，它描述的是一种规范，定义了程序中各个变量的访问方式。</li>
+<li>线程之间的共享变量存储在主内存中，每个线程都有一个私有的本地内存，本地内存中存储了共享变量的副本。</li>
+</ul>
+<h4 id="线程之间的通信"><a href="#线程之间的通信" class="headerlink" title="线程之间的通信"></a>线程之间的通信</h4><p>线程通信机制有两种：<strong>共享内存</strong>和<strong>消息传递</strong>。</p>
+<ul>
+<li><p>在<strong>共享内存</strong>的并发模型里，线程之间共享程序的公共状态，线程之间通过写-读内存中的公共状态来<strong>隐式</strong>进行通信，典型的共享内存通信方式就是通过<strong>共享对象</strong>进行通信。</p>
+</li>
+<li><p>在<strong>消息传递</strong>的并发模型里，线程之间没有公共状态，线程之间必须通过明确的发送消息来<strong>显式</strong>进行通信，在java中典型的消息传递方式就是wait()和notify()。</p>
+</li>
+</ul>
+<p><img src="https://tva1.sinaimg.cn/large/0082zybpgy1gcb0wr021kj30c80akt92.jpg" alt></p>
+<h4 id="JVM运行时数据区"><a href="#JVM运行时数据区" class="headerlink" title="JVM运行时数据区"></a>JVM运行时数据区</h4><ol>
+<li><p><strong>程序计数器</strong></p>
+<p>程序计数器是一块较小的内存空间，可以看作当前线程正在执行的字节码的行号指示器。</p>
+<p>程序计数器有两个作用：实现<strong>流程控制</strong>(循环、异常处理)和<strong>记录执行位置</strong>(多线程切换)。</p>
+<p>线程私有，是唯一一个不会出现OutOfMemoryError的内存区域。</p>
+<p>注意：如果当前线程正在执行的是一个本地方法，那么此时程序计数器为空。</p>
+</li>
+<li><p><strong>Java虚拟机栈</strong></p>
+<p>描述Java方法运行过程的内存模型。</p>
+<p>Java虚拟机栈会为每一个即将运行的方法创建<strong>“栈帧”(局部变量表、操作数栈、动态链接、方法出口)</strong>。</p>
+<p>当Java方法运行过程中需要创建局部变量时，就将局部变量的值存入栈帧的局部变量表中。</p>
+<p>线程私有，会出现StackOverFlowError和OutOfMemoryError两种异常。</p>
+<p>注意：人们常说“堆”用来存放对象，“栈”用来存放局部变量不完全正确，只体现了栈的局部变量表部分。</p>
+</li>
+<li><p><strong>本地方法栈</strong></p>
+<p>描述本地方法运行的内存模型。</p>
+<p>本地方法被执行的时候，步骤和Java方法类似，执行完毕后相应的栈帧也会出栈并释放内存空间。</p>
+</li>
+<li><p><strong>堆</strong></p>
+<p>用来<strong>存储对象</strong>的内存模型。</p>
+<p>线程共享，堆是Java虚拟机中最大的一块内存区域，也是垃圾收集器主要的工作区域。</p>
+<p>可以进一步细分为：新生代、老年代。 新生代又可被分为：Eden、From Survior、To Survior。 </p>
+<p>堆的大小既可以固定也可以扩展，但主流的虚拟机堆的大小是可扩展的，不够用会抛出OutOfMemoryError。 </p>
+</li>
+<li><p><strong>方法区</strong></p>
+<p>是堆的一个逻辑部分，用于存储被虚拟机加载的<strong>类信息、常量、静态变量、即时编译器编译后的代码</strong>等。 </p>
+<p>方法区用于存储被虚拟机加载的<strong>类信息、常量、静态变量、即时编译器编译后的代码</strong>等。 </p>
+<p><strong>运行时常量池：是方法区的一部分</strong>，用于存放编译器生成的各种字面量和符号引用。</p>
+</li>
 </ol>
-<h3 id="AES加密器需要经过多少轮加密"><a href="#AES加密器需要经过多少轮加密" class="headerlink" title="AES加密器需要经过多少轮加密"></a>AES加密器需要经过多少轮加密</h3><ul>
-<li>初始轮（Initial Round） 1次</li>
-<li>普通轮（Rounds）     N次</li>
-<li>最终轮（Final Round）  1次</li>
-</ul>
-<p>上一期我们提到，AES的Key支持三种长度：AES128，AES192，AES256。Key的长度决定了AES加密的轮数。</p>
-<h3 id="除去初始轮各种Key长度对应的轮数"><a href="#除去初始轮各种Key长度对应的轮数" class="headerlink" title="除去初始轮各种Key长度对应的轮数"></a>除去初始轮各种Key长度对应的轮数</h3><ul>
-<li>AES128：10轮</li>
-<li>AES192：12轮</li>
-<li>AES256：14轮</li>
-</ul>
-<h3 id="不同阶段Round的处理步骤"><a href="#不同阶段Round的处理步骤" class="headerlink" title="不同阶段Round的处理步骤"></a>不同阶段Round的处理步骤</h3><p><strong>初始轮只有一个步骤</strong></p>
+<p><strong>总结</strong>：</p>
 <ul>
-<li>加轮密钥（AddRoundKey）</li>
+<li><p>程序计数器、Java虚拟机栈、本地方法栈是<strong>线程私有</strong>的，生命周期随着线程的创建而创建，随着线程的结束而死亡。 </p>
+</li>
+<li><p>堆、方法区是<strong>线程共享</strong>的，在JVM中只有一个堆、一个方法栈。在JVM启动的时候就创建，JVM停止才销毁。</p>
+</li>
+<li><p><strong>StackOverFlowError</strong>： 若Java虚拟机栈的内存大小不允许动态扩展，那么当线程请求栈的深度超过当前Java虚拟机栈的最大深度的时候，就抛出StackOverFlowError异常。 </p>
+</li>
+<li><p><strong>OutOfMemoryError</strong>： 若Java虚拟机栈的内存大小允许动态扩展，且当线程请求栈时内存用完了，无法再动态扩展了，此时抛出OutOfMemoryError异常。</p>
+</li>
+<li><p><strong>StackOverFlowError和OutOfMemoryError的异同？</strong> </p>
+<p>StackOverFlowError表示当前线程申请的栈超过了事先定好的栈的最大深度，但内存空间可能还有很多。 </p>
+<p>而OutOfMemoryError是指当线程申请栈时发现栈已经满了，而且内存也全都用光了。 </p>
+</li>
 </ul>
-<p><strong>普通轮有四个步骤</strong></p>
+<h3 id="3、类加载器的双亲委派模型"><a href="#3、类加载器的双亲委派模型" class="headerlink" title="3、类加载器的双亲委派模型"></a>3、类加载器的双亲委派模型</h3><ol>
+<li><p><strong>什么是双亲委派模型？</strong></p>
+<p>双亲委派模型会保证父类加载器先加载类。（延伸：jvm判定两个类相同，不仅类名一致，还要被同一类加载器加载）</p>
+</li>
+<li><p><strong>双亲委派模型的工作过程？</strong></p>
 <ul>
-<li><p>字节代替（SubBytes）</p>
-<p>首先需要说明的是，16字节的明文块在每一个处理步骤中都被排列成4X4的二维数组。所谓字节替代，就是把明文块的每一个字节都替代成另外一个字节。替代的依据是什么呢？依据一个被称为<strong>S盒</strong>（Subtitution Box）的16X16大小的二维常量数组。假设明文块当中a[2,2] = 5B（一个字节是两位16进制），那么输出值b[2,2] = S[5][11]。</p>
+<li><p>当前 ClassLoader 首先从自己已经加载的类中查询是否此类已经加载，如果已经加载则直接返回原来已经加载的类。</p>
+<p>每个类加载器都有自己的加载缓存，当一个类被加载了以后就会放入缓存，等下次加载的时候就可以直接返回了。</p>
 </li>
-<li><p>行移位（ShiftRows）</p>
-<p>这一步很简单，就像图中所描述的：第一行不变，第二行循环左移<strong>1</strong>个字节，第三行循环左移<strong>2</strong>个字节，第四行循环左移<strong>3</strong>个字节。</p>
+<li><p>当前 ClassLoader 的缓存中没有找到被加载的类的时候，委托父类加载器去加载，父类加载器采用同样的策略，首先查看自己的缓存，然后委托父类的父类去加载，一直到 bootstrap ClassLoader.</p>
 </li>
-<li><p>列混淆（MixColumns）</p>
-<p>这一步，输入数组的每一列要和一个名为修补矩阵（fixed matrix）的二维常量数组做矩阵相乘，得到对应的输出列。</p>
-</li>
-<li><p>加轮密钥（AddRoundKey）</p>
-<p>这一步是唯一利用到密钥的一步，128bit的密钥也同样被排列成4X4的矩阵。让输入数组的每一个字节a[i,j]与密钥对应位置的字节k[i,j]异或一次，就生成了输出值b[i,j]。需要补充一点，加密的每一轮所用到的密钥并不是相同的。这里涉及到一个概念：<strong>扩展密钥</strong>（KeyExpansions）——AES源代码中用长度 4 * 4 *（10+1） 字节的数组W来存储所有轮的密钥。W{0-15}的值等同于原始密钥的值，用于为初始轮做处理。后续每一个元素W[i]都是由W[i-4]和W[i-1]计算而来，直到数组W的所有元素都赋值完成。W数组当中，W{0-15}用于初始轮的处理，W{16-31}用于第1轮的处理，W{32-47}用于第2轮的处理 ……一直到W{160-175}用于最终轮（第10轮）的处理。</p>
+<li><p>当所有的父类加载器都没有加载的时候，再由当前的类加载器加载，并将其放入它自己的缓存中，以便下次有加载请求的时候直接返回。</p>
 </li>
 </ul>
-<p><strong>最终轮有三个步骤</strong></p>
+</li>
+<li><p><strong>为什么这样设计(双亲委派的好处)？</strong></p>
+<p>主要是为了安全性，避免用户自己编写的类动态替换 Java 的一些核心类，比如 String，同时也避免了重复加载，因为 JVM 中区分不同类，不仅仅是根据类名，相同的 class 文件被不同的 ClassLoader 加载就是不同的两个类，如果相互转型的话会抛java.lang.ClassCaseException.</p>
+</li>
+</ol>
+<h3 id="4、JVM垃圾收集算法与收集器"><a href="#4、JVM垃圾收集算法与收集器" class="headerlink" title="4、JVM垃圾收集算法与收集器"></a>4、JVM垃圾收集算法与收集器</h3><ol>
+<li><p><strong>如何判断一个对象是否已经死去？</strong></p>
 <ul>
-<li>字节代替（SubBytes）</li>
-<li>行移位（ShiftRows）</li>
-<li>加轮密钥（AddRoundKey）</li>
+<li><p><strong>引用计数算法</strong>：每个对象有一个引用计数属性，新增一个引用时计数加1，引用释放时计数减1，计数为0时可以回收。此方法简单，无法解决对象相互循环引用的问题。</p>
+</li>
+<li><p><strong>可达性分析算法</strong>：从GC Roots开始向下搜索，搜索所走过的路径称为引用链。当一个对象到GC Roots没有任何引用链相连时，则证明此对象是不可用的。不可达对象。</p>
+<p><strong>GC Root</strong>：虚拟机栈(局部变量表)中引用的对象、方法区中类的静态属性引用的对象、方法区中常量引用的对象、本地方法栈中引用的对象。</p>
+</li>
 </ul>
-<h2 id="AES解密流程"><a href="#AES解密流程" class="headerlink" title="AES解密流程"></a>AES解密流程</h2><p>解密流程基本是把加密流程倒置过来，顺序变为 最终轮-&gt;普通轮-&gt;初始轮。扩展密钥的使用顺序也和加密相反。</p>
+</li>
+<li><p><strong>垃圾回收算法有哪些？</strong></p>
+<ul>
+<li><p><strong>复制算法</strong>：此算法把内存空间划为两个相等的区域，每次只使用其中一个区域。垃圾回收时，遍历当前使用区域，把正在使用中的对象复制到另外一个区域中。</p>
+<p>优点：效率高，不会产生碎片。</p>
+<p>缺点：可用内存变为原来的一半，存活对象多时效率低（复制成本大）。</p>
+</li>
+<li><p><strong>标记-清除算法</strong>：此算法执行分两阶段。第一阶段从引用根节点开始标记所有被引用的对象，第二阶段遍历整个堆，把未标记的对象清除。此算法需要暂停整个应用，同时，会产生内存碎片。</p>
+<p>优点：相比与复制算法来说不浪费内存。</p>
+<p>缺点：会产生内存碎片，效率低（需要扫描两次）。</p>
+</li>
+<li><p><strong>标记-整理算法</strong>：此算法结合了 “标记-清除” 和 “复制” 两个算法的优点。也是分两阶段，第一阶段从根节点开始标记所有被引用对象，第二阶段遍历整个堆，把清除未标记对象并且把存活对象“压缩”到堆的其中一块，按顺序排放。</p>
+<p>优点：避免了 “标记-清除” 的碎片问题，同时也避免了 “复制” 算法的空间问题。</p>
+<p>缺点：效率比复制算法低，需要多维护一个链表使幸存对象连续。</p>
+</li>
+<li><p><strong>分代收集算法</strong>：一般把Java堆分为新生代和老年代，这样就可以根据各个年代的特点采用适当的收集算法。在新生代中，每次垃圾收集时都发现有大批对象死去，只有少量存活，那就选用复制算法，只需要付出少量存活对象的复制成本就可以完成收集。而老年代中因为对象存活率高、没有额外空间对它进行分配担保，就必须使用“标记-清理”或“标记-整理”算法来进行回收。</p>
+</li>
+</ul>
+</li>
+<li><p><strong>GC什么时候开始？</strong></p>
+<p>GC经常发生的区域是堆区，堆区还可以细分为新生代1/3、老年代2/3，新生代还分为一个Eden区8/10和两个Survivor1/10区。</p>
+<ul>
+<li><p><strong>Minor GC</strong>，发生在新生代的GC，对象优先在Eden中分配，当Eden中没有足够空间时，虚拟机将发生一次Minor GC，因为Java大多数对象都是朝生夕灭，所以Minor GC非常频繁，而且速度也很快;</p>
+</li>
+<li><p><strong>Full GC</strong>，发生在老年代的GC，当老年代没有足够的空间时即发生Full GC，发生Full GC一般都会有一次Minor GC。大对象直接进入老年代，如很长的字符串数组，虚拟机提供一个-XX:PretenureSizeThreadhold参数，令大于这个参数值的对象直接在老年代中分配，避免在Eden区和两个Survivor区发生大量的内存拷贝;</p>
+</li>
+<li><p>发生Minor GC时，虚拟机会检测之前每次晋升到老年代的平均大小是否大于老年代的剩余空间大小，如果大于，则进行一次Full GC，如果小于，则查看HandlePromotionFailure设置是否允许担保失败，如果允许，那只会进行一次Minor GC，如果不允许，则改为进行一次Full GC。</p>
+</li>
+</ul>
+</li>
+<li><p><strong>引用的分类？</strong></p>
+<p><strong>强引用</strong>：通过new出来的引用，只要强引用还存在，则不会回收。</p>
+<p><strong>软引用</strong>：在内存不足的情况下，会被jvm回收。通过SoftReference类来实现。</p>
+<p><strong>弱引用</strong>：非必须对象，只要已发生GC就会把它干掉。通过WeakReference类来实现。</p>
+<p><strong>虚引用</strong>：相当于没有引用，被jvm干掉会收到系统通知。通过PhantomReference类来实现。</p>
+</li>
+<li><p><strong>垃圾收集器？</strong></p>
+<ul>
+<li><p><strong>Serial收集器</strong>：串行收集器效率很高，可能会产生较长的停顿，<strong>单线程-复制算法</strong>。</p>
+</li>
+<li><p><strong>ParNew收集器</strong>：Serial收集器的多线程版本，<strong>多线程-复制算法</strong>。</p>
+</li>
+<li><p><strong>Parallel Scavenge收集器</strong>：Parallel Scavenge收集器类似ParNew收集器，可以通过参数来打开<strong>自适应调节策略</strong>，动态调整这些参数以提供最合适的停顿时间或最大的吞吐量。（<strong>多线程-复制算法</strong>）</p>
+</li>
+<li><p><strong>Serial Old收集器</strong>：Serial的老年代版本，<strong>单线程-标记-整理算法</strong></p>
+</li>
+<li><p><strong>Parallel Old 收集器</strong>：Parallel Scavenge的老年代版本，在老年代提供吞吐量优先。<strong>多-标记-整理</strong></p>
+</li>
+<li><p><strong>CMS收集器</strong>：是一种以获取最短回收停顿时间为目标的收集器，给用户带来较好的体验。<strong>多-标记-清除</strong></p>
+<p><strong>优点：并发收集、低停顿。</strong></p>
+<p><strong>缺点：产生大量空间碎片、并发阶段会降低吞吐量。</strong></p>
+</li>
+<li><p><strong>G1收集器</strong>：Garbage First 收集器避免全区域垃圾收集，它把堆内存划分为大小固定的几个独立区域，并且跟踪这些区域的垃圾收集进度，同时在后台维护一个优先级列表，每次根据所允许的收集时间， 优先回收垃圾最多的区域。区域划分和优先级区域回收机制，确保 G1 收集器可以在有限时间获得最高的垃圾收集效率。<strong>标记-整理</strong></p>
+<p><strong>空间整合，G1收集器采用标记整理算法，不会产生内存空间碎片。</strong></p>
+<p><strong>可预测停顿，在不牺牲吞吐量的前提下，实现低停顿垃圾回收。</strong></p>
+<p>上面提到的垃圾收集器，收集的范围都是整个新生代或者老年代，G1将整个Java堆划分为多个大小相等的独立区域(Region)，虽然还保留有新生代和老年代的概念，但新生代和老年代不再是物理隔阂了，它们都是一部分(可以不连续)Region的集合。</p>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="5、JVM生产问题的排查与解决"><a href="#5、JVM生产问题的排查与解决" class="headerlink" title="5、JVM生产问题的排查与解决"></a>5、JVM生产问题的排查与解决</h3><h4 id="生产服务器变慢，谈谈诊断思路和性能评估（常用的linux命令）"><a href="#生产服务器变慢，谈谈诊断思路和性能评估（常用的linux命令）" class="headerlink" title="生产服务器变慢，谈谈诊断思路和性能评估（常用的linux命令）"></a>生产服务器变慢，谈谈诊断思路和性能评估（常用的linux命令）</h4><h5 id="整机：top"><a href="#整机：top" class="headerlink" title="整机：top"></a>整机：top</h5><ul>
+<li><p>右上角<strong>load average</strong>：3个值代表1分钟，5分钟，15分钟系统的平均负载值，3个值相加除以3乘以100%，如果结果高于60%，说明系统的负载压力很大。（也可以直接输入uptime查看负载精简版）</p>
+</li>
+<li><p>查看<strong>%CPU</strong>和内存<strong>%MEM</strong>的占用比例。</p>
+</li>
+</ul>
+<h5 id="CPU：vmstat-n-2-3"><a href="#CPU：vmstat-n-2-3" class="headerlink" title="CPU：vmstat -n 2 3"></a>CPU：vmstat -n 2 3</h5><p><img src="https://tva1.sinaimg.cn/large/0082zybpgy1gcb49fonjej3148064gne.jpg" alt></p>
+<p><img src="https://tva1.sinaimg.cn/large/0082zybpgy1gcb4dp2a9kj31b10e7n9w.jpg" alt></p>
+<ul>
+<li><strong>id</strong>：处于空闲的CPU百分比；</li>
+<li><strong>wa</strong>：系统等待IO的CPU时间百分比；</li>
+<li><strong>st</strong>：来自于一个虚拟机偷取的CPU时间的百分比。</li>
+</ul>
+<h5 id="内存：free-m"><a href="#内存：free-m" class="headerlink" title="内存：free -m"></a>内存：free -m</h5><p><img src="https://tva1.sinaimg.cn/large/0082zybpgy1gcb849y0dcj314u0c442f.jpg" alt></p>
+<p><strong>查看额外：pidstat -p 进程号 -r 采样间隔秒数</strong></p>
+<p><img src="https://tva1.sinaimg.cn/large/0082zybpgy1gcb86vzxduj30sw070tc6.jpg" alt></p>
+<h5 id="硬盘：df-h"><a href="#硬盘：df-h" class="headerlink" title="硬盘：df -h"></a>硬盘：df -h</h5><p><img src="https://tva1.sinaimg.cn/large/00831rSTgy1gcb93btg9wj30y00d27o5.jpg" alt></p>
+<h5 id="磁盘IO：iostat-xdk-2-3"><a href="#磁盘IO：iostat-xdk-2-3" class="headerlink" title="磁盘IO：iostat -xdk 2 3"></a>磁盘IO：iostat -xdk 2 3</h5><p><img src="https://tva1.sinaimg.cn/large/00831rSTgy1gcbap9iegoj31po0ke4iz.jpg" alt></p>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTgy1gcbalqfgp2j317c0cz7fs.jpg" alt></p>
+<p><strong>查看额外：pidstat -d 采样间隔秒数 -p 进程号</strong> </p>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTgy1gcbau03v5mj314e0awdpt.jpg" alt></p>
+<h5 id="网络IO：ifstat"><a href="#网络IO：ifstat" class="headerlink" title="网络IO：ifstat"></a>网络IO：<strong>ifstat</strong></h5><p><img src="https://tva1.sinaimg.cn/large/00831rSTgy1gcbb07rl5uj312s09wgq6.jpg" alt></p>
+<h4 id="假如生产环境出现CPU占用过高，谈谈分析思路和定位（印象深刻的故障）"><a href="#假如生产环境出现CPU占用过高，谈谈分析思路和定位（印象深刻的故障）" class="headerlink" title="假如生产环境出现CPU占用过高，谈谈分析思路和定位（印象深刻的故障）"></a>假如生产环境出现CPU占用过高，谈谈分析思路和定位（印象深刻的故障）</h4><ol>
+<li><p>先用top命令找出CPU占比最高的。</p>
+</li>
+<li><p>ps -ef | grep java | grep -v grep 或者 jps -l 进一步定位，得知是什么应用程序——PID。</p>
+</li>
+<li><p><strong>定位到具体线程或者代码。(ps -mp 进程号 -o THREAD,tid,time)</strong>——tid线程ID。</p>
+<p>-m：显示所有的<strong>线程</strong>、-p：进程使用的CPU时间、-o：该参数后是用户自定义格式。</p>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTgy1gcbbei6igzj30nq06ugqb.jpg" alt></p>
+</li>
+<li><p>将需要的线程ID转换为16进制格式（<strong>英文小写格式</strong>）</p>
+</li>
+<li><p><strong>jstack 进程ID | grep tid (16进制线程ID) -A60</strong>（打印60行）</p>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTgy1gcbbop4eloj30z40hfwqd.jpg" alt></p>
+</li>
+<li><p>成功定位到异常代码在JavaDemo02.java中——第10行，查看代码分析原因并修复。</p>
+</li>
+</ol>
 
             </div>
             <hr/>
@@ -658,7 +780,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://lishaojie1993.github.io/2019/11/05/AES/">https://lishaojie1993.github.io/2019/11/05/AES/</a>
+                    <a href="https://lishaojie1993.github.io/2020/02/22/jvm/">https://lishaojie1993.github.io/2020/02/22/jvm/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -696,12 +818,8 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/算法/">
-                                    <span class="chip bg-color">算法</span>
-                                </a>
-                            
-                                <a href="/tags/AES算法/">
-                                    <span class="chip bg-color">AES算法</span>
+                                <a href="/tags/jvm/">
+                                    <span class="chip bg-color">jvm</span>
                                 </a>
                             
                         </div>
@@ -867,9 +985,9 @@
 
 <script type="text/javascript">
     disqus_config = function () {
-        this.page.url = 'https://lishaojie1993.github.io/2019/11/05/AES/';
-        this.page.identifier = '/2019/11/05/AES/';
-        this.page.title = 'AES对称加密算法';
+        this.page.url = 'https://lishaojie1993.github.io/2020/02/22/jvm/';
+        this.page.identifier = '/2020/02/22/jvm/';
+        this.page.title = 'JVM底层原理与性能优化';
     };
     let disqus_shortname = 'lishaojie1993';
 
@@ -892,52 +1010,50 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2020/01/06/macappfree/">
+                <a href="/2020/02/22/jvm/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="macOS 超实用的「免费」软件推荐,使用经验分享！">
+                        <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="JVM底层原理与性能优化">
                         
-                        <span class="card-title">macOS 超实用的「免费」软件推荐,使用经验分享！</span>
+                        <span class="card-title">JVM底层原理与性能优化</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            iTerm2概括：非常强大的终端工具，虽然Mac自带的终端已足够好用，也不妨碍推荐它
-功能介绍：https://iterm2.com/features.html
-官方下载地址：https://iterm2.com/downloads.htm
+                            1、JVM基础知识JVM由哪些部分组成？
+类加载器（ClassLoader）
+运行时数据区（Runtime Data Area）
+执行引擎（Execution Engine）
+本地库接口（Native Interface）
+
+各组成部分的用
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-01-06
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-02-22
+                            </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/System/" class="post-category">
-                                    System
-                                </a>
-                            
+                            <i class="fas fa-user fa-fw"></i>
+                            lishaojie-C
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/macOS/">
-                        <span class="chip bg-color">macOS</span>
-                    </a>
-                    
-                    <a href="/tags/free-apps/">
-                        <span class="chip bg-color">free apps</span>
+                    <a href="/tags/jvm/">
+                        <span class="chip bg-color">jvm</span>
                     </a>
                     
                 </div>
@@ -951,34 +1067,29 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2019/11/03/encryption/">
+                <a href="/2020/02/05/star/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="加密算法">
+                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="几何星空连线背景-canvas">
                         
-                        <span class="card-title">加密算法</span>
+                        <span class="card-title">几何星空连线背景-canvas</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            加密算法的种类从宏观上来看，加密算法可以归结为三大类：哈希算法、对称加密算法、非对称加密算法。
-哈希算法从严格意义上来说，哈希算法并不属于加密算法，但它在信息安全领域也起到了很重要的作用。其中一个重要的作用就是生成信息摘要，用以验证原信息的
+                            前言最近受疫情的影响，整天宅在家无所事事，闲的蛋疼的我最终对博客下手了，给自己的博客添加一个炫酷的背景，试了各种图片，GIF，视频，炫酷效果有了不过CPU占用太高，浏览体验不佳，最后还是选择了几何星空背景，参考网上大神的代码自己改了一份，效
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2019-11-03
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-02-05
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/算法/" class="post-category">
-                                    算法
-                                </a>
-                            
+                            <i class="fas fa-user fa-fw"></i>
+                            lishaojie-C
                             
                         </span>
                     </div>
@@ -986,12 +1097,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/算法/">
-                        <span class="chip bg-color">算法</span>
-                    </a>
-                    
-                    <a href="/tags/加密算法/">
-                        <span class="chip bg-color">加密算法</span>
+                    <a href="/tags/star-line/">
+                        <span class="chip bg-color">star-line</span>
                     </a>
                     
                 </div>
