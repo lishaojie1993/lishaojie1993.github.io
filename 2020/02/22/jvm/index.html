@@ -716,28 +716,28 @@
 </ul>
 </li>
 </ol>
-<h3 id="5、JVM生产问题的排查与解决"><a href="#5、JVM生产问题的排查与解决" class="headerlink" title="5、JVM生产问题的排查与解决"></a>5、JVM生产问题的排查与解决</h3><h4 id="生产服务器变慢，谈谈诊断思路和性能评估（常用的linux命令）"><a href="#生产服务器变慢，谈谈诊断思路和性能评估（常用的linux命令）" class="headerlink" title="生产服务器变慢，谈谈诊断思路和性能评估（常用的linux命令）"></a>生产服务器变慢，谈谈诊断思路和性能评估（常用的linux命令）</h4><h5 id="整机：top"><a href="#整机：top" class="headerlink" title="整机：top"></a>整机：top</h5><ul>
+<h3 id="5、JVM生产问题的排查与解决"><a href="#5、JVM生产问题的排查与解决" class="headerlink" title="5、JVM生产问题的排查与解决"></a>5、JVM生产问题的排查与解决</h3><h4 id="生产服务器变慢，谈谈诊断思路和性能评估（常用的linux命令）"><a href="#生产服务器变慢，谈谈诊断思路和性能评估（常用的linux命令）" class="headerlink" title="生产服务器变慢，谈谈诊断思路和性能评估（常用的linux命令）"></a>生产服务器变慢，谈谈诊断思路和性能评估（常用的linux命令）</h4><h4 id="整机：top"><a href="#整机：top" class="headerlink" title="整机：top"></a>整机：top</h4><ul>
 <li><p>右上角<strong>load average</strong>：3个值代表1分钟，5分钟，15分钟系统的平均负载值，3个值相加除以3乘以100%，如果结果高于60%，说明系统的负载压力很大。（也可以直接输入uptime查看负载精简版）</p>
 </li>
 <li><p>查看<strong>%CPU</strong>和内存<strong>%MEM</strong>的占用比例。</p>
 </li>
 </ul>
-<h5 id="CPU：vmstat-n-2-3"><a href="#CPU：vmstat-n-2-3" class="headerlink" title="CPU：vmstat -n 2 3"></a>CPU：vmstat -n 2 3</h5><p><img src="https://tva1.sinaimg.cn/large/0082zybpgy1gcb49fonjej3148064gne.jpg" alt></p>
+<h4 id="CPU：vmstat-n-2-3"><a href="#CPU：vmstat-n-2-3" class="headerlink" title="CPU：vmstat -n 2 3"></a>CPU：vmstat -n 2 3</h4><p><img src="https://tva1.sinaimg.cn/large/0082zybpgy1gcb49fonjej3148064gne.jpg" alt></p>
 <p><img src="https://tva1.sinaimg.cn/large/0082zybpgy1gcb4dp2a9kj31b10e7n9w.jpg" alt></p>
 <ul>
 <li><strong>id</strong>：处于空闲的CPU百分比；</li>
 <li><strong>wa</strong>：系统等待IO的CPU时间百分比；</li>
 <li><strong>st</strong>：来自于一个虚拟机偷取的CPU时间的百分比。</li>
 </ul>
-<h5 id="内存：free-m"><a href="#内存：free-m" class="headerlink" title="内存：free -m"></a>内存：free -m</h5><p><img src="https://tva1.sinaimg.cn/large/0082zybpgy1gcb849y0dcj314u0c442f.jpg" alt></p>
+<h4 id="内存：free-m"><a href="#内存：free-m" class="headerlink" title="内存：free -m"></a>内存：free -m</h4><p><img src="https://tva1.sinaimg.cn/large/0082zybpgy1gcb849y0dcj314u0c442f.jpg" alt></p>
 <p><strong>查看额外：pidstat -p 进程号 -r 采样间隔秒数</strong></p>
 <p><img src="https://tva1.sinaimg.cn/large/0082zybpgy1gcb86vzxduj30sw070tc6.jpg" alt></p>
-<h5 id="硬盘：df-h"><a href="#硬盘：df-h" class="headerlink" title="硬盘：df -h"></a>硬盘：df -h</h5><p><img src="https://tva1.sinaimg.cn/large/00831rSTgy1gcb93btg9wj30y00d27o5.jpg" alt></p>
-<h5 id="磁盘IO：iostat-xdk-2-3"><a href="#磁盘IO：iostat-xdk-2-3" class="headerlink" title="磁盘IO：iostat -xdk 2 3"></a>磁盘IO：iostat -xdk 2 3</h5><p><img src="https://tva1.sinaimg.cn/large/00831rSTgy1gcbap9iegoj31po0ke4iz.jpg" alt></p>
+<h4 id="硬盘：df-h"><a href="#硬盘：df-h" class="headerlink" title="硬盘：df -h"></a>硬盘：df -h</h4><p><img src="https://tva1.sinaimg.cn/large/00831rSTgy1gcb93btg9wj30y00d27o5.jpg" alt></p>
+<h4 id="磁盘IO：iostat-xdk-2-3"><a href="#磁盘IO：iostat-xdk-2-3" class="headerlink" title="磁盘IO：iostat -xdk 2 3"></a>磁盘IO：iostat -xdk 2 3</h4><p><img src="https://tva1.sinaimg.cn/large/00831rSTgy1gcbap9iegoj31po0ke4iz.jpg" alt></p>
 <p><img src="https://tva1.sinaimg.cn/large/00831rSTgy1gcbalqfgp2j317c0cz7fs.jpg" alt></p>
 <p><strong>查看额外：pidstat -d 采样间隔秒数 -p 进程号</strong> </p>
 <p><img src="https://tva1.sinaimg.cn/large/00831rSTgy1gcbau03v5mj314e0awdpt.jpg" alt></p>
-<h5 id="网络IO：ifstat"><a href="#网络IO：ifstat" class="headerlink" title="网络IO：ifstat"></a>网络IO：<strong>ifstat</strong></h5><p><img src="https://tva1.sinaimg.cn/large/00831rSTgy1gcbb07rl5uj312s09wgq6.jpg" alt></p>
+<h4 id="网络IO：ifstat"><a href="#网络IO：ifstat" class="headerlink" title="网络IO：ifstat"></a>网络IO：<strong>ifstat</strong></h4><p><img src="https://tva1.sinaimg.cn/large/00831rSTgy1gcbb07rl5uj312s09wgq6.jpg" alt></p>
 <h4 id="假如生产环境出现CPU占用过高，谈谈分析思路和定位（印象深刻的故障）"><a href="#假如生产环境出现CPU占用过高，谈谈分析思路和定位（印象深刻的故障）" class="headerlink" title="假如生产环境出现CPU占用过高，谈谈分析思路和定位（印象深刻的故障）"></a>假如生产环境出现CPU占用过高，谈谈分析思路和定位（印象深刻的故障）</h4><ol>
 <li><p>先用top命令找出CPU占比最高的。</p>
 </li>
