@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://lishaojie1993.github.io/2019/02/28/CAS/</loc>
+    <lastmod>2020-02-28</lastmod>
+  </url>  <url>
+    <loc>https://lishaojie1993.github.io/2019/03/15/volatile/</loc>
+    <lastmod>2020-02-28</lastmod>
+  </url>  <url>
     <loc>https://lishaojie1993.github.io/2020/02/22/jvm/</loc>
-    <lastmod>2020-02-27</lastmod>
+    <lastmod>2020-02-28</lastmod>
   </url>  <url>
     <loc>https://lishaojie1993.github.io/2019/05/16/app/</loc>
     <lastmod>2020-02-27</lastmod>
@@ -83,9 +89,6 @@
     <lastmod>2020-02-23</lastmod>
   </url>  <url>
     <loc>https://lishaojie1993.github.io/2017/09/08/article/</loc>
-    <lastmod>2020-02-23</lastmod>
-  </url>  <url>
-    <loc>https://lishaojie1993.github.io/2019/03/15/volatile/</loc>
     <lastmod>2020-02-23</lastmod>
   </url>  <url>
     <loc>https://lishaojie1993.github.io/2019/03/19/ConcurrentHashMap/</loc>

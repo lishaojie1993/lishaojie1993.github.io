@@ -410,8 +410,7 @@
 
 
 <script>
-    // 每天切换 banner 图.  Switch banner image every day.
-    $('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay() + '.jpg)');
+    $('.bg-cover').css('background-image', 'url(/medias/banner/0.jpg)');
 </script>
 
 
@@ -427,7 +426,7 @@
                     <div class="post-statis col l4 hide-on-med-and-down" data-aos="zoom-in-right">
                         
 <div class="statis">
-    <span class="count"><a href="/">33</a></span>
+    <span class="count"><a href="/">34</a></span>
     <span class="name">文章</span>
 </div>
 
@@ -441,7 +440,7 @@
 
 
 <div class="statis">
-    <span class="count"><a href="/tags">43</a></span>
+    <span class="count"><a href="/tags">44</a></span>
     <span class="name">标签</span>
 </div>
 
@@ -457,7 +456,7 @@
                                 <div class="post-statis hide-on-large-only" data-aos="zoom-in-right">
                                     
 <div class="statis">
-    <span class="count"><a href="/">33</a></span>
+    <span class="count"><a href="/">34</a></span>
     <span class="name">文章</span>
 </div>
 
@@ -471,7 +470,7 @@
 
 
 <div class="statis">
-    <span class="count"><a href="/tags">43</a></span>
+    <span class="count"><a href="/tags">44</a></span>
     <span class="name">标签</span>
 </div>
 
@@ -643,7 +642,7 @@
                 name: '文章篇数',
                 type: 'line',
                 color: ['#6772e5'],
-                data: [0,3,2,4,0,0,3,2,1,3,0,5,2],
+                data: [1,3,2,4,0,0,3,2,1,3,0,5,2],
                 markPoint: {
                     symbolSize: 45,
                     color: ['#fa755a','#3ecf8e','#82d3f4'],
@@ -709,7 +708,7 @@
         xAxis: [
             {
                 type: 'category',
-                data: ["算法","分布式","数据结构","高并发","macOS","version control","设计模式","Google plugin","nginx","MD5算法"]
+                data: ["算法","分布式","数据结构","高并发","macOS","Google plugin","设计模式","version control","HashMap","MD5算法"]
             }
         ],
         yAxis: [
@@ -722,7 +721,7 @@
                 type: 'bar',
                 color: ['#82d3f4'],
                 barWidth : 18,
-                data: [5,4,3,3,3,2,2,2,1,1],
+                data: [6,4,3,3,3,2,2,2,1,1],
                 markPoint: {
                     symbolSize: 45,
                     data: [{
@@ -896,6 +895,12 @@
             
             
             
+            <a href="/tags/CAS/">
+                <span class="chip center-align waves-effect waves-light chip-default">CAS</span>
+            </a>
+            
+            
+            
             <a href="/tags/AES算法/">
                 <span class="chip center-align waves-effect waves-light chip-default">AES算法</span>
             </a>
@@ -914,6 +919,12 @@
             
             
             
+            <a href="/tags/链表逆序算法/">
+                <span class="chip center-align waves-effect waves-light chip-default">链表逆序算法</span>
+            </a>
+            
+            
+            
             <a href="/tags/高并发/">
                 <span class="chip center-align waves-effect waves-light chip-default">高并发</span>
             </a>
@@ -922,12 +933,6 @@
             
             <a href="/tags/ConcurrentHashMap/">
                 <span class="chip center-align waves-effect waves-light chip-default">ConcurrentHashMap</span>
-            </a>
-            
-            
-            
-            <a href="/tags/链表逆序算法/">
-                <span class="chip center-align waves-effect waves-light chip-default">链表逆序算法</span>
             </a>
             
             
@@ -944,6 +949,24 @@
             
             
             
+            <a href="/tags/macOS/">
+                <span class="chip center-align waves-effect waves-light chip-default">macOS</span>
+            </a>
+            
+            
+            
+            <a href="/tags/加密算法/">
+                <span class="chip center-align waves-effect waves-light chip-default">加密算法</span>
+            </a>
+            
+            
+            
+            <a href="/tags/book/">
+                <span class="chip center-align waves-effect waves-light chip-default">book</span>
+            </a>
+            
+            
+            
             <a href="/tags/Google-plugin/">
                 <span class="chip center-align waves-effect waves-light chip-default">Google plugin</span>
             </a>
@@ -952,12 +975,6 @@
             
             <a href="/tags/Tampermonkey/">
                 <span class="chip center-align waves-effect waves-light chip-default">Tampermonkey</span>
-            </a>
-            
-            
-            
-            <a href="/tags/book/">
-                <span class="chip center-align waves-effect waves-light chip-default">book</span>
             </a>
             
             
@@ -986,20 +1003,8 @@
             
             
             
-            <a href="/tags/macOS/">
-                <span class="chip center-align waves-effect waves-light chip-default">macOS</span>
-            </a>
-            
-            
-            
             <a href="/tags/Ghelper/">
                 <span class="chip center-align waves-effect waves-light chip-default">Ghelper</span>
-            </a>
-            
-            
-            
-            <a href="/tags/加密算法/">
-                <span class="chip center-align waves-effect waves-light chip-default">加密算法</span>
             </a>
             
             
@@ -1016,6 +1021,12 @@
             
             
             
+            <a href="/tags/paid-apps/">
+                <span class="chip center-align waves-effect waves-light chip-default">paid apps</span>
+            </a>
+            
+            
+            
             <a href="/tags/version-control/">
                 <span class="chip center-align waves-effect waves-light chip-default">version control</span>
             </a>
@@ -1028,38 +1039,14 @@
             
             
             
-            <a href="/tags/paid-apps/">
-                <span class="chip center-align waves-effect waves-light chip-default">paid apps</span>
-            </a>
-            
-            
-            
-            <a href="/tags/分布式/">
-                <span class="chip center-align waves-effect waves-light chip-default">分布式</span>
-            </a>
-            
-            
-            
-            <a href="/tags/nginx/">
-                <span class="chip center-align waves-effect waves-light chip-default">nginx</span>
-            </a>
-            
-            
-            
-            <a href="/tags/singleton/">
-                <span class="chip center-align waves-effect waves-light chip-default">singleton</span>
-            </a>
-            
-            
-            
             <a href="/tags/star-line/">
                 <span class="chip center-align waves-effect waves-light chip-default">star-line</span>
             </a>
             
             
             
-            <a href="/tags/volatile/">
-                <span class="chip center-align waves-effect waves-light chip-default">volatile</span>
+            <a href="/tags/singleton/">
+                <span class="chip center-align waves-effect waves-light chip-default">singleton</span>
             </a>
             
             
@@ -1072,6 +1059,18 @@
             
             <a href="/tags/activation/">
                 <span class="chip center-align waves-effect waves-light chip-default">activation</span>
+            </a>
+            
+            
+            
+            <a href="/tags/分布式/">
+                <span class="chip center-align waves-effect waves-light chip-default">分布式</span>
+            </a>
+            
+            
+            
+            <a href="/tags/nginx/">
+                <span class="chip center-align waves-effect waves-light chip-default">nginx</span>
             </a>
             
             
@@ -1106,6 +1105,12 @@
             
             
             
+            <a href="/tags/zookeeper/">
+                <span class="chip center-align waves-effect waves-light chip-default">zookeeper</span>
+            </a>
+            
+            
+            
             <a href="/tags/web框架/">
                 <span class="chip center-align waves-effect waves-light chip-default">web框架</span>
             </a>
@@ -1118,8 +1123,8 @@
             
             
             
-            <a href="/tags/zookeeper/">
-                <span class="chip center-align waves-effect waves-light chip-default">zookeeper</span>
+            <a href="/tags/volatile/">
+                <span class="chip center-align waves-effect waves-light chip-default">volatile</span>
             </a>
             
             
@@ -1215,7 +1220,7 @@
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">84.2k</span>&nbsp;字
+                class="white-color">85.2k</span>&nbsp;字
             
             
             
@@ -1377,6 +1382,10 @@ $(function () {
  window.$crisp=[];window.CRISP_WEBSITE_ID="03c7d277-c1f4-4fe6-96a1-93e6b7423cfa";
  (function(){d=document;s=d.createElement("script");s.src="https://client.crisp.chat/l.js";
  s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();</script>
+
+<!-- 分享按钮  Go to www.addthis.com/dashboard to customize your tools -->
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5e58e39699fdd698"></script>
+
 
 <!-- 天气-https://cj.weather.com.cn/plugin/pc -->
 <!--

@@ -534,7 +534,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    14 分
+                    13 分
                 </div>
                 
 
@@ -609,7 +609,6 @@
 </li>
 <li><p><strong>方法区</strong></p>
 <p>是堆的一个逻辑部分，用于存储被虚拟机加载的<strong>类信息、常量、静态变量、即时编译器编译后的代码</strong>等。 </p>
-<p>方法区用于存储被虚拟机加载的<strong>类信息、常量、静态变量、即时编译器编译后的代码</strong>等。 </p>
 <p><strong>运行时常量池：是方法区的一部分</strong>，用于存放编译器生成的各种字面量和符号引用。</p>
 </li>
 </ol>
@@ -617,7 +616,7 @@
 <ul>
 <li><p>程序计数器、Java虚拟机栈、本地方法栈是<strong>线程私有</strong>的，生命周期随着线程的创建而创建，随着线程的结束而死亡。 </p>
 </li>
-<li><p>堆、方法区是<strong>线程共享</strong>的，在JVM中只有一个堆、一个方法栈。在JVM启动的时候就创建，JVM停止才销毁。</p>
+<li><p>堆、方法区是<strong>线程共享</strong>的，在JVM中只有一个堆、一个方法区。在JVM启动的时候就创建，JVM停止才销毁。</p>
 </li>
 <li><p><strong>StackOverFlowError</strong>： 若Java虚拟机栈的内存大小不允许动态扩展，那么当线程请求栈的深度超过当前Java虚拟机栈的最大深度的时候，就抛出StackOverFlowError异常。 </p>
 </li>
@@ -835,6 +834,9 @@
     <script src="/libs/share/js/social-share.min.js"></script>
     
 
+    
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5e58e39699fdd698"></script>
+    <div class="addthis_inline_share_toolbox"></div>
     
 
 </div>
@@ -1112,6 +1114,43 @@
 </div>
 
 
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: 睡到自然醒<br />'
+            + '文章作者: lishaojie-C<br />'
+            + '文章链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
 
 <!-- 代码块功能依赖 -->
 <script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
@@ -1250,7 +1289,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">84.2k</span>&nbsp;字
+                class="white-color">85.2k</span>&nbsp;字
             
             
             
@@ -1412,6 +1451,10 @@ $(function () {
  window.$crisp=[];window.CRISP_WEBSITE_ID="03c7d277-c1f4-4fe6-96a1-93e6b7423cfa";
  (function(){d=document;s=d.createElement("script");s.src="https://client.crisp.chat/l.js";
  s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();</script>
+
+<!-- 分享按钮  Go to www.addthis.com/dashboard to customize your tools -->
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5e58e39699fdd698"></script>
+
 
 <!-- 天气-https://cj.weather.com.cn/plugin/pc -->
 <!--

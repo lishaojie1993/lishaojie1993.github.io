@@ -403,8 +403,7 @@
 
 
 <script>
-    // 每天切换 banner 图.  Switch banner image every day.
-    $('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay() + '.jpg)');
+    $('.bg-cover').css('background-image', 'url(/medias/banner/0.jpg)');
 </script>
 
 
@@ -619,9 +618,13 @@
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                volatile的两大特性
-保证变量在线程之间的可见性。可见性的保证是基于CPU的内存屏障指令，被JSR-133抽象为happens-before原则。（先行发生原则）
-阻止编译时和运行时的指令重排。编译时JVM编译器遵循内存屏障的约束，运
+                                volatile是什么volatile是Java虚拟机提供的轻量级的同步机制。（轻量级的synchronized）
+volatile的特性
+保证可见性
+不保证原子性
+禁止指令重排序
+
+volatile保证了变量在线程之间的可见性。可见性的保
                             
                         </div>
                         <div class="publish-info">
@@ -676,7 +679,7 @@
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">84.2k</span>&nbsp;字
+                class="white-color">85.2k</span>&nbsp;字
             
             
             
@@ -838,6 +841,10 @@ $(function () {
  window.$crisp=[];window.CRISP_WEBSITE_ID="03c7d277-c1f4-4fe6-96a1-93e6b7423cfa";
  (function(){d=document;s=d.createElement("script");s.src="https://client.crisp.chat/l.js";
  s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();</script>
+
+<!-- 分享按钮  Go to www.addthis.com/dashboard to customize your tools -->
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5e58e39699fdd698"></script>
+
 
 <!-- 天气-https://cj.weather.com.cn/plugin/pc -->
 <!--
