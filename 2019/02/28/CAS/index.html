@@ -5,9 +5,9 @@
 <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
     <meta name="keywords" content="CAS算法原理, 睡到自然醒">
-    <meta name="description" content="什么是CAS？（未完待续）CAS的全称是Compare and Swap，比较并交换，它是一条CPU并发原语。
+    <meta name="description" content="什么是CAS？CAS的全称是Compare and Swap，比较并交换，它是一条CPU并发原语。
 它的功能是判断内存中某个位置的值是否为预期值，如果是则改为新的值，这个过程是原子的。
-CAS并发原语体现在Java中就是sun.">
+CAS并发原语体现在Java中就是sun.misc.U">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -527,7 +527,7 @@ CAS并发原语体现在Java中就是sun.">
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    769
+                    794
                 </div>
                 
 
@@ -550,7 +550,7 @@ CAS并发原语体现在Java中就是sun.">
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="什么是CAS？（未完待续）"><a href="#什么是CAS？（未完待续）" class="headerlink" title="什么是CAS？（未完待续）"></a>什么是CAS？（未完待续）</h2><p><strong>CAS的全称是Compare and Swap，比较并交换，它是一条CPU并发原语。</strong></p>
+                <h2 id="什么是CAS？"><a href="#什么是CAS？" class="headerlink" title="什么是CAS？"></a>什么是CAS？</h2><p><strong>CAS的全称是Compare and Swap，比较并交换，它是一条CPU并发原语。</strong></p>
 <p>它的功能是判断内存中某个位置的值是否为预期值，如果是则改为新的值，这个过程是<strong>原子的</strong>。</p>
 <p>CAS并发原语体现在Java中就是sun.misc.Unsafe类中的各个方法。调用<strong>Unsafe类（rt.jar 原生类）</strong>中的CAS方法，JVM会帮我们实现出CAS汇编指令。这是一种完全依赖于硬件的功能，通过它实现了原子操作。再次强调，由于CAS是一种系统原语（原语属于操作系统用语范畴，是由若干条指令组成的，用于完成某个功能的一个过程），<strong>原语的执行必须是连续的，在执行过程中不允许被中断，所以说CAS是一条CPU的原子指令</strong>。</p>
 <h2 id="CAS算法思想"><a href="#CAS算法思想" class="headerlink" title="CAS算法思想"></a>CAS算法思想</h2><p>CAS是一种无锁算法，CAS有3个操作数，内存值V，旧的预期值A，要修改的新值B。当且仅当预期值A和内存值V相同时，将内存值V修改为B，否则什么都不做。</p>
@@ -564,7 +564,14 @@ CAS并发原语体现在Java中就是sun.">
 <h3 id="什么是ABA问题"><a href="#什么是ABA问题" class="headerlink" title="什么是ABA问题"></a>什么是ABA问题</h3><p>CAS算法实现的一个重要前提是需要取出内存中某时刻的数据并在当下时刻比较并替换，这个时间差里会导致数据的变化。</p>
 <p>比如说有一个线程one从内存V位置中取出A，这时候另一个线程two也从内存中取出A，并且线程two进行了一些操作将值变成了B，紧接着two又将值变为A，这时候one进行CAS操作发现内存中仍然是A，然后线程one操作成功。</p>
 <p>尽管线程one的CAS操作成功，但是不代表这个过程就是没问题的。</p>
-<h3 id="原子更新引用知道吗？"><a href="#原子更新引用知道吗？" class="headerlink" title="原子更新引用知道吗？"></a>原子更新引用知道吗？</h3><h3 id="为什么用CAS不用synchronized？"><a href="#为什么用CAS不用synchronized？" class="headerlink" title="为什么用CAS不用synchronized？"></a>为什么用CAS不用synchronized？</h3><p>synchronized加锁，同一时间段只允许一个线程访问，一致性得到了保障，但是并发性下降。</p>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTgy1gcd9qffodsj31950estmf.jpg" alt></p>
+<h3 id="原子引用更新"><a href="#原子引用更新" class="headerlink" title="原子引用更新"></a>原子引用更新</h3><ul>
+<li><p><strong>AtomicReference</strong> </p>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTgy1gcd9e0qgnwj315i0eqqc6.jpg" alt></p>
+</li>
+</ul>
+<h3 id="如何规避ABA问题"><a href="#如何规避ABA问题" class="headerlink" title="如何规避ABA问题"></a>如何规避ABA问题</h3><p>原子引用 + 版本号机制（类似时间戳），使用<strong>AtomicStampedReference</strong>来解决ABA问题。</p>
+<h2 id="CAS延伸"><a href="#CAS延伸" class="headerlink" title="CAS延伸"></a>CAS延伸</h2><h3 id="为什么用CAS不用synchronized？"><a href="#为什么用CAS不用synchronized？" class="headerlink" title="为什么用CAS不用synchronized？"></a>为什么用CAS不用synchronized？</h3><p>synchronized加锁，同一时间段只允许一个线程访问，一致性得到了保障，但是并发性下降。</p>
 <p>CAS没有加锁，可以反复通过CAS比较，既保证了一致性，又提高了并发性。</p>
 <h3 id="Atomic-中的-incrementAndGet与-getAndIncrement-两个方法的区别"><a href="#Atomic-中的-incrementAndGet与-getAndIncrement-两个方法的区别" class="headerlink" title="Atomic 中的 incrementAndGet与 getAndIncrement 两个方法的区别"></a>Atomic 中的 incrementAndGet与 getAndIncrement 两个方法的区别</h3><ul>
 <li><p><strong>incrementAndGet()</strong></p>
@@ -1142,7 +1149,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">85.2k</span>&nbsp;字
+                class="white-color">87k</span>&nbsp;字
             
             
             
