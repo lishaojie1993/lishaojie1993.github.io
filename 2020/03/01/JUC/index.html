@@ -550,8 +550,8 @@ CountDownLatch主要有两个方法，当一个或多个线程调用await()方�
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <h2 id="CountDownLatch"><a href="#CountDownLatch" class="headerlink" title="CountDownLatch"></a>CountDownLatch</h2><p><strong>倒计时/发令枪</strong>，让一些线程阻塞，直到另一些线程完成一系列操作后才被唤醒。</p>
-<p>CountDownLatch主要有两个方法，当一个或多个线程调用await()方法时，调用线程会被阻塞。其他线程调用countDown()方法会将计数器减1（调用countDown的线程不会阻塞），当计数器的值变为0时，因调用await()方法被阻塞的线程会被唤醒，继续执行。</p>
-<p>官方解释：<code>CountDownLatch</code>用给定的计数初始化。 <code>await</code>方法阻塞，直到由于<code>countDown()</code>方法的调用而导致当前计数达到零，之后所有等待线程被释放，并且任何后续的<code>await</code>调用立即返回。 这是一个一次性的现象 - 计数无法重置。 如果您需要重置计数的版本，请考虑使用<code>CyclicBarrier</code>。<a id="more"></a></p>
+<p><code>CountDownLatch</code>主要有两个方法，当一个或多个线程调用<code>await()</code>方法时，调用线程会被阻塞。其他线程调用<code>countDown()</code>方法会将计数器减1（调用countDown的线程不会阻塞），当计数器的值变为0时，因调用<code>await()</code>方法被阻塞的线程会被唤醒，继续执行。</p>
+<p>官方解释：<code>CountDownLatch</code>用给定的计数初始化。 <code>await()</code>方法阻塞，直到由于<code>countDown()</code>方法的调用而导致当前计数达到零，之后所有等待线程被释放，并且任何后续的<code>await()</code>调用立即返回。 这是一个一次性的现象 - 计数无法重置。 如果您需要重置计数的版本，请考虑使用<code>CyclicBarrier</code>。<a id="more"></a></p>
 <p><strong>CountDownLatchDemo</strong>：等待所有人上完自习离开，班长最后关门走人</p>
 <pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>concurrent<span class="token punctuation">.</span>CountDownLatch<span class="token punctuation">;</span>
 
@@ -614,7 +614,7 @@ CountDownLatch主要有两个方法，当一个或多个线程调用await()方�
 <span class="token comment" spellcheck="true">//main 秦国，统一六国</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h2 id="CyclicBarrier"><a href="#CyclicBarrier" class="headerlink" title="CyclicBarrier"></a>CyclicBarrier</h2><p>字面意思是<strong>可循环</strong>（Cyclic）使用的<strong>屏障</strong>（Barrier）</p>
 <p>让一组线程到达一个屏障（同步点）时被阻塞，直到最后一个线程到达屏障时，屏障才会打开，所有被拦截的线程才会继续执行。</p>
-<p>CyclicBarrier通过await()方法开启屏障。</p>
+<p><code>CyclicBarrier</code>通过<code>await()</code>方法开启屏障。</p>
 <p>构造方法</p>
 <pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">//创建一个新的 CyclicBarrier ，当给定数量的线程（线程）等待时，它将跳闸，并且当屏障跳闸时不执行预定义的动作。</span>
 <span class="token function">CyclicBarrier</span><span class="token punctuation">(</span><span class="token keyword">int</span> parties<span class="token punctuation">)</span>
@@ -706,21 +706,21 @@ CountDownLatch主要有两个方法，当一个或多个线程调用await()方�
 <span class="token comment" spellcheck="true">//4     停车3秒后离开</span>
 <span class="token comment" spellcheck="true">//6     停车3秒后离开</span>
 <span class="token comment" spellcheck="true">//5     停车3秒后离开</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>CountDownLatch : 一个线程(或者多个)， 等待另外N个线程完成某个事情之后才能执行。  </p>
-<p> CyclicBarrier : N个线程相互等待，任何一个线程完成之前，所有的线程都必须等待。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p><code>CountDownLatch</code> : 一个线程(或者多个)， 等待另外N个线程完成某个事情之后才能执行。  </p>
+<p><code>CyclicBarrier</code> : N个线程相互等待，任何一个线程完成之前，所有的线程都必须等待。</p>
 <p>这样应该就清楚一点了，对于CountDownLatch来说，重点是那个“一个线程”, 是它在等待，而另外那N的线程在把“某个事情”做完之后可以继续执行，可以终止。而对于CyclicBarrier来说，重点是那N个线程，他们之间任何一个没有完成，所有的线程都必须等待。</p>
 <ul>
-<li><p>发令枪是一次性的，无法重置，循环屏障可重复使用。（reset）</p>
+<li><p>发令枪是一次性的，无法重置，循环屏障可重复使用。<code>reset()</code></p>
 </li>
-<li><p>CountDownLatch： 现实例子：我在一个地方等着队友开发进度，只有我的队友到达了一个预定进度，然后，我才能开始开发。当所有队友到达了一个预定进度，我开始开发了，队友也不管我，继续他们的开发。</p>
+<li><p><strong>CountDownLatch</strong>： 现实例子：我在一个地方等着队友开发进度，只有我的队友到达了一个预定进度，然后，我才能开始开发。当所有队友到达了一个预定进度，我开始开发了，队友也不管我，继续他们的开发。</p>
 </li>
-<li><p>CyclicBarrier：当我使用CyclicBarrier(int count,Thread task) 这个构造方法，现实例子：几个工程队修地铁的基础设施，只有当都完成之后，技术检验人员检验合格了（这个期间工程队就歇着），工程队接着进行下一步的铁轨铺设。</p>
+<li><p><strong>CyclicBarrier</strong>：当我使用CyclicBarrier(int count,Thread task) 这个构造方法，现实例子：几个工程队修地铁的基础设施，只有当都完成之后，技术检验人员检验合格了（这个期间工程队就歇着），工程队接着进行下一步的铁轨铺设。</p>
 </li>
 </ul>
-<p>Semaphore中有一个”许可”的概念:</p>
+<p><code>Semaphore</code>中有一个”许可”的概念:</p>
 <ul>
-<li>访问特定资源前，先使用acquire(1)获得许可，如果许可数量为0，该线程则一直阻塞，直到有可用许可。</li>
-<li>访问资源后，使用release()释放许可。</li>
+<li>访问特定资源前，先使用<code>acquire(1)</code>获得许可，如果许可数量为0，该线程则一直阻塞，直到有可用许可。</li>
+<li>访问资源后，使用<code>release()</code>释放许可。</li>
 </ul>
 
             </div>
@@ -1266,7 +1266,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">88.6k</span>&nbsp;字
+                class="white-color">90.7k</span>&nbsp;字
             
             
             

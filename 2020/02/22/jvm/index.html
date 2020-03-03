@@ -527,7 +527,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    4k
+                    3.9k
                 </div>
                 
 
@@ -715,7 +715,7 @@
 </ul>
 </li>
 </ol>
-<h3 id="5、JVM生产问题的排查与解决"><a href="#5、JVM生产问题的排查与解决" class="headerlink" title="5、JVM生产问题的排查与解决"></a>5、JVM生产问题的排查与解决</h3><h4 id="生产服务器变慢，谈谈诊断思路和性能评估（常用的linux命令）"><a href="#生产服务器变慢，谈谈诊断思路和性能评估（常用的linux命令）" class="headerlink" title="生产服务器变慢，谈谈诊断思路和性能评估（常用的linux命令）"></a>生产服务器变慢，谈谈诊断思路和性能评估（常用的linux命令）</h4><h4 id="整机：top"><a href="#整机：top" class="headerlink" title="整机：top"></a>整机：top</h4><ul>
+<h3 id="5、JVM生产问题的排查与解决"><a href="#5、JVM生产问题的排查与解决" class="headerlink" title="5、JVM生产问题的排查与解决"></a>5、JVM生产问题的排查与解决</h3><h4 id="生产服务器变慢怎么办"><a href="#生产服务器变慢怎么办" class="headerlink" title="生产服务器变慢怎么办"></a>生产服务器变慢怎么办</h4><h4 id="整机：top"><a href="#整机：top" class="headerlink" title="整机：top"></a>整机：top</h4><ul>
 <li><p>右上角<strong>load average</strong>：3个值代表1分钟，5分钟，15分钟系统的平均负载值，3个值相加除以3乘以100%，如果结果高于60%，说明系统的负载压力很大。（也可以直接输入uptime查看负载精简版）</p>
 </li>
 <li><p>查看<strong>%CPU</strong>和内存<strong>%MEM</strong>的占用比例。</p>
@@ -737,7 +737,7 @@
 <p><strong>查看额外：pidstat -d 采样间隔秒数 -p 进程号</strong> </p>
 <p><img src="https://tva1.sinaimg.cn/large/00831rSTgy1gcbau03v5mj314e0awdpt.jpg" alt></p>
 <h4 id="网络IO：ifstat"><a href="#网络IO：ifstat" class="headerlink" title="网络IO：ifstat"></a>网络IO：<strong>ifstat</strong></h4><p><img src="https://tva1.sinaimg.cn/large/00831rSTgy1gcbb07rl5uj312s09wgq6.jpg" alt></p>
-<h4 id="假如生产环境出现CPU占用过高，谈谈分析思路和定位（印象深刻的故障）"><a href="#假如生产环境出现CPU占用过高，谈谈分析思路和定位（印象深刻的故障）" class="headerlink" title="假如生产环境出现CPU占用过高，谈谈分析思路和定位（印象深刻的故障）"></a>假如生产环境出现CPU占用过高，谈谈分析思路和定位（印象深刻的故障）</h4><ol>
+<h4 id="生产环境CPU占用过高怎么办"><a href="#生产环境CPU占用过高怎么办" class="headerlink" title="生产环境CPU占用过高怎么办"></a>生产环境CPU占用过高怎么办</h4><ol>
 <li><p>先用top命令找出CPU占比最高的。</p>
 </li>
 <li><p>ps -ef | grep java | grep -v grep 或者 jps -l 进一步定位，得知是什么应用程序——PID。</p>
@@ -1016,26 +1016,30 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/02/29/lock/">
+                <a href="/2020/02/26/BlockingQueue/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="Java锁详解">
+                        <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="阻塞队列">
                         
-                        <span class="card-title">Java锁详解</span>
+                        <span class="card-title">阻塞队列</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            公平锁｜非公平锁公平锁：是指多个线程按照申请锁的顺序来获取锁，性能下降，但是顺序得到保障，讲究先来后到。
-非公平锁：是指多个线程获取锁的顺序并不是按照申请锁的顺序，先抢先得，抢不到再排队。
-//可重入锁的空构造方法默认使用Reentrant
+                            阻塞队列阻塞队列：顾名思义，首先它是一个队列，而一个阻塞队列在数据结构中所起的作用如下
+
+
+当阻塞队列是空时，试图从队列中获取元素的操作将被阻塞。
+当阻塞队列是满时，试图往队列里添加元素的操作将被阻塞。
+
+在多线程领域，所谓阻塞，在某些情况
                         
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-02-29
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-02-26
                         </span>
                         <span class="publish-author">
                             
@@ -1050,10 +1054,6 @@
                     
                     <a href="/tags/高并发/">
                         <span class="chip bg-color">高并发</span>
-                    </a>
-                    
-                    <a href="/tags/lock/">
-                        <span class="chip bg-color">lock</span>
                     </a>
                     
                 </div>
@@ -1287,7 +1287,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">88.6k</span>&nbsp;字
+                class="white-color">90.7k</span>&nbsp;字
             
             
             
