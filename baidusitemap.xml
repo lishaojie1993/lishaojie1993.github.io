@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://www.lishaojie.top/2020/02/26/BlockingQueue/</loc>
+    <loc>https://www.lishaojie.top/2020/02/19/Thread-Pool/</loc>
+    <lastmod>2020-03-03</lastmod>
+  </url>  <url>
+    <loc>https://www.lishaojie.top/2020/02/16/BlockingQueue/</loc>
+    <lastmod>2020-03-03</lastmod>
+  </url>  <url>
+    <loc>https://www.lishaojie.top/2020/02/11/jvm/</loc>
     <lastmod>2020-03-03</lastmod>
   </url>  <url>
     <loc>https://www.lishaojie.top/2020/03/01/JUC/</loc>
-    <lastmod>2020-03-02</lastmod>
-  </url>  <url>
-    <loc>https://www.lishaojie.top/2020/02/22/jvm/</loc>
     <lastmod>2020-03-02</lastmod>
   </url>  <url>
     <loc>https://www.lishaojie.top/2020/02/29/lock/</loc>
@@ -68,9 +71,6 @@
     <lastmod>2020-02-24</lastmod>
   </url>  <url>
     <loc>https://www.lishaojie.top/2019/05/13/git/</loc>
-    <lastmod>2020-02-24</lastmod>
-  </url>  <url>
-    <loc>https://www.lishaojie.top/2019/05/11/Thread-Pool/</loc>
     <lastmod>2020-02-24</lastmod>
   </url>  <url>
     <loc>https://www.lishaojie.top/2019/10/22/redis/</loc>
