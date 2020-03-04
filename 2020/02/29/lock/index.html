@@ -527,14 +527,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.2k
+                    1.4k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    4 分
+                    6 分
                 </div>
                 
 
@@ -564,8 +564,14 @@
 <p>对于<strong>Synchronized</strong>而言，也是一种<strong>非公平锁</strong>，根据优先级高低来占有锁。<a id="more"></a></p>
 <h2 id="可重入锁-递归锁"><a href="#可重入锁-递归锁" class="headerlink" title="可重入锁/递归锁"></a>可重入锁/递归锁</h2><p>指的是同一线程外层函数获得锁之后，内层递归函数仍然能获取该锁的代码，在同一个线程外层方法获取锁的时候，在进入内层方法会自动获取锁。也就是说，<strong>线程可以进入任何一个它已经拥有的锁所同步着的代码块</strong>。</p>
 <p><strong>ReentrantLock</strong>和<strong>Synchronized</strong>都是可重入锁，可重入锁的最大作用在于避免死锁。</p>
-<p><strong>可重入锁的实现原理</strong></p>
+<ul>
+<li><p><strong>Synchronized可重入锁的实现原理</strong></p>
 <p>每一个锁关联一个线程持有者和计数器，当计数器为 0 时表示该锁没有被任何线程持有，那么任何线程都可能获得该锁并调用相应的方法；当某一线程请求成功后，JVM会记下锁的持有线程，并且将计数器置为 1；此时其它线程请求该锁，则必须等待；而该持有锁的线程如果再次请求这个锁，就可以再次拿到这个锁，同时计数器会递增；当线程退出同步代码块时，计数器会递减，如果计数器为 0，则释放该锁。</p>
+</li>
+<li><p><strong>ReentrantLock的实现原理</strong></p>
+<p><code>AQS</code>待补充</p>
+</li>
+</ul>
 <h2 id="自旋锁-SpinLock"><a href="#自旋锁-SpinLock" class="headerlink" title="自旋锁-SpinLock"></a>自旋锁-SpinLock</h2><p>指的是尝试获取锁的线程不会立即阻塞，而是采用循环的方式去尝试获取锁。</p>
 <p>好处是减少线程上下文切换的消耗，缺点是循环过程会消耗CPU。</p>
 <p><strong>自旋锁Demo</strong></p>
@@ -692,6 +698,46 @@
 <span class="token comment" spellcheck="true">//2     finish reading!2</span>
 <span class="token comment" spellcheck="true">//4     finish reading!4</span>
 <span class="token comment" spellcheck="true">//3     finish reading!3</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h2><p>死锁是指两个或两个以上的进程在执行过程中，因争夺资源而造成的一种互相等待的现象，若无外力干涉它们都将无法推进下去。如果系统资源充足，进程的资源请求都能够得到满足，死锁出现的可能性就很低，否则就会因争夺有限的资源而陷入死锁。</p>
+<img src="https://tva1.sinaimg.cn/large/00831rSTgy1gci5y7k0boj30q60ce7cy.jpg" style="zoom:50%;">
+
+<h3 id="死锁产生的原因"><a href="#死锁产生的原因" class="headerlink" title="死锁产生的原因"></a>死锁产生的原因</h3><ol>
+<li>系统资源不足</li>
+<li>进程运行推进的顺序不合适</li>
+<li>资源分配不当</li>
+</ol>
+<h3 id="手写一个死锁"><a href="#手写一个死锁" class="headerlink" title="手写一个死锁"></a>手写一个死锁</h3><pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">class</span> <span class="token class-name">HoldLockThread</span> <span class="token keyword">implements</span> <span class="token class-name">Runnable</span> <span class="token punctuation">{</span>
+
+    <span class="token keyword">private</span> String lockA<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> String lockB<span class="token punctuation">;</span>
+
+    <span class="token keyword">public</span> <span class="token function">HoldLockThread</span><span class="token punctuation">(</span>String lockA<span class="token punctuation">,</span> String lockB<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>lockA <span class="token operator">=</span> lockA<span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>lockB <span class="token operator">=</span> lockB<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">run</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">synchronized</span> <span class="token punctuation">(</span>lockA<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>Thread<span class="token punctuation">.</span><span class="token function">currentThread</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">"\t 自己持有："</span> <span class="token operator">+</span> lockA <span class="token operator">+</span> <span class="token string">"\t 尝试获得："</span> <span class="token operator">+</span> lockB<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">synchronized</span> <span class="token punctuation">(</span>lockB<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>Thread<span class="token punctuation">.</span><span class="token function">currentThread</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">"\t 自己持有："</span> <span class="token operator">+</span> lockB <span class="token operator">+</span> <span class="token string">"\t 尝试获得："</span> <span class="token operator">+</span> lockA<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">DeadLockDemo</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        String lockA <span class="token operator">=</span> <span class="token string">"lockA"</span><span class="token punctuation">;</span>
+        String lockB <span class="token operator">=</span> <span class="token string">"lockB"</span><span class="token punctuation">;</span>
+        <span class="token keyword">new</span> <span class="token class-name">Thread</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">HoldLockThread</span><span class="token punctuation">(</span>lockA<span class="token punctuation">,</span> lockB<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">"t1"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">new</span> <span class="token class-name">Thread</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">HoldLockThread</span><span class="token punctuation">(</span>lockB<span class="token punctuation">,</span> lockA<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">"t2"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="如何排查死锁"><a href="#如何排查死锁" class="headerlink" title="如何排查死锁"></a>如何排查死锁</h3><h4 id="jps命令定位进程号"><a href="#jps命令定位进程号" class="headerlink" title="jps命令定位进程号"></a>jps命令定位进程号</h4><p><img src="https://tva1.sinaimg.cn/large/00831rSTgy1gci6pdzjljj30jo05wtbm.jpg" alt></p>
+<h4 id="jstack找到死锁查看"><a href="#jstack找到死锁查看" class="headerlink" title="jstack找到死锁查看"></a>jstack找到死锁查看</h4><p> <strong>jstack 23576</strong></p>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTgy1gci6qzpnwcj30ug0eetjr.jpg" alt></p>
 
             </div>
             <hr/>
@@ -1021,10 +1067,9 @@
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            线程池原理使用线程池的好处
-降低资源消耗。通过重复利用已创建的线程降低线程创建和销毁造成的消耗。
-提高响应速度。当任务到达时，任务可以不需要等到线程创建就能立即执行。
-提高线程的可管理性。线程是稀缺资源，如果无限制地创建，不仅会消耗系统资源
+                            前言我们常见的创建线程的方式有两种：继承Thread类和实现Runnable接口，后者用的多一些。
+在这里我们详细介绍另外2两种通过调用API创建线程的方式。
+CallableJava 5.0 在 java.util.concurrent 
                         
                     </div>
                     <div class="publish-info">
@@ -1240,7 +1285,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">90.6k</span>&nbsp;字
+                class="white-color">92k</span>&nbsp;字
             
             
             
