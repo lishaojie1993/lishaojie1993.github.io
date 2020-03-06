@@ -38,7 +38,7 @@
             <div class="brand-logo">
                 <a href="/" class="waves-effect waves-light">
                     
-                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    <img src="/medias/loading.gif" data-original="/medias/logo.png" class="logo-img" alt="LOGO">
                     
                     <span class="logo-span">睡到自然醒</span>
                 </a>
@@ -181,7 +181,7 @@
 
     <div class="mobile-head bg-color">
         
-        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        <img src="/medias/loading.gif" data-original="/medias/logo.png" class="logo-img circle responsive-img">
         
         <div class="logo-name">睡到自然醒</div>
         <div class="logo-desc">
@@ -582,11 +582,11 @@
                 <h2 id="HashMap的底层原理"><a href="#HashMap的底层原理" class="headerlink" title="HashMap的底层原理"></a>HashMap的底层原理</h2><p>HashMap是一个用于存储key-value键值对的集合，每一个键值对也叫做Entry。数组中的每一个Entry元素，又是一个链表的头节点。这些键值对（Entry）分散存储在一个数组当中，这个数组就是HashMap的主干。</p>
 <p>Hashmap不是线程安全的。在高并发环境下做插入操作，有可能出现环形链表。HashMap数组每一个元素的初始值都是Null，最常使用的两个方法是Put和Get。</p>
 <h3 id="Put方法的原理"><a href="#Put方法的原理" class="headerlink" title="Put方法的原理"></a>Put方法的原理</h3><p>比如调用 hashMap.put(“apple”, 0) ，插入一个Key为“apple”的元素。这时候我们需要利用一个哈希函数：<strong>index = Hash（“apple”）</strong>来确定Entry的插入位置（index），但是，因为HashMap的长度是有限的，当插入的Entry越来越多时，再完美的Hash函数也难免会出现index冲突的情况。<a id="more"></a></p>
-<p><img src="https://tva1.sinaimg.cn/large/006tNbRwgy1gayr9a1hu4j30ji06fq3g.jpg" alt></p>
+<p><img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/006tNbRwgy1gayr9a1hu4j30ji06fq3g.jpg" alt></p>
 <p>这时我们可以通过<strong>链表</strong>来解决。需要注意的是，新来的Entry节点插入链表时，使用的是“头插法”，因为HashMap的发明者认为：<strong>后插入的Entry被查找的可能性更大</strong>。</p>
-<p><img src="https://tva1.sinaimg.cn/large/006tNbRwgy1gayr9i7blpj30ju06wjrw.jpg" alt></p>
+<p><img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/006tNbRwgy1gayr9i7blpj30ju06wjrw.jpg" alt></p>
 <h3 id="Get方法的原理"><a href="#Get方法的原理" class="headerlink" title="Get方法的原理"></a>Get方法的原理</h3><p>首先会把需要查询的key做一次Hash映射，得到对应的下标，由于刚才所说的Hash冲突，同一个位置有可能匹配到多个Entry，这时候就需要顺着对应链表的头节点，一个一个向下来查找。</p>
-<p><img src="https://tva1.sinaimg.cn/large/006tNbRwgy1gayreaylimj30jf07tt9n.jpg" alt></p>
+<p><img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/006tNbRwgy1gayreaylimj30jf07tt9n.jpg" alt></p>
 <h2 id="HashMap的特点"><a href="#HashMap的特点" class="headerlink" title="HashMap的特点"></a>HashMap的特点</h2><h3 id="HashMap的默认初始长度"><a href="#HashMap的默认初始长度" class="headerlink" title="HashMap的默认初始长度"></a>HashMap的默认初始长度</h3><p>HashMap的默认初始长度是16，并且每次自动扩展或是手动初始化时，长度必须是2的幂。</p>
 <h3 id="为什么这样设置？"><a href="#为什么这样设置？" class="headerlink" title="为什么这样设置？"></a>为什么这样设置？</h3><p>为了使Hash算法得到的index尽可能均匀分布。例如从Key映射到HashMap数组的对应位置时，会用到一个Hash函数：<strong>index = HashCode（Key） &amp; （Length - 1）</strong>，为了实现高效的Hash算法，采用位运算（与运算）</p>
 <h2 id="高并发下的HashMap"><a href="#高并发下的HashMap" class="headerlink" title="高并发下的HashMap"></a>高并发下的HashMap</h2><h3 id="Resize"><a href="#Resize" class="headerlink" title="Resize"></a>Resize</h3><p>HashMap的容量是有限的，当经过多次元素插入，使得HashMap达到一定饱和度时，key映射位置发生冲突的几率会逐渐提高。这时候，HashMap需要扩展它的长度，也就是进行<strong>Resize</strong>。</p>
@@ -831,10 +831,10 @@
                         <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
                     </ul>
                     <div id="alipay">
-                        <img src="/medias/reward/alipay.png" class="reward-img" alt="支付宝打赏二维码">
+                        <img src="/medias/loading.gif" data-original="/medias/reward/alipay.png" class="reward-img" alt="支付宝打赏二维码">
                     </div>
                     <div id="wechat">
-                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                        <img src="/medias/loading.gif" data-original="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
                     </div>
                 </div>
             </div>
@@ -899,7 +899,7 @@
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="影视作品推荐">
+                        <img src="/medias/loading.gif" data-original="/medias/featureimages/22.jpg" class="responsive-img" alt="影视作品推荐">
                         
                         <span class="card-title">影视作品推荐</span>
                     </div>
@@ -946,7 +946,7 @@
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="ConcurrentHashMap底层实现">
+                        <img src="/medias/loading.gif" data-original="/medias/featureimages/2.jpg" class="responsive-img" alt="ConcurrentHashMap底层实现">
                         
                         <span class="card-title">ConcurrentHashMap底层实现</span>
                     </div>
@@ -1329,7 +1329,7 @@ $(function () {
             document.hidden?(document.title="(=￣ ρ￣=)…zzZZ",clearTimeout(st)):(document.title="~\\(≧▽≦)/~♪♪♪",st=setTimeout(function(){document.title=OriginTitile},3e3))
         })
     </script>
-</body>
+<script>!function(e){var c=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function i(){for(var r=0;r<c.length;r++)t=c[r],0<=(n=t.getBoundingClientRect()).bottom&&0<=n.left&&n.top<=(e.innerHeight+960||document.documentElement.clientHeight+960)&&function(){var t,n,e,i,o=c[r];t=o,n=function(){c=c.filter(function(t){return o!==t})},e=new Image,i=t.getAttribute("data-original"),e.onload=function(){t.src=i,n&&n()},e.src=i}();var t,n}i(),e.addEventListener("scroll",function(){var t,n;t=i,n=e,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(n)},500)})}(this);</script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script></body>
 
  <!--Crisp聊天窗口-->
  <script type="text/javascript">

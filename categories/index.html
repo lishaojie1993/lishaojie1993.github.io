@@ -38,7 +38,7 @@
             <div class="brand-logo">
                 <a href="/" class="waves-effect waves-light">
                     
-                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    <img src="/medias/loading.gif" data-original="/medias/logo.png" class="logo-img" alt="LOGO">
                     
                     <span class="logo-span">睡到自然醒</span>
                 </a>
@@ -181,7 +181,7 @@
 
     <div class="mobile-head bg-color">
         
-        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        <img src="/medias/loading.gif" data-original="/medias/logo.png" class="logo-img circle responsive-img">
         
         <div class="logo-name">睡到自然醒</div>
         <div class="logo-desc">
@@ -464,20 +464,20 @@
                 </a>
                 
                 
-                <a href="/categories/设计模式/" title="设计模式: 2">
+                <a href="/categories/System/" title="System: 4">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            style="background-color: #D5F5E3;">设计模式
-                        <span class="tag-length">2</span>
+                            style="background-color: #D5F5E3;">System
+                        <span class="tag-length">4</span>
                     </span>
                 </a>
                 
                 
-                <a href="/categories/System/" title="System: 4">
+                <a href="/categories/设计模式/" title="设计模式: 2">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            style="background-color: #E8F8F5;">System
-                        <span class="tag-length">4</span>
+                            style="background-color: #E8F8F5;">设计模式
+                        <span class="tag-length">2</span>
                     </span>
                 </a>
                 
@@ -550,7 +550,7 @@
                     color: '#3C4858'
                 }
             },
-            indicator: [{"name":"算法","max":7},{"name":"数据结构","max":7},{"name":"设计模式","max":7},{"name":"System","max":7},{"name":"Java","max":7},{"name":"分布式","max":7},{"name":"高并发","max":7}],
+            indicator: [{"name":"算法","max":7},{"name":"数据结构","max":7},{"name":"System","max":7},{"name":"设计模式","max":7},{"name":"Java","max":7},{"name":"分布式","max":7},{"name":"高并发","max":7}],
             nameGap: 5,
             center: ['50%','55%'],
             radius: '66%'
@@ -561,7 +561,7 @@
             itemStyle: {normal: {areaStyle: {type: 'default'}}},
             data : [
                 {
-                    value : [5,3,2,4,3,5,3],
+                    value : [5,3,4,2,3,5,3],
                     name : '文章分类数量'
                 }
             ]
@@ -742,7 +742,7 @@ $(function () {
             document.hidden?(document.title="(=￣ ρ￣=)…zzZZ",clearTimeout(st)):(document.title="~\\(≧▽≦)/~♪♪♪",st=setTimeout(function(){document.title=OriginTitile},3e3))
         })
     </script>
-</body>
+<script>!function(e){var c=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function i(){for(var r=0;r<c.length;r++)t=c[r],0<=(n=t.getBoundingClientRect()).bottom&&0<=n.left&&n.top<=(e.innerHeight+960||document.documentElement.clientHeight+960)&&function(){var t,n,e,i,o=c[r];t=o,n=function(){c=c.filter(function(t){return o!==t})},e=new Image,i=t.getAttribute("data-original"),e.onload=function(){t.src=i,n&&n()},e.src=i}();var t,n}i(),e.addEventListener("scroll",function(){var t,n;t=i,n=e,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(n)},500)})}(this);</script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script></body>
 
  <!--Crisp聊天窗口-->
  <script type="text/javascript">

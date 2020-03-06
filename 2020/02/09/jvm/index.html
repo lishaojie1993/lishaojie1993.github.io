@@ -44,7 +44,7 @@
             <div class="brand-logo">
                 <a href="/" class="waves-effect waves-light">
                     
-                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    <img src="/medias/loading.gif" data-original="/medias/logo.png" class="logo-img" alt="LOGO">
                     
                     <span class="logo-span">睡到自然醒</span>
                 </a>
@@ -187,7 +187,7 @@
 
     <div class="mobile-head bg-color">
         
-        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        <img src="/medias/loading.gif" data-original="/medias/logo.png" class="logo-img circle responsive-img">
         
         <div class="logo-name">睡到自然醒</div>
         <div class="logo-desc">
@@ -592,7 +592,7 @@
 <li><p>初始化：为类的静态变量赋予正确的初始值。（程序编写的值是真正的初始值）</p>
 </li>
 </ol>
-<p><img src="https://tva1.sinaimg.cn/large/0082zybpgy1gcb1tmkh5oj30hl05j3zc.jpg" alt></p>
+<p><img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/0082zybpgy1gcb1tmkh5oj30hl05j3zc.jpg" alt></p>
 <h3 id="2、Java内存模型"><a href="#2、Java内存模型" class="headerlink" title="2、Java内存模型"></a>2、Java内存模型</h3><h4 id="JMM（Java-Memory-Model）"><a href="#JMM（Java-Memory-Model）" class="headerlink" title="JMM（Java Memory Model）"></a>JMM（Java Memory Model）</h4><ul>
 <li>Java内存模型本身是一种抽象的概念，并不真实存在，它描述的是一种规范，定义了程序中各个变量的访问方式。</li>
 <li>线程之间的共享变量存储在主内存中，每个线程都有一个私有的本地内存，本地内存中存储了共享变量的副本。</li>
@@ -604,7 +604,7 @@
 <li><p>在<strong>消息传递</strong>的并发模型里，线程之间没有公共状态，线程之间必须通过明确的发送消息来<strong>显式</strong>进行通信，在java中典型的消息传递方式就是wait()和notify()。</p>
 </li>
 </ul>
-<p><img src="https://tva1.sinaimg.cn/large/0082zybpgy1gcb0wr021kj30c80akt92.jpg" alt></p>
+<p><img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/0082zybpgy1gcb0wr021kj30c80akt92.jpg" alt></p>
 <h4 id="JVM运行时数据区"><a href="#JVM运行时数据区" class="headerlink" title="JVM运行时数据区"></a>JVM运行时数据区</h4><ol>
 <li><p><strong>程序计数器</strong></p>
 <p>程序计数器是一块较小的内存空间，可以看作当前线程正在执行的字节码的行号指示器。</p>
@@ -743,22 +743,22 @@
 <li><p>查看<strong>%CPU</strong>和内存<strong>%MEM</strong>的占用比例。</p>
 </li>
 </ul>
-<h4 id="CPU：vmstat-n-2-3"><a href="#CPU：vmstat-n-2-3" class="headerlink" title="CPU：vmstat -n 2 3"></a>CPU：vmstat -n 2 3</h4><p><img src="https://tva1.sinaimg.cn/large/0082zybpgy1gcb49fonjej3148064gne.jpg" alt></p>
-<p><img src="https://tva1.sinaimg.cn/large/0082zybpgy1gcb4dp2a9kj31b10e7n9w.jpg" alt></p>
+<h4 id="CPU：vmstat-n-2-3"><a href="#CPU：vmstat-n-2-3" class="headerlink" title="CPU：vmstat -n 2 3"></a>CPU：vmstat -n 2 3</h4><p><img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/0082zybpgy1gcb49fonjej3148064gne.jpg" alt></p>
+<p><img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/0082zybpgy1gcb4dp2a9kj31b10e7n9w.jpg" alt></p>
 <ul>
 <li><strong>id</strong>：处于空闲的CPU百分比；</li>
 <li><strong>wa</strong>：系统等待IO的CPU时间百分比；</li>
 <li><strong>st</strong>：来自于一个虚拟机偷取的CPU时间的百分比。</li>
 </ul>
-<h4 id="内存：free-m"><a href="#内存：free-m" class="headerlink" title="内存：free -m"></a>内存：free -m</h4><p><img src="https://tva1.sinaimg.cn/large/0082zybpgy1gcb849y0dcj314u0c442f.jpg" alt></p>
+<h4 id="内存：free-m"><a href="#内存：free-m" class="headerlink" title="内存：free -m"></a>内存：free -m</h4><p><img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/0082zybpgy1gcb849y0dcj314u0c442f.jpg" alt></p>
 <p><strong>查看额外：pidstat -p 进程号 -r 采样间隔秒数</strong></p>
-<p><img src="https://tva1.sinaimg.cn/large/0082zybpgy1gcb86vzxduj30sw070tc6.jpg" alt></p>
-<h4 id="硬盘：df-h"><a href="#硬盘：df-h" class="headerlink" title="硬盘：df -h"></a>硬盘：df -h</h4><p><img src="https://tva1.sinaimg.cn/large/00831rSTgy1gcb93btg9wj30y00d27o5.jpg" alt></p>
-<h4 id="磁盘IO：iostat-xdk-2-3"><a href="#磁盘IO：iostat-xdk-2-3" class="headerlink" title="磁盘IO：iostat -xdk 2 3"></a>磁盘IO：iostat -xdk 2 3</h4><p><img src="https://tva1.sinaimg.cn/large/00831rSTgy1gcbap9iegoj31po0ke4iz.jpg" alt></p>
-<p><img src="https://tva1.sinaimg.cn/large/00831rSTgy1gcbalqfgp2j317c0cz7fs.jpg" alt></p>
+<p><img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/0082zybpgy1gcb86vzxduj30sw070tc6.jpg" alt></p>
+<h4 id="硬盘：df-h"><a href="#硬盘：df-h" class="headerlink" title="硬盘：df -h"></a>硬盘：df -h</h4><p><img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gcb93btg9wj30y00d27o5.jpg" alt></p>
+<h4 id="磁盘IO：iostat-xdk-2-3"><a href="#磁盘IO：iostat-xdk-2-3" class="headerlink" title="磁盘IO：iostat -xdk 2 3"></a>磁盘IO：iostat -xdk 2 3</h4><p><img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gcbap9iegoj31po0ke4iz.jpg" alt></p>
+<p><img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gcbalqfgp2j317c0cz7fs.jpg" alt></p>
 <p><strong>查看额外：pidstat -d 采样间隔秒数 -p 进程号</strong> </p>
-<p><img src="https://tva1.sinaimg.cn/large/00831rSTgy1gcbau03v5mj314e0awdpt.jpg" alt></p>
-<h4 id="网络IO：ifstat"><a href="#网络IO：ifstat" class="headerlink" title="网络IO：ifstat"></a>网络IO：<strong>ifstat</strong></h4><p><img src="https://tva1.sinaimg.cn/large/00831rSTgy1gcbb07rl5uj312s09wgq6.jpg" alt></p>
+<p><img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gcbau03v5mj314e0awdpt.jpg" alt></p>
+<h4 id="网络IO：ifstat"><a href="#网络IO：ifstat" class="headerlink" title="网络IO：ifstat"></a>网络IO：<strong>ifstat</strong></h4><p><img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gcbb07rl5uj312s09wgq6.jpg" alt></p>
 <h4 id="生产环境CPU占用过高怎么办"><a href="#生产环境CPU占用过高怎么办" class="headerlink" title="生产环境CPU占用过高怎么办"></a>生产环境CPU占用过高怎么办</h4><ol>
 <li><p>先用top命令找出CPU占比最高的。</p>
 </li>
@@ -766,12 +766,12 @@
 </li>
 <li><p><strong>定位到具体线程或者代码。(ps -mp 进程号 -o THREAD,tid,time)</strong>——tid线程ID。</p>
 <p>-m：显示所有的<strong>线程</strong>、-p：进程使用的CPU时间、-o：该参数后是用户自定义格式。</p>
-<p><img src="https://tva1.sinaimg.cn/large/00831rSTgy1gcbbei6igzj30nq06ugqb.jpg" alt></p>
+<p><img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gcbbei6igzj30nq06ugqb.jpg" alt></p>
 </li>
 <li><p>将需要的线程ID转换为16进制格式（<strong>英文小写格式</strong>）</p>
 </li>
 <li><p><strong>jstack 进程ID | grep tid (16进制线程ID) -A60</strong>（打印60行）</p>
-<p><img src="https://tva1.sinaimg.cn/large/00831rSTgy1gcbbop4eloj30z40hfwqd.jpg" alt></p>
+<p><img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gcbbop4eloj30z40hfwqd.jpg" alt></p>
 </li>
 <li><p>成功定位到异常代码在JavaDemo02.java中——第10行，查看代码分析原因并修复。</p>
 </li>
@@ -974,10 +974,10 @@
                         <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
                     </ul>
                     <div id="alipay">
-                        <img src="/medias/reward/alipay.png" class="reward-img" alt="支付宝打赏二维码">
+                        <img src="/medias/loading.gif" data-original="/medias/reward/alipay.png" class="reward-img" alt="支付宝打赏二维码">
                     </div>
                     <div id="wechat">
-                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                        <img src="/medias/loading.gif" data-original="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
                     </div>
                 </div>
             </div>
@@ -1041,7 +1041,7 @@
                 <a href="/2020/02/12/JUC/">
                     <div class="card-image">
                         
-                        <img src="https://tva1.sinaimg.cn/large/00831rSTgy1gch27wgh7mj30u60k4q8t.jpg" class="responsive-img" alt="Java并发包详解">
+                        <img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gch27wgh7mj30u60k4q8t.jpg" class="responsive-img" alt="Java并发包详解">
                         
                         <span class="card-title">Java并发包详解</span>
                     </div>
@@ -1090,7 +1090,7 @@ CountDownLatch主要有两个方法，当一个或多个线程调用await()方�
                 <a href="/2020/02/05/star/">
                     <div class="card-image">
                         
-                        <img src="https://tva1.sinaimg.cn/large/00831rSTgy1gch1qeaydtj30v50jhacz.jpg" class="responsive-img" alt="几何星空连线背景-canvas">
+                        <img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gch1qeaydtj30v50jhacz.jpg" class="responsive-img" alt="几何星空连线背景-canvas">
                         
                         <span class="card-title">几何星空连线背景-canvas</span>
                     </div>
@@ -1466,7 +1466,7 @@ $(function () {
             document.hidden?(document.title="(=￣ ρ￣=)…zzZZ",clearTimeout(st)):(document.title="~\\(≧▽≦)/~♪♪♪",st=setTimeout(function(){document.title=OriginTitile},3e3))
         })
     </script>
-</body>
+<script>!function(e){var c=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function i(){for(var r=0;r<c.length;r++)t=c[r],0<=(n=t.getBoundingClientRect()).bottom&&0<=n.left&&n.top<=(e.innerHeight+960||document.documentElement.clientHeight+960)&&function(){var t,n,e,i,o=c[r];t=o,n=function(){c=c.filter(function(t){return o!==t})},e=new Image,i=t.getAttribute("data-original"),e.onload=function(){t.src=i,n&&n()},e.src=i}();var t,n}i(),e.addEventListener("scroll",function(){var t,n;t=i,n=e,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(n)},500)})}(this);</script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script></body>
 
  <!--Crisp聊天窗口-->
  <script type="text/javascript">

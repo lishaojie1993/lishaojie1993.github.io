@@ -38,7 +38,7 @@
             <div class="brand-logo">
                 <a href="/" class="waves-effect waves-light">
                     
-                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    <img src="/medias/loading.gif" data-original="/medias/logo.png" class="logo-img" alt="LOGO">
                     
                     <span class="logo-span">睡到自然醒</span>
                 </a>
@@ -181,7 +181,7 @@
 
     <div class="mobile-head bg-color">
         
-        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        <img src="/medias/loading.gif" data-original="/medias/logo.png" class="logo-img circle responsive-img">
         
         <div class="logo-name">睡到自然醒</div>
         <div class="logo-desc">
@@ -592,10 +592,10 @@
 <p><strong>注意：如果在AES加密时使用了某一种填充方式，解密的时候也必须采用同样的填充方式。</strong></p>
 <h3 id="模式"><a href="#模式" class="headerlink" title="模式"></a>模式</h3><p>AES的工作模式，体现在把明文块加密成密文块的处理过程中。AES加密算法提供了五种不同的工作模式：ECB、CBC、CTR、CFB、OFB，模式之间的主题思想是近似的，在处理细节上有一些差别。</p>
 <h4 id="ECB模式（默认）"><a href="#ECB模式（默认）" class="headerlink" title="ECB模式（默认）"></a>ECB模式（默认）</h4><p>电码本模式  Electronic Codebook Book</p>
-<p><img src="https://tva1.sinaimg.cn/large/006tNbRwgy1gazosrcxlxj30j60apdg3.jpg" alt></p>
+<p><img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/006tNbRwgy1gazosrcxlxj30j60apdg3.jpg" alt></p>
 <p>ECB模式是最简单的工作模式，在该模式下，每一个明文块的加密都是独立完成的，互不干涉。好处是简单，有利于并行计算。缺点也很明显，相同的明文块经过加密会变成相同的密文块，因此安全性较差。</p>
 <h4 id="CBC模式"><a href="#CBC模式" class="headerlink" title="CBC模式"></a>CBC模式</h4><p>密码分组链接模式  Cipher Block Chaining</p>
-<p><img src="https://tva1.sinaimg.cn/large/006tNbRwgy1gazou8zo61j30l40bcdgu.jpg" alt></p>
+<p><img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/006tNbRwgy1gazou8zo61j30l40bcdgu.jpg" alt></p>
 <p>CBC模式引入了一个新的概念：初始向量IV（Initialization Vector），它的作用和MD5的“加盐”有些类似，目的是防止同样的明文块始终加密成同样的密文块。从图中可以看出，CBC模式在每一个明文块加密前会让明文块和一个值先做异或操作。IV作为初始化变量，参与第一个明文块的异或，后续的每一个明文块和它<strong>前一个明文块所加密出的密文块</strong>相异或。这样以来，相同的明文块加密出的密文块显然是不一样的。好处是安全性更好，缺点是无法并行计算，性能上不如ECB；引入初始化向量IV，增加复杂度。</p>
 <h4 id="CTR模式"><a href="#CTR模式" class="headerlink" title="CTR模式"></a>CTR模式</h4><p>计算器模式  Counter（实现省略……）</p>
 <h4 id="CFB模式"><a href="#CFB模式" class="headerlink" title="CFB模式"></a>CFB模式</h4><p>密码反馈模式  Cipher FeedBack（实现省略……）</p>
@@ -603,7 +603,7 @@
 <p><strong>注意：如果在AES加密时使用了某一种工作模式，解密的时候也必须采用同样的工作模式。</strong></p>
 <p>在Java代码中，如何修改不同长度的密钥和填充模式？</p>
 <p>AES算法在Java的 javax.crypto 包里有很好的封装，调用方式如下：</p>
-<p><img src="https://tva1.sinaimg.cn/large/006tNbRwgy1gazo71c7glj30f90963zq.jpg" alt></p>
+<p><img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/006tNbRwgy1gazo71c7glj30f90963zq.jpg" alt></p>
 <ol>
 <li>kgen.init传入的第一个参数128决定了密钥的长度是<strong>128bit</strong>。</li>
 <li>Cipher.getInstance(“AES/CBC/NoPadding”)决定了AES选择的填充方式是<strong>NoPadding</strong>，工作模式是<strong>CBC</strong>模式。</li>
@@ -857,10 +857,10 @@
                         <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
                     </ul>
                     <div id="alipay">
-                        <img src="/medias/reward/alipay.png" class="reward-img" alt="支付宝打赏二维码">
+                        <img src="/medias/loading.gif" data-original="/medias/reward/alipay.png" class="reward-img" alt="支付宝打赏二维码">
                     </div>
                     <div id="wechat">
-                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                        <img src="/medias/loading.gif" data-original="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
                     </div>
                 </div>
             </div>
@@ -925,7 +925,7 @@
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="macOS 超实用的「免费」软件推荐,使用经验分享！">
+                        <img src="/medias/loading.gif" data-original="/medias/featureimages/16.jpg" class="responsive-img" alt="macOS 超实用的「免费」软件推荐,使用经验分享！">
                         
                         <span class="card-title">macOS 超实用的「免费」软件推荐,使用经验分享！</span>
                     </div>
@@ -980,7 +980,7 @@
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="加密算法">
+                        <img src="/medias/loading.gif" data-original="/medias/featureimages/4.jpg" class="responsive-img" alt="加密算法">
                         
                         <span class="card-title">加密算法</span>
                     </div>
@@ -1360,7 +1360,7 @@ $(function () {
             document.hidden?(document.title="(=￣ ρ￣=)…zzZZ",clearTimeout(st)):(document.title="~\\(≧▽≦)/~♪♪♪",st=setTimeout(function(){document.title=OriginTitile},3e3))
         })
     </script>
-</body>
+<script>!function(e){var c=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function i(){for(var r=0;r<c.length;r++)t=c[r],0<=(n=t.getBoundingClientRect()).bottom&&0<=n.left&&n.top<=(e.innerHeight+960||document.documentElement.clientHeight+960)&&function(){var t,n,e,i,o=c[r];t=o,n=function(){c=c.filter(function(t){return o!==t})},e=new Image,i=t.getAttribute("data-original"),e.onload=function(){t.src=i,n&&n()},e.src=i}();var t,n}i(),e.addEventListener("scroll",function(){var t,n;t=i,n=e,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(n)},500)})}(this);</script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script></body>
 
  <!--Crisp聊天窗口-->
  <script type="text/javascript">

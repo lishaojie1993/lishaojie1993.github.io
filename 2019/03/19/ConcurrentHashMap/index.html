@@ -38,7 +38,7 @@
             <div class="brand-logo">
                 <a href="/" class="waves-effect waves-light">
                     
-                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    <img src="/medias/loading.gif" data-original="/medias/logo.png" class="logo-img" alt="LOGO">
                     
                     <span class="logo-span">睡到自然醒</span>
                 </a>
@@ -181,7 +181,7 @@
 
     <div class="mobile-head bg-color">
         
-        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        <img src="/medias/loading.gif" data-original="/medias/logo.png" class="logo-img circle responsive-img">
         
         <div class="logo-name">睡到自然醒</div>
         <div class="logo-desc">
@@ -584,20 +584,20 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <h2 id="Segment"><a href="#Segment" class="headerlink" title="Segment"></a>Segment</h2><p>Segment本身就相当于一个HashMap对象，同HashMap一样，Segment包含一个HashEntry数组，数组中的每一个HashEntry既是一个键值对，也是一个链表的头节点。像这样的Segment对象，在ConcurrentHashMap集合中有2的N次方个，共同保存在一个名为segments的数组当中。</p>
-<p><img src="https://tva1.sinaimg.cn/large/006tNbRwgy1gaza7kcjxqj30kw0bsgn7.jpg" alt></p>
+<p><img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/006tNbRwgy1gaza7kcjxqj30kw0bsgn7.jpg" alt></p>
 <a id="more"></a>
 
 <p>可以说，ConcurrentHashMap是一个二级哈希表。在一个总的哈希表下面，有若干个子哈希表。这样的二级结构，和数据库的水平拆分有些相似。</p>
 <p>ConcurrentHashMap优势就是采用了[锁分段]技术，每一个Segment就好比一个自治区，读写操作高度自治，Segment之间互不影响。</p>
 <h3 id="并发读写的情况"><a href="#并发读写的情况" class="headerlink" title="并发读写的情况"></a>并发读写的情况</h3><ol>
 <li><p>不同Segment的并发写入——<strong>可以并发执行</strong></p>
-<p><img src="https://tva1.sinaimg.cn/large/006tNbRwgy1gazahwt8gmj30hs083jrj.jpg" alt></p>
+<p><img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/006tNbRwgy1gazahwt8gmj30hs083jrj.jpg" alt></p>
 </li>
 <li><p>同一Segment的一写一读——<strong>可以并发执行</strong></p>
-<p><img src="https://tva1.sinaimg.cn/large/006tNbRwgy1gazai5be4aj30jv07wgmh.jpg" alt></p>
+<p><img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/006tNbRwgy1gazai5be4aj30jv07wgmh.jpg" alt></p>
 </li>
 <li><p>同一Segment的并发写入——<strong>会发生阻塞</strong></p>
-<p><img src="https://tva1.sinaimg.cn/large/006tNbRwgy1gazaicuv2mj30k1081q3s.jpg" alt></p>
+<p><img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/006tNbRwgy1gazaicuv2mj30k1081q3s.jpg" alt></p>
 </li>
 </ol>
 <p>Segment的写入是需要上锁的，因此对同一Segment的并发写入会被阻塞。</p>
@@ -876,10 +876,10 @@
                         <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
                     </ul>
                     <div id="alipay">
-                        <img src="/medias/reward/alipay.png" class="reward-img" alt="支付宝打赏二维码">
+                        <img src="/medias/loading.gif" data-original="/medias/reward/alipay.png" class="reward-img" alt="支付宝打赏二维码">
                     </div>
                     <div id="wechat">
-                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                        <img src="/medias/loading.gif" data-original="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
                     </div>
                 </div>
             </div>
@@ -944,7 +944,7 @@
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="HashMap底层原理">
+                        <img src="/medias/loading.gif" data-original="/medias/featureimages/14.jpg" class="responsive-img" alt="HashMap底层原理">
                         
                         <span class="card-title">HashMap底层原理</span>
                     </div>
@@ -997,7 +997,7 @@
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="volatile关键字解析">
+                        <img src="/medias/loading.gif" data-original="/medias/featureimages/21.jpg" class="responsive-img" alt="volatile关键字解析">
                         
                         <span class="card-title">volatile关键字解析</span>
                     </div>
@@ -1382,7 +1382,7 @@ $(function () {
             document.hidden?(document.title="(=￣ ρ￣=)…zzZZ",clearTimeout(st)):(document.title="~\\(≧▽≦)/~♪♪♪",st=setTimeout(function(){document.title=OriginTitile},3e3))
         })
     </script>
-</body>
+<script>!function(e){var c=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function i(){for(var r=0;r<c.length;r++)t=c[r],0<=(n=t.getBoundingClientRect()).bottom&&0<=n.left&&n.top<=(e.innerHeight+960||document.documentElement.clientHeight+960)&&function(){var t,n,e,i,o=c[r];t=o,n=function(){c=c.filter(function(t){return o!==t})},e=new Image,i=t.getAttribute("data-original"),e.onload=function(){t.src=i,n&&n()},e.src=i}();var t,n}i(),e.addEventListener("scroll",function(){var t,n;t=i,n=e,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(n)},500)})}(this);</script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script></body>
 
  <!--Crisp聊天窗口-->
  <script type="text/javascript">

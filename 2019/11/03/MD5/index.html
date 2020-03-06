@@ -39,7 +39,7 @@ MD5（Message-digest-algorithm 5）就是信息摘要的一种实现，它可以
             <div class="brand-logo">
                 <a href="/" class="waves-effect waves-light">
                     
-                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    <img src="/medias/loading.gif" data-original="/medias/logo.png" class="logo-img" alt="LOGO">
                     
                     <span class="logo-span">睡到自然醒</span>
                 </a>
@@ -182,7 +182,7 @@ MD5（Message-digest-algorithm 5）就是信息摘要的一种实现，它可以
 
     <div class="mobile-head bg-color">
         
-        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        <img src="/medias/loading.gif" data-original="/medias/logo.png" class="logo-img circle responsive-img">
         
         <div class="logo-name">睡到自然醒</div>
         <div class="logo-desc">
@@ -605,7 +605,7 @@ MD5（Message-digest-algorithm 5）就是信息摘要的一种实现，它可以
 <p>D=0x76543210</p>
 </li>
 <li><p>循环加工</p>
-<p><img src="https://tva1.sinaimg.cn/large/006tNbRwgy1gazpyfvzzgj309s0ae3yq.jpg" alt></p>
+<p><img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/006tNbRwgy1gazpyfvzzgj309s0ae3yq.jpg" alt></p>
 <p>图中，A，B，C，D就是哈希值的四个分组。每一次循环都会让旧的ABCD产生新的ABCD。一共进行多少次循环呢？由处理后的原文长度决定。假设处理后的原文长度是M，主循环次数 = <strong>M / 512</strong>，每个主循环中包含 <strong>512 / 32 * 4 = 64</strong> 次 子循环。上面这张图所表达的就是<strong>单次子循环</strong>的流程。下面对图中其他元素一一解释：</p>
 <p><strong>1.绿色F</strong></p>
 <p>图中的绿色F，代表非线性函数。官方MD5所用到的函数有四种：</p>
@@ -838,10 +838,10 @@ MD5（Message-digest-algorithm 5）就是信息摘要的一种实现，它可以
                         <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
                     </ul>
                     <div id="alipay">
-                        <img src="/medias/reward/alipay.png" class="reward-img" alt="支付宝打赏二维码">
+                        <img src="/medias/loading.gif" data-original="/medias/reward/alipay.png" class="reward-img" alt="支付宝打赏二维码">
                     </div>
                     <div id="wechat">
-                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                        <img src="/medias/loading.gif" data-original="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
                     </div>
                 </div>
             </div>
@@ -906,7 +906,7 @@ MD5（Message-digest-algorithm 5）就是信息摘要的一种实现，它可以
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="加密算法">
+                        <img src="/medias/loading.gif" data-original="/medias/featureimages/4.jpg" class="responsive-img" alt="加密算法">
                         
                         <span class="card-title">加密算法</span>
                     </div>
@@ -960,7 +960,7 @@ MD5（Message-digest-algorithm 5）就是信息摘要的一种实现，它可以
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="分布式缓存-Redis">
+                        <img src="/medias/loading.gif" data-original="/medias/featureimages/13.jpg" class="responsive-img" alt="分布式缓存-Redis">
                         
                         <span class="card-title">分布式缓存-Redis</span>
                     </div>
@@ -1339,7 +1339,7 @@ $(function () {
             document.hidden?(document.title="(=￣ ρ￣=)…zzZZ",clearTimeout(st)):(document.title="~\\(≧▽≦)/~♪♪♪",st=setTimeout(function(){document.title=OriginTitile},3e3))
         })
     </script>
-</body>
+<script>!function(e){var c=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function i(){for(var r=0;r<c.length;r++)t=c[r],0<=(n=t.getBoundingClientRect()).bottom&&0<=n.left&&n.top<=(e.innerHeight+960||document.documentElement.clientHeight+960)&&function(){var t,n,e,i,o=c[r];t=o,n=function(){c=c.filter(function(t){return o!==t})},e=new Image,i=t.getAttribute("data-original"),e.onload=function(){t.src=i,n&&n()},e.src=i}();var t,n}i(),e.addEventListener("scroll",function(){var t,n;t=i,n=e,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(n)},500)})}(this);</script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script></body>
 
  <!--Crisp聊天窗口-->
  <script type="text/javascript">

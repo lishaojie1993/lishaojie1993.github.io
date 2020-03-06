@@ -39,7 +39,7 @@
             <div class="brand-logo">
                 <a href="/" class="waves-effect waves-light">
                     
-                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    <img src="/medias/loading.gif" data-original="/medias/logo.png" class="logo-img" alt="LOGO">
                     
                     <span class="logo-span">睡到自然醒</span>
                 </a>
@@ -182,7 +182,7 @@
 
     <div class="mobile-head bg-color">
         
-        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        <img src="/medias/loading.gif" data-original="/medias/logo.png" class="logo-img circle responsive-img">
         
         <div class="logo-name">睡到自然醒</div>
         <div class="logo-desc">
@@ -583,19 +583,19 @@
                 <h2 id="加密算法的种类"><a href="#加密算法的种类" class="headerlink" title="加密算法的种类"></a>加密算法的种类</h2><p>从宏观上来看，加密算法可以归结为三大类：<strong>哈希算法、对称加密算法、非对称加密算法。</strong></p>
 <h2 id="哈希算法"><a href="#哈希算法" class="headerlink" title="哈希算法"></a>哈希算法</h2><p>从严格意义上来说，<strong>哈希算法并不属于加密算法</strong>，但它在信息安全领域也起到了很重要的作用。其中一个重要的作用就是<strong>生成信息摘要</strong>，用以验证原信息的完整性和来源的可靠性。</p>
 <p>举个例子，在网上买东西，需要用到支付宝付款，于是付款时需要通知支付宝，并告诉支付宝商户ID、支付金额等等信息。具体过程如下：（假如key=abc，<strong>Hash（1234_100_abc） = 948569CD3466451F</strong>）<a id="more"></a></p>
-<p><img src="https://tva1.sinaimg.cn/large/006tNbRwgy1gazjr47fjuj30fp08d0t4.jpg" alt></p>
+<p><img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/006tNbRwgy1gazjr47fjuj30fp08d0t4.jpg" alt></p>
 <p>请求方把所有参数，外加双方约定的key拼接起来，并利用哈希算法生成一段信息摘要，而接收方在接收到参数和摘要后，按照同样的规则，也把参数和key拼接起来生成摘要并进行比较，如果完全一致，则证明信息没有被篡改。</p>
 <p>生成信息摘要的过程叫做<strong>签名</strong>，验证信息摘要的过程叫做<strong>验签</strong>。</p>
 <p>哈希算法最著名的当属<strong>MD5算法</strong>。后来，人们觉得MD5算法生成的信息摘要太短（128位），不够安全，于是又有了<strong>SHA系列算法</strong>。</p>
 <hr>
 <h2 id="对称加密算法"><a href="#对称加密算法" class="headerlink" title="对称加密算法"></a>对称加密算法</h2><p>上面提到的哈希算法可以解决验签问题，却不能解决明文加密问题。</p>
-<h3 id="什么是对称加密？"><a href="#什么是对称加密？" class="headerlink" title="什么是对称加密？"></a>什么是对称加密？</h3><p><img src="https://tva1.sinaimg.cn/large/006tNbRwgy1gazjwvskkzj30gw05c3z0.jpg" alt></p>
+<h3 id="什么是对称加密？"><a href="#什么是对称加密？" class="headerlink" title="什么是对称加密？"></a>什么是对称加密？</h3><p><img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/006tNbRwgy1gazjwvskkzj30gw05c3z0.jpg" alt></p>
 <p>如图所示，一段明文通过密钥进行加密，可以生成一段密文；这段密文通过同样的密钥进行解密，可以还原成明文。这样一来，只要双方事先约定好了密钥，就可以使用密文进行往来通信。</p>
 <p>除了通信过程中的加密以外，数据库存储的敏感信息也可以通过这种方式进行加密。这样即使数据泄露到了外界，泄露出去的也都是密文。</p>
 <h3 id="对称加密包含哪些算法？"><a href="#对称加密包含哪些算法？" class="headerlink" title="对称加密包含哪些算法？"></a>对称加密包含哪些算法？</h3><p>在早期，人们使用<strong>DES算法</strong>进行加密解密；后来，人们觉得DES不够安全，发明了<strong>3DES</strong>算法；而如今，最为流行的对称加密算法是<strong>AES算法</strong>。</p>
 <h3 id="对称加密的优缺点"><a href="#对称加密的优缺点" class="headerlink" title="对称加密的优缺点"></a>对称加密的优缺点</h3><p>对称算法的好处是加密解密的效率比较高，缺点是不够安全，因为通信双方约定的密钥是相同的，只要密钥本身被任何一方泄露出去，通信的密文就会被破解；此外，在双方建立通信之初，服务端把密钥告诉给客户端的时候，也有被拦截到的危险。</p>
 <hr>
-<h2 id="非对称加密算法"><a href="#非对称加密算法" class="headerlink" title="非对称加密算法"></a>非对称加密算法</h2><h3 id="什么是非对称加密？"><a href="#什么是非对称加密？" class="headerlink" title="什么是非对称加密？"></a>什么是非对称加密？</h3><p><img src="https://tva1.sinaimg.cn/large/006tNbRwgy1gazk870sktj30ed09kmyf.jpg" alt></p>
+<h2 id="非对称加密算法"><a href="#非对称加密算法" class="headerlink" title="非对称加密算法"></a>非对称加密算法</h2><h3 id="什么是非对称加密？"><a href="#什么是非对称加密？" class="headerlink" title="什么是非对称加密？"></a>什么是非对称加密？</h3><p><img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/006tNbRwgy1gazk870sktj30ed09kmyf.jpg" alt></p>
 <p>如图所示，在非对称加密中存在一对密钥，一个叫做<strong>公钥</strong>，另一个叫做<strong>私钥</strong>。在加密解密的过程中，我们既可以使用公钥加密明文，使用私钥解密密文；也可以使用私钥加密明文，使用公钥解密密文。其中最著名的非对称加密当属<strong>RSA算法</strong>。</p>
 <h3 id="非对称加密的通信过程"><a href="#非对称加密的通信过程" class="headerlink" title="非对称加密的通信过程"></a>非对称加密的通信过程</h3><ol>
 <li>在双方建立通信的时候，服务端只把公钥发送给客户端，自己保留私钥。</li>
@@ -807,10 +807,10 @@
                         <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
                     </ul>
                     <div id="alipay">
-                        <img src="/medias/reward/alipay.png" class="reward-img" alt="支付宝打赏二维码">
+                        <img src="/medias/loading.gif" data-original="/medias/reward/alipay.png" class="reward-img" alt="支付宝打赏二维码">
                     </div>
                     <div id="wechat">
-                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                        <img src="/medias/loading.gif" data-original="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
                     </div>
                 </div>
             </div>
@@ -875,7 +875,7 @@
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="AES对称加密算法">
+                        <img src="/medias/loading.gif" data-original="/medias/featureimages/6.jpg" class="responsive-img" alt="AES对称加密算法">
                         
                         <span class="card-title">AES对称加密算法</span>
                     </div>
@@ -928,7 +928,7 @@
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="MD5加密的底层实现和破解方法">
+                        <img src="/medias/loading.gif" data-original="/medias/featureimages/0.jpg" class="responsive-img" alt="MD5加密的底层实现和破解方法">
                         
                         <span class="card-title">MD5加密的底层实现和破解方法</span>
                     </div>
@@ -1308,7 +1308,7 @@ $(function () {
             document.hidden?(document.title="(=￣ ρ￣=)…zzZZ",clearTimeout(st)):(document.title="~\\(≧▽≦)/~♪♪♪",st=setTimeout(function(){document.title=OriginTitile},3e3))
         })
     </script>
-</body>
+<script>!function(e){var c=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function i(){for(var r=0;r<c.length;r++)t=c[r],0<=(n=t.getBoundingClientRect()).bottom&&0<=n.left&&n.top<=(e.innerHeight+960||document.documentElement.clientHeight+960)&&function(){var t,n,e,i,o=c[r];t=o,n=function(){c=c.filter(function(t){return o!==t})},e=new Image,i=t.getAttribute("data-original"),e.onload=function(){t.src=i,n&&n()},e.src=i}();var t,n}i(),e.addEventListener("scroll",function(){var t,n;t=i,n=e,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(n)},500)})}(this);</script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script></body>
 
  <!--Crisp聊天窗口-->
  <script type="text/javascript">
