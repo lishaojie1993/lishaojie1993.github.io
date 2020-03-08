@@ -1024,54 +1024,49 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2020/03/01/singleton/">
+                <a href="/2020/02/29/lock/">
                     <div class="card-image">
                         
+                        <img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gch21ortywj30v50jhq85.jpg" class="responsive-img" alt="Java锁详解">
                         
-                        <img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/featureimages/0.jpg" class="responsive-img" alt="常用设计模式-单例模式">
-                        
-                        <span class="card-title">常用设计模式-单例模式</span>
+                        <span class="card-title">Java锁详解</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            为什么要使用单例模式单例模式属于设计模式三大分类的第一类——创建型模式，单例模式在创建对象的同时还要控制对象的数量，只能创建一个实例。
-
-有些场景下，不使用单例模式，会导致系统同一时刻出现多个状态，如网页流量计数器。
-
-通过控制创建对象的数
+                            公平锁｜非公平锁公平锁：是指多个线程按照申请锁的顺序来获取锁，性能下降，但是顺序得到保障，讲究先来后到。
+非公平锁：是指多个线程获取锁的顺序并不是按照申请锁的顺序，先抢先得，抢不到再排队。
+//可重入锁的空构造方法默认使用Reentrant
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-03-01
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-02-29
+                            </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/设计模式/" class="post-category">
-                                    设计模式
-                                </a>
-                            
+                            <i class="fas fa-user fa-fw"></i>
+                            lishaojie-C
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/设计模式/">
-                        <span class="chip bg-color">设计模式</span>
+                    <a href="/tags/高并发/">
+                        <span class="chip bg-color">高并发</span>
                     </a>
                     
-                    <a href="/tags/singleton/">
-                        <span class="chip bg-color">singleton</span>
+                    <a href="/tags/lock/">
+                        <span class="chip bg-color">lock</span>
                     </a>
                     
                 </div>
