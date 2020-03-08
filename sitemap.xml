@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://www.lishaojie.top/2020/03/01/singleton/</loc>
+    
+    <lastmod>2020-03-08T07:21:23.980Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://www.lishaojie.top/2020/02/19/Thread-Pool/</loc>
     
     <lastmod>2020-03-04T13:18:26.361Z</lastmod>
@@ -159,13 +166,6 @@
     <loc>https://www.lishaojie.top/2018/11/10/factory/</loc>
     
     <lastmod>2020-02-24T12:04:19.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://www.lishaojie.top/2018/11/10/singleton/</loc>
-    
-    <lastmod>2020-02-24T12:04:00.000Z</lastmod>
     
   </url>
   
