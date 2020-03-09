@@ -134,6 +134,25 @@
     
     
     <entry>
+      <title>GitHub骚操作</title>
+      <link href="/2020/01/20/github/"/>
+      <url>/2020/01/20/github/</url>
+      
+        <content type="html"><![CDATA[<h2 id="in-限制搜索范围"><a href="#in-限制搜索范围" class="headerlink" title="in:限制搜索范围"></a>in:限制搜索范围</h2><p>公式：<strong>xxx in:name｜description｜readme</strong></p><ul><li>xxx in:name 项目名包含xxx的</li><li>xxx in:description 项目描述包含xxx的</li><li>xxx in:readme 项目的readme文件中包含xxx的</li></ul><p>组合使用（查秒杀系统）：<strong>seckill in:<code>name</code>,<code>description</code>,<code>readme</code></strong><a id="more"></a></p><p><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gcnhjlmxiej31l30u0qv5.jpg" alt></p><h2 id="stars-｜forks-数量区间"><a href="#stars-｜forks-数量区间" class="headerlink" title="stars:｜forks:数量区间"></a>stars:｜forks:数量区间</h2><p>公式：<strong>xxx stars:<kbd>></kbd><kbd><</kbd><kbd>=</kbd>｜<kbd>..</kbd></strong></p><p>查找stars数大于等于5000的springboot项目：<strong>springboot stars:&gt;=5000</strong></p><p>查找fork数大于300的springcloud项目：<strong>springcloud forks:&gt;300</strong></p><p>组合使用：查找fork在100～200之间并且star数在80～100之间的springboot项目</p><p><strong>seckill forks:100..2000 stars:1000..2000</strong>：缩小查找范围</p><p><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gcnhnxi6rrj31em0n6e2t.jpg" alt></p><h2 id="awesome-加强搜索"><a href="#awesome-加强搜索" class="headerlink" title="awesome 加强搜索"></a>awesome 加强搜索</h2><p>搜索优秀的比如redis相关的项目，包括框架、教程等。</p><p><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gcnhtnze9ij31hk0u0u0x.jpg" alt></p><h2 id="高亮显示某一行代码"><a href="#高亮显示某一行代码" class="headerlink" title="高亮显示某一行代码"></a>高亮显示某一行代码</h2><ul><li>单行高亮：<strong>GitHub地址+#L行数</strong></li><li>多行高亮：<strong>GitHub地址+#L行数-L行数</strong></li></ul><p><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gcnh72xxn6j313q0jynh5.jpg" alt></p><h2 id="项目内搜索"><a href="#项目内搜索" class="headerlink" title="项目内搜索"></a>项目内搜索</h2><ul><li><p>进入项目页后按<kbd>t</kbd>：激活文件查看器，可以直接搜索内容</p><p><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gcnhbtga2qj31aq0u07wh.jpg" alt></p></li><li><p>进入代码页后按<kbd>l</kbd>：输入数字，跳到代码中的具体哪一行</p><p><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gcnhdhoeqjj31jo0gmk87.jpg" alt></p></li></ul><p>更多快捷键操作请点击：<a href="https://help.github.com/en/github/getting-started-with-github/keyboard-shortcuts" target="_blank" rel="noopener">https://help.github.com/en/github/getting-started-with-github/keyboard-shortcuts</a></p><h2 id="搜索某个地区内的大佬"><a href="#搜索某个地区内的大佬" class="headerlink" title="搜索某个地区内的大佬"></a>搜索某个地区内的大佬</h2><p>location:地区｜language:语言</p><p>例如：<strong>location:beijing language:java</strong></p><p><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gcngwj9gyrj316o0u0npd.jpg" alt></p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> GitHub </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>常用设计模式-单例模式</title>
       <link href="/2020/01/18/singleton/"/>
       <url>/2020/01/18/singleton/</url>

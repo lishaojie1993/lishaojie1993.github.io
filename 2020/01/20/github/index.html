@@ -4,11 +4,12 @@
 
 <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="CentOS 7 防火墙设置-iptables, 睡到自然醒">
-    <meta name="description" content="关闭默认防火墙CentOS 7默认使用的防火墙是firewall，需要将其关闭
+    <meta name="keywords" content="GitHub骚操作, 睡到自然醒">
+    <meta name="description" content="in:限制搜索范围公式：xxx in:name｜description｜readme
 
-systemctl stop firewalld.service #停止firewall
-systemctl disable firewalld.servic">
+xxx in:name 项目名包含xxx的
+xxx in:description 项目描述包含xxx的
+xxx in:readme 项目的readme文">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -16,7 +17,7 @@ systemctl disable firewalld.servic">
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>CentOS 7 防火墙设置-iptables | 睡到自然醒</title>
+    <title>GitHub骚操作 | 睡到自然醒</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -401,12 +402,12 @@ systemctl disable firewalld.servic">
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://tva1.sinaimg.cn/large/00831rSTgy1gch1ykryacj30sg0mrteb.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://tva1.sinaimg.cn/large/00831rSTgy1gcnhy0cjs8j30u50k4aky.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">CentOS 7 防火墙设置-iptables</h1>
+                    <h1 class="description center-align post-title">GitHub骚操作</h1>
                 </div>
             </div>
         </div>
@@ -523,27 +524,14 @@ systemctl disable firewalld.servic">
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/CentOS/">
-                                <span class="chip bg-color">CentOS</span>
-                            </a>
-                        
-                            <a href="/tags/FireWall/">
-                                <span class="chip bg-color">FireWall</span>
+                            <a href="/tags/GitHub/">
+                                <span class="chip bg-color">GitHub</span>
                             </a>
                         
                     </div>
                     
                 </div>
                 <div class="col s5 right-align">
-                    
-                    <div class="post-cate">
-                        <i class="fas fa-bookmark fa-fw icon-category"></i>
-                        
-                            <a href="/categories/System/" class="post-category">
-                                System
-                            </a>
-                        
-                    </div>
                     
                 </div>
             </div>
@@ -552,7 +540,7 @@ systemctl disable firewalld.servic">
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-01-17
+                    2020-01-20
                 </div>
                 
 
@@ -561,7 +549,7 @@ systemctl disable firewalld.servic">
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    155
+                    72
                 </div>
                 
 
@@ -584,23 +572,39 @@ systemctl disable firewalld.servic">
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h3 id="关闭默认防火墙"><a href="#关闭默认防火墙" class="headerlink" title="关闭默认防火墙"></a>关闭默认防火墙</h3><p>CentOS 7默认使用的防火墙是firewall，需要将其关闭</p>
+                <h2 id="in-限制搜索范围"><a href="#in-限制搜索范围" class="headerlink" title="in:限制搜索范围"></a>in:限制搜索范围</h2><p>公式：<strong>xxx in:name｜description｜readme</strong></p>
 <ul>
-<li>systemctl stop firewalld.service #停止firewall</li>
-<li>systemctl disable firewalld.service #禁止firewall开机启动</li>
+<li>xxx in:name 项目名包含xxx的</li>
+<li>xxx in:description 项目描述包含xxx的</li>
+<li>xxx in:readme 项目的readme文件中包含xxx的</li>
 </ul>
-<h3 id="安装-iptables-service"><a href="#安装-iptables-service" class="headerlink" title="安装 iptables service"></a>安装 iptables service</h3><p>yum -y install iptables-services <a id="more"></a></p>
-<h3 id="编辑配置文件"><a href="#编辑配置文件" class="headerlink" title="编辑配置文件"></a>编辑配置文件</h3><p>vi /etc/sysconfig/iptables </p>
-<h3 id="在配置文件中增加规则"><a href="#在配置文件中增加规则" class="headerlink" title="在配置文件中增加规则"></a>在配置文件中增加规则</h3><p>-A INPUT -m state –state NEW -m tcp -p tcp –dport 3306 -j ACCEPT</p>
-<h3 id="保存退出，重启防火墙"><a href="#保存退出，重启防火墙" class="headerlink" title="保存退出，重启防火墙"></a>保存退出，重启防火墙</h3><ul>
-<li>systemctl restart iptables.service #重启防火墙使配置生效</li>
-<li>systemctl enable iptables.service #设置防火墙开机启动</li>
+<p>组合使用（查秒杀系统）：<strong>seckill in:<code>name</code>,<code>description</code>,<code>readme</code></strong><a id="more"></a></p>
+<p><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gcnhjlmxiej31l30u0qv5.jpg" alt></p>
+<h2 id="stars-｜forks-数量区间"><a href="#stars-｜forks-数量区间" class="headerlink" title="stars:｜forks:数量区间"></a>stars:｜forks:数量区间</h2><p>公式：<strong>xxx stars:<kbd>></kbd><kbd><</kbd><kbd>=</kbd>｜<kbd>..</kbd></strong></p>
+<p>查找stars数大于等于5000的springboot项目：<strong>springboot stars:&gt;=5000</strong></p>
+<p>查找fork数大于300的springcloud项目：<strong>springcloud forks:&gt;300</strong></p>
+<p>组合使用：查找fork在100～200之间并且star数在80～100之间的springboot项目</p>
+<p><strong>seckill forks:100..2000 stars:1000..2000</strong>：缩小查找范围</p>
+<p><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gcnhnxi6rrj31em0n6e2t.jpg" alt></p>
+<h2 id="awesome-加强搜索"><a href="#awesome-加强搜索" class="headerlink" title="awesome 加强搜索"></a>awesome 加强搜索</h2><p>搜索优秀的比如redis相关的项目，包括框架、教程等。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gcnhtnze9ij31hk0u0u0x.jpg" alt></p>
+<h2 id="高亮显示某一行代码"><a href="#高亮显示某一行代码" class="headerlink" title="高亮显示某一行代码"></a>高亮显示某一行代码</h2><ul>
+<li>单行高亮：<strong>GitHub地址+#L行数</strong></li>
+<li>多行高亮：<strong>GitHub地址+#L行数-L行数</strong></li>
 </ul>
-<h3 id="iptables防火墙常用命令"><a href="#iptables防火墙常用命令" class="headerlink" title="iptables防火墙常用命令"></a>iptables防火墙常用命令</h3><ul>
-<li>systemctl start iptables.service #打开防火墙</li>
-<li>systemctl stop iptables.service #关闭防火墙</li>
-<li>systemctl restart iptables.service #重启防火墙</li>
+<p><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gcnh72xxn6j313q0jynh5.jpg" alt></p>
+<h2 id="项目内搜索"><a href="#项目内搜索" class="headerlink" title="项目内搜索"></a>项目内搜索</h2><ul>
+<li><p>进入项目页后按<kbd>t</kbd>：激活文件查看器，可以直接搜索内容</p>
+<p><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gcnhbtga2qj31aq0u07wh.jpg" alt></p>
+</li>
+<li><p>进入代码页后按<kbd>l</kbd>：输入数字，跳到代码中的具体哪一行</p>
+<p><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gcnhdhoeqjj31jo0gmk87.jpg" alt></p>
+</li>
 </ul>
+<p>更多快捷键操作请点击：<a href="https://help.github.com/en/github/getting-started-with-github/keyboard-shortcuts" target="_blank" rel="noopener">https://help.github.com/en/github/getting-started-with-github/keyboard-shortcuts</a></p>
+<h2 id="搜索某个地区内的大佬"><a href="#搜索某个地区内的大佬" class="headerlink" title="搜索某个地区内的大佬"></a>搜索某个地区内的大佬</h2><p>location:地区｜language:语言</p>
+<p>例如：<strong>location:beijing language:java</strong></p>
+<p><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gcngwj9gyrj316o0u0npd.jpg" alt></p>
 
             </div>
             <hr/>
@@ -626,7 +630,7 @@ systemctl disable firewalld.servic">
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://www.lishaojie.top/2020/01/17/firewall/">https://www.lishaojie.top/2020/01/17/firewall/</a>
+                    <a href="https://www.lishaojie.top/2020/01/20/github/">https://www.lishaojie.top/2020/01/20/github/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -664,12 +668,8 @@ systemctl disable firewalld.servic">
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/CentOS/">
-                                    <span class="chip bg-color">CentOS</span>
-                                </a>
-                            
-                                <a href="/tags/FireWall/">
-                                    <span class="chip bg-color">FireWall</span>
+                                <a href="/tags/GitHub/">
+                                    <span class="chip bg-color">GitHub</span>
                                 </a>
                             
                         </div>
@@ -838,9 +838,9 @@ systemctl disable firewalld.servic">
 
 <script type="text/javascript">
     disqus_config = function () {
-        this.page.url = 'https://www.lishaojie.top/2020/01/17/firewall/';
-        this.page.identifier = '/2020/01/17/firewall/';
-        this.page.title = 'CentOS 7 防火墙设置-iptables';
+        this.page.url = 'https://www.lishaojie.top/2020/01/20/github/';
+        this.page.identifier = '/2020/01/20/github/';
+        this.page.title = 'GitHub骚操作';
     };
     let disqus_shortname = 'lishaojie1993';
 
@@ -867,6 +867,55 @@ systemctl disable firewalld.servic">
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
+                <a href="/2020/02/05/star/">
+                    <div class="card-image">
+                        
+                        <img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gch1qeaydtj30v50jhacz.jpg" class="responsive-img" alt="几何星空连线背景-canvas">
+                        
+                        <span class="card-title">几何星空连线背景-canvas</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            前言最近受疫情的影响，整天宅在家无所事事，于是就想给自己的博客添加一个动态的背景，试了各种GIF和视频，动画效果有了不过CPU占用太高，浏览体验不佳，最后选择了这个几何星空背景页面，参考网上大神的代码自己改了一份，效果如下。
+星空入口点击传
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-02-05
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            lishaojie-C
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/DIY/">
+                        <span class="chip bg-color">DIY</span>
+                    </a>
+                    
+                    <a href="/tags/star-line/">
+                        <span class="chip bg-color">star-line</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
                 <a href="/2020/01/18/singleton/">
                     <div class="card-image">
                         
@@ -886,9 +935,9 @@ systemctl disable firewalld.servic">
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-01-18
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-01-18
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -910,54 +959,6 @@ systemctl disable firewalld.servic">
                     
                     <a href="/tags/singleton/">
                         <span class="chip bg-color">singleton</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="card">
-                <a href="/2020/01/10/Tampermonkey/">
-                    <div class="card-image">
-                        
-                        <img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gch1rkfumzj30wu0ih0x3.jpg" class="responsive-img" alt="神一样的存在,万能插件-Tampermonkey">
-                        
-                        <span class="card-title">神一样的存在,万能插件-Tampermonkey</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            前言今天要介绍的这个插件来头不小，分支也有很多，俗称“油猴”、“暴力猴”都是它，许多浏览器都支持这款插件，比如Chrome、FireFox、Safari、Microsoft Edge、UC……所以说它是万能的一点也不夸张，它拥有超过1000
-                        
-                    </div>
-                    <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-01-10
-                            </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-user fa-fw"></i>
-                            lishaojie-C
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/Google-plugin/">
-                        <span class="chip bg-color">Google plugin</span>
-                    </a>
-                    
-                    <a href="/tags/Tampermonkey/">
-                        <span class="chip bg-color">Tampermonkey</span>
                     </a>
                     
                 </div>
