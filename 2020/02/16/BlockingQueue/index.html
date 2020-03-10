@@ -555,14 +555,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    2.1k
+                    1.7k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    9 分
+                    8 分
                 </div>
                 
 
@@ -889,34 +889,6 @@
 <p>1.0    synchronized、wait、notify</p>
 <p>2.0    lock、await、singal</p>
 <p>3.0    BlockingQueue</p>
-<h3 id="synchronized和lock有什么区别？"><a href="#synchronized和lock有什么区别？" class="headerlink" title="synchronized和lock有什么区别？"></a>synchronized和lock有什么区别？</h3><ol>
-<li><p>原始构成</p>
-<p><strong>synchronized</strong>是关键字，属于<strong>JVM层面</strong>。底层是通过monitor对象来完成，wait/notify方法也依赖moniter对象并且只有在同步块或者同步方法中才能使用wait/notity等方法。monitorenter｜<strong>monitorexit｜monitorexit 正常退出和异常退出</strong>，不会死锁。</p>
-<p><strong>lock</strong>是具体的类（java.util.concurrent.locks.lock）属于<strong>API层面</strong>。</p>
-</li>
-<li><p>使用方法</p>
-<p><strong>synchronized 不需要</strong>用户去手动释放锁，当synchronized代码执行完后系统会自动让线程释放对锁的占用。</p>
-<p><strong>ReentrantLock 需要</strong>用户去手动释放锁，如果没有主动释放锁就有可能导致死锁。需要lock()和unlock()配合try/finally来完成。</p>
-</li>
-<li><p>等待是否可中断</p>
-<p>synchronized 不可中断，除非抛出异常或者正常运行完成。</p>
-<p>ReentrantLock 可中断，相比synchronized更加灵活，有两种方式可以中断：</p>
-<ul>
-<li><p>设置超时方法 tryLock(long timeout,TimeUnit unit)</p>
-</li>
-<li><p>lockInterRuptibly()放代码块中，调用interrupt()方法可中断。</p>
-</li>
-</ul>
-</li>
-<li><p>加锁是否公平</p>
-<p>synchronized 是非公平锁。</p>
-<p>ReentrantLock 两者都可以，默认非公平锁。构造方法可以传入boolean值，true为公平锁，false为非公平锁。</p>
-</li>
-<li><p>是否可绑定多个条件-Condition</p>
-<p>synchronized 不可以，要么随机唤醒一个线程，要么全部唤醒。</p>
-<p>ReentrantLock 可以实现分组唤醒，达到精确唤醒。</p>
-</li>
-</ol>
 
             </div>
             <hr/>
