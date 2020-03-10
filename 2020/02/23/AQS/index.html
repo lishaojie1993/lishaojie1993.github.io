@@ -608,13 +608,14 @@ private transient volatile Nod">
 <blockquote>
 <p>公平锁的上锁必须判断自己需不需要排队；而非公平锁是直接进行CAS修改计数器看能不能加锁成功；如果加锁不成功则乖乖排队(调用acquire)；所以不管公平还是不公平；只要进到了AQS队列当中那么就会排队。</p>
 </blockquote>
-<h3 id="acquire-方法源码分析"><a href="#acquire-方法源码分析" class="headerlink" title="acquire()方法源码分析"></a>acquire()方法源码分析</h3><pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">final</span> <span class="token keyword">void</span> <span class="token function">acquire</span><span class="token punctuation">(</span><span class="token keyword">int</span> arg<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+<h2 id="acquire-方法源码分析"><a href="#acquire-方法源码分析" class="headerlink" title="acquire()方法源码分析"></a>acquire()方法源码分析</h2><pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">final</span> <span class="token keyword">void</span> <span class="token function">acquire</span><span class="token punctuation">(</span><span class="token keyword">int</span> arg<span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token function">tryAcquire</span><span class="token punctuation">(</span>arg<span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token comment" spellcheck="true">//①</span>
         <span class="token function">acquireQueued</span><span class="token punctuation">(</span><span class="token function">addWaiter</span><span class="token punctuation">(</span>Node<span class="token punctuation">.</span>EXCLUSIVE<span class="token punctuation">)</span><span class="token punctuation">,</span> arg<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token comment" spellcheck="true">//②③</span>
         <span class="token function">selfInterrupt</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 <span class="token comment" spellcheck="true">//①tryAcquire()：尝试加锁，如果加锁失败就会调用acquireQueued()去排队，加锁成功就不会。</span>
-<span class="token comment" spellcheck="true">//②acquireQueued()：当前线程如果排在第一位会请求获取锁，否则入队睡眠阻塞，后续线程修改睡眠状态，等待被唤醒。</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token comment" spellcheck="true">//②addWaiter()：判断队列是否需要初始化，并把当前线程节点放入阻塞队列。</span>
+<span class="token comment" spellcheck="true">//③acquireQueued()：当前线程如果排在第一位会请求获取锁，否则入队睡眠阻塞，后续线程修改睡眠状态，等待被唤醒。</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="①tryAcquire"><a href="#①tryAcquire" class="headerlink" title="①tryAcquire()"></a>①tryAcquire()</h3><pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">protected</span> <span class="token keyword">final</span> <span class="token keyword">boolean</span> <span class="token function">tryAcquire</span><span class="token punctuation">(</span><span class="token keyword">int</span> acquires<span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token keyword">final</span> Thread current <span class="token operator">=</span> Thread<span class="token punctuation">.</span><span class="token function">currentThread</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//获取当前线程</span>
     <span class="token keyword">int</span> c <span class="token operator">=</span> <span class="token function">getState</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//获取lock对象的状态c=0自由态，如果被上锁则为1，大于1是重入</span>
@@ -647,15 +648,21 @@ private transient volatile Nod">
 <p>第一种情况：队列没有初始化，head和taill都为null，所以h!=t不成立，后面短路不执行，直接返回false。<br>而又因为前面取反：if (!hasQueuedPredecessors()…)，所以不需要排队，直接去CAS，改变计数器上锁。</p>
 </blockquote>
 <blockquote>
-<p>第二种情况：队列已经初始化了，但是有且只有一个数据，即h==t且s==null，表达式后面不执行，同上返回false不排队。<br>什么时候会出现这种情况：比如队列中有5个线程在排队，前面4个都执行完了，轮到第5个的时候它会把自己设置为h。<br>因为这时候第5个线程已经拿到锁了，它不参与排队，所以需要设置为头节点。</p>
+<p>第二种情况：队列已经初始化了，但是有且只有一个数据，即h==t且s==null，表达式后面不执行，同上返回false不排队。什么时候会出现这种情况：比如队列中有5个线程在排队，前面4个都执行完了，轮到第5个的时候它会把自己设置为h。因为这时候第5个线程已经拿到锁了，它不参与排队，所以需要设置为头节点。</p>
 </blockquote>
 <blockquote>
 <p>第三种情况：队列已经初始化了，有大于1的多个节点，h!=t成立，s=null不成立，所以还要运行 s.thread != Thread.currentThread()，这里又分为两种情况：</p>
-<p>1︎⃣ s.thread != Thread.currentThread()为true，即排队的第一个线程不是当前线程，表达式整体返回true，需要排队。</p>
-<p>2︎⃣ s.thread != Thread.currentThread()为false，即排队的第一个线程就是当前线程，表达式整体返回false，不需要排队。</p>
+<ol>
+<li><p>s.thread != Thread.currentThread()为true，即排队的第一个线程不是当前线程，表达式整体返回true，需要排队。</p>
+</li>
+<li><p>s.thread != Thread.currentThread()为false，即排队的第一个线程就是当前线程，表达式整体返回false，不需要排队。</p>
 <p>不需要排队则调用 compareAndSetState(0, acquires) 去改变计数器尝试上锁，这里还分为两种情况：</p>
-<p>⑴ 第一种情况是加锁成功，即持有锁的线程释放了锁，继续执行setExclusiveOwnerThread(current)，返回true。</p>
-<p>⑵ 第二种情况是加锁失败，即持有锁的线程还没有释放锁，直接返回false。</p>
+<ol>
+<li>第一种情况是加锁成功，即持有锁的线程释放了锁，继续执行setExclusiveOwnerThread(current)，返回true。</li>
+<li>第二种情况是加锁失败，即持有锁的线程还没有释放锁，直接返回false。</li>
+</ol>
+</li>
+</ol>
 </blockquote>
 <h3 id="②addWaiter"><a href="#②addWaiter" class="headerlink" title="②addWaiter()"></a>②addWaiter()</h3><pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">private</span> Node <span class="token function">addWaiter</span><span class="token punctuation">(</span>Node mode<span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token comment" spellcheck="true">//因为AQS队列中的元素为Node，所以把当前线程封装为一个Node对象</span>
@@ -728,30 +735,30 @@ private transient volatile Nod">
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="synchronized和lock的区别"><a href="#synchronized和lock的区别" class="headerlink" title="synchronized和lock的区别"></a>synchronized和lock的区别</h3><ol>
 <li><p>原始构成</p>
-<p><strong>synchronized</strong>是关键字，属于<strong>JVM层面</strong>。底层是通过monitor对象来完成，wait/notify方法也依赖moniter对象并且只有在同步块或者同步方法中才能使用wait/notity等方法。monitorenter｜<strong>monitorexit｜monitorexit 正常退出和异常退出</strong>，不会死锁。</p>
-<p><strong>lock</strong>是具体的类（java.util.concurrent.locks.lock）属于<strong>API层面</strong>。</p>
+<p><code>synchronized</code>是关键字，属于<strong>JVM层面</strong>。底层是通过<code>monitor</code>对象来完成，<code>wait/notify</code>方法也依赖<code>moniter</code>对象并且只有在同步块或者同步方法中才能使用<code>wait/notity</code>等方法。monitorenter｜<strong>monitorexit｜monitorexit 正常退出和异常退出</strong>，不会死锁。</p>
+<p><strong>lock</strong>是具体的类<code>java.util.concurrent.locks.lock</code>属于<strong>API层面</strong>。</p>
 </li>
 <li><p>使用方法</p>
-<p><strong>synchronized 不需要</strong>用户去手动释放锁，当synchronized代码执行完后系统会自动让线程释放对锁的占用。</p>
-<p><strong>ReentrantLock 需要</strong>用户去手动释放锁，如果没有主动释放锁就有可能导致死锁。需要lock()和unlock()配合try/finally来完成。</p>
+<p><code>synchronized</code><strong>不需要</strong>用户去手动释放锁，当synchronized代码执行完后系统会自动让线程释放对锁的占用。</p>
+<p><code>ReentrantLock</code><strong>需要</strong>用户去手动释放锁，如果没有主动释放锁就有可能导致死锁。需要<code>lock()</code>和<code>unlock()</code>配合<code>try/finally</code>来完成。</p>
 </li>
 <li><p>等待是否可中断</p>
-<p>synchronized 不可中断，除非抛出异常或者正常运行完成。</p>
-<p>ReentrantLock 可中断，相比synchronized更加灵活，有两种方式可以中断：</p>
+<p><code>synchronized</code>不可中断，除非抛出异常或者正常运行完成。</p>
+<p><code>ReentrantLock</code>可中断，相比synchronized更加灵活，有两种方式可以中断：</p>
 <ul>
-<li><p>设置超时方法 tryLock(long timeout,TimeUnit unit)</p>
+<li><p>设置超时方法<code>tryLock(long timeout,TimeUnit unit)</code></p>
 </li>
-<li><p>lockInterRuptibly()放代码块中，调用interrupt()方法可中断。</p>
+<li><p><code>lockInterRuptibly()</code>放代码块中，调用<code>interrupt()</code>方法可中断。</p>
 </li>
 </ul>
 </li>
 <li><p>加锁是否公平</p>
-<p>synchronized 是非公平锁。</p>
-<p>ReentrantLock 两者都可以，默认非公平锁。构造方法可以传入boolean值，true为公平锁，false为非公平锁。</p>
+<p><code>synchronized</code>是非公平锁。</p>
+<p><code>ReentrantLock</code>两者都可以，默认非公平锁。构造方法可以传入boolean值，<strong>true</strong>为公平锁，<strong>false</strong>为非公平锁。</p>
 </li>
-<li><p>是否可绑定多个条件-Condition</p>
-<p>synchronized 不可以，要么随机唤醒一个线程，要么全部唤醒。</p>
-<p>ReentrantLock 可以实现分组唤醒，达到精确唤醒。</p>
+<li><p>是否可绑定多个条件-<code>Condition</code></p>
+<p><code>synchronized</code>不可以，要么随机唤醒一个线程，要么全部唤醒。</p>
+<p><code>ReentrantLock</code>可以实现分组唤醒，达到精确唤醒。</p>
 </li>
 </ol>
 <p>扩展：jdk1.6以前，如果线程是交替执行的话，Synchronized会调用OS函数，影响性能。ReentrantLock的交替执行是在jdk级别解决的，性能很快。如果是竞争执行的话会进入队列调用park()方法。1.8以后区别很小，ReentrantLock的API更丰富一些。</p>
