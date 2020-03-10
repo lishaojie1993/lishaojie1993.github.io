@@ -1518,25 +1518,26 @@ CallableJava 5.0 在 java.util.concurrent ">
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/02/29/lock/">
+                <a href="/2020/02/21/SpinLock/">
                     <div class="card-image">
                         
-                        <img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.iohttps://tva1.sinaimg.cn/large/00831rSTgy1gch21ortywj30v50jhq85.jpg" class="responsive-img" alt="Java锁详解">
+                        <img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.iohttps://tva1.sinaimg.cn/large/00831rSTgy1gcp8vokjngj30u60k4q9u.jpg" class="responsive-img" alt="自旋锁-SpinLock">
                         
-                        <span class="card-title">Java锁详解</span>
+                        <span class="card-title">自旋锁-SpinLock</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            公平锁｜非公平锁公平锁：是指多个线程按照申请锁的顺序来获取锁，性能下降，但是顺序得到保障，讲究先来后到。
-非公平锁：是指多个线程获取锁的顺序并不是按照申请锁的顺序，先抢先得，抢不到再排队。
-//可重入锁的空构造方法默认使用Reentrant
+                            自旋锁-SpinLock指的是尝试获取锁的线程不会立即阻塞，而是采用循环的方式去尝试获取锁。
+自旋实现同步volatile int status = 0;//标识，锁是否被线程占用
+void lock(){
+  while(!compare
                         
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-02-29
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-02-21
                         </span>
                         <span class="publish-author">
                             
@@ -1549,12 +1550,12 @@ CallableJava 5.0 在 java.util.concurrent ">
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/高并发/">
-                        <span class="chip bg-color">高并发</span>
+                    <a href="/tags/Lock/">
+                        <span class="chip bg-color">Lock</span>
                     </a>
                     
-                    <a href="/tags/lock/">
-                        <span class="chip bg-color">lock</span>
+                    <a href="/tags/SpinLock/">
+                        <span class="chip bg-color">SpinLock</span>
                     </a>
                     
                 </div>
@@ -1797,7 +1798,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">93.1k</span>&nbsp;字
+                class="white-color">95.1k</span>&nbsp;字
             
             
             
