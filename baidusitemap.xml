@@ -1,22 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://www.lishaojie.top/2018/06/03/zookeeper/</loc>
-    <lastmod>2020-03-11</lastmod>
-  </url>  <url>
-    <loc>https://www.lishaojie.top/2019/03/15/volatile/</loc>
-    <lastmod>2020-03-11</lastmod>
-  </url>  <url>
-    <loc>https://www.lishaojie.top/2020/02/19/Thread-Pool/</loc>
-    <lastmod>2020-03-11</lastmod>
-  </url>  <url>
     <loc>https://www.lishaojie.top/2019/08/27/Sub-table/</loc>
+    <lastmod>2020-03-11</lastmod>
+  </url>  <url>
+    <loc>https://www.lishaojie.top/2020/01/18/singleton/</loc>
     <lastmod>2020-03-11</lastmod>
   </url>  <url>
     <loc>https://www.lishaojie.top/2020/02/21/SpinLock/</loc>
     <lastmod>2020-03-11</lastmod>
   </url>  <url>
-    <loc>https://www.lishaojie.top/2020/01/18/singleton/</loc>
+    <loc>https://www.lishaojie.top/2020/02/19/Thread-Pool/</loc>
+    <lastmod>2020-03-11</lastmod>
+  </url>  <url>
+    <loc>https://www.lishaojie.top/2019/05/13/book/</loc>
+    <lastmod>2020-03-11</lastmod>
+  </url>  <url>
+    <loc>https://www.lishaojie.top/2018/06/03/zookeeper/</loc>
+    <lastmod>2020-03-11</lastmod>
+  </url>  <url>
+    <loc>https://www.lishaojie.top/2019/03/15/volatile/</loc>
     <lastmod>2020-03-11</lastmod>
   </url>  <url>
     <loc>https://www.lishaojie.top/2019/10/22/redis/</loc>
@@ -104,9 +107,6 @@
     <lastmod>2020-02-26</lastmod>
   </url>  <url>
     <loc>https://www.lishaojie.top/2020/01/07/macapp/</loc>
-    <lastmod>2020-02-26</lastmod>
-  </url>  <url>
-    <loc>https://www.lishaojie.top/2019/05/13/book/</loc>
     <lastmod>2020-02-26</lastmod>
   </url>  <url>
     <loc>https://www.lishaojie.top/2019/09/16/Sort/</loc>
