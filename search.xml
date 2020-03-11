@@ -4,7 +4,7 @@
   
     
     <entry>
-      <title>Java锁详解</title>
+      <title>Java锁-Sync&amp;Lock</title>
       <link href="/2020/02/29/lock/"/>
       <url>/2020/02/29/lock/</url>
       
@@ -94,7 +94,7 @@
     
     
     <entry>
-      <title>阻塞队列</title>
+      <title>阻塞队列-BlockingQueue</title>
       <link href="/2020/02/16/BlockingQueue/"/>
       <url>/2020/02/16/BlockingQueue/</url>
       
@@ -115,7 +115,7 @@
     
     
     <entry>
-      <title>Java并发包详解</title>
+      <title>Java并发包-JUC</title>
       <link href="/2020/02/12/JUC/"/>
       <url>/2020/02/12/JUC/</url>
       
@@ -222,7 +222,7 @@
     
     
     <entry>
-      <title>CentOS 7 防火墙设置-iptables</title>
+      <title>CentOS 7 防火墙-iptables</title>
       <link href="/2020/01/17/firewall/"/>
       <url>/2020/01/17/firewall/</url>
       
@@ -399,7 +399,7 @@
     
     
     <entry>
-      <title>MD5加密的底层实现和破解方法</title>
+      <title>MD5加密的底层实现和破解</title>
       <link href="/2019/11/03/MD5/"/>
       <url>/2019/11/03/MD5/</url>
       
