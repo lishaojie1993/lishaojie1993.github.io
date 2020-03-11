@@ -622,7 +622,7 @@ private transient volatile Nod">
     <span class="token keyword">if</span> <span class="token punctuation">(</span>c <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
         <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token function">hasQueuedPredecessors</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span><span class="token comment" spellcheck="true">//这里涉及到的情况比较多，下面详细讨论</span>
             <span class="token function">compareAndSetState</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> acquires<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token function">setExclusiveOwnerThread</span><span class="token punctuation">(</span>current<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token function">setExclusiveOwnerThread</span><span class="token punctuation">(</span>current<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//设置持有锁的线程是自己</span>
             <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
         <span class="token punctuation">}</span>
     <span class="token punctuation">}</span>
@@ -648,7 +648,7 @@ private transient volatile Nod">
 <p>第一种情况：队列没有初始化，head和taill都为null，所以h!=t不成立，后面短路不执行，直接返回false。<br>而又因为前面取反：if (!hasQueuedPredecessors()…)，所以不需要排队，直接去CAS，改变计数器上锁。</p>
 </blockquote>
 <blockquote>
-<p>第二种情况：队列已经初始化了，但是有且只有一个数据，即h==t且s==null，表达式后面不执行，同上返回false不排队。什么时候会出现这种情况：比如队列中有5个线程在排队，前面4个都执行完了，轮到第5个的时候它会把自己设置为h。因为这时候第5个线程已经拿到锁了，它不参与排队，所以需要设置为头节点。</p>
+<p>第二种情况：队列已经初始化了，但是有且只有一个数据，即h==t且s==null，表达式后面不执行，同上返回false不排队。什么时候会出现这种情况：当排队的队尾拿到锁的时候，此时队列中有且只有一个节点，它会把自己设置为h。因为这个线程已经拿到锁了，它不参与排队，所以需要设置为头节点。</p>
 </blockquote>
 <blockquote>
 <p>第三种情况：队列已经初始化了，有大于1的多个节点，h!=t成立，s=null不成立，所以还要运行 s.thread != Thread.currentThread()，这里又分为两种情况：</p>
