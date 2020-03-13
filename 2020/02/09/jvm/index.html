@@ -551,14 +551,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    3.9k
+                    2.3k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    13 分
+                    8 分
                 </div>
                 
 
@@ -670,75 +670,7 @@
 <p>主要是为了安全性，避免用户自己编写的类动态替换 Java 的一些核心类，比如 String，同时也避免了重复加载，因为 JVM 中区分不同类，不仅仅是根据类名，相同的 class 文件被不同的 ClassLoader 加载就是不同的两个类，如果相互转型的话会抛java.lang.ClassCaseException.</p>
 </li>
 </ol>
-<h3 id="4、JVM垃圾收集算法与收集器"><a href="#4、JVM垃圾收集算法与收集器" class="headerlink" title="4、JVM垃圾收集算法与收集器"></a>4、JVM垃圾收集算法与收集器</h3><ol>
-<li><p><strong>如何判断一个对象是否已经死去？</strong></p>
-<ul>
-<li><p><strong>引用计数算法</strong>：每个对象有一个引用计数属性，新增一个引用时计数加1，引用释放时计数减1，计数为0时可以回收。此方法简单，无法解决对象相互循环引用的问题。</p>
-</li>
-<li><p><strong>可达性分析算法</strong>：从GC Roots开始向下搜索，搜索所走过的路径称为引用链。当一个对象到GC Roots没有任何引用链相连时，则证明此对象是不可用的。不可达对象。</p>
-<p><strong>GC Root</strong>：虚拟机栈(局部变量表)中引用的对象、方法区中类的静态属性引用的对象、方法区中常量引用的对象、本地方法栈中引用的对象。</p>
-</li>
-</ul>
-</li>
-<li><p><strong>垃圾回收算法有哪些？</strong></p>
-<ul>
-<li><p><strong>复制算法</strong>：此算法把内存空间划为两个相等的区域，每次只使用其中一个区域。垃圾回收时，遍历当前使用区域，把正在使用中的对象复制到另外一个区域中。</p>
-<p>优点：效率高，不会产生碎片。</p>
-<p>缺点：可用内存变为原来的一半，存活对象多时效率低（复制成本大）。</p>
-</li>
-<li><p><strong>标记-清除算法</strong>：此算法执行分两阶段。第一阶段从引用根节点开始标记所有被引用的对象，第二阶段遍历整个堆，把未标记的对象清除。此算法需要暂停整个应用，同时，会产生内存碎片。</p>
-<p>优点：相比与复制算法来说不浪费内存。</p>
-<p>缺点：会产生内存碎片，效率低（需要扫描两次）。</p>
-</li>
-<li><p><strong>标记-整理算法</strong>：此算法结合了 “标记-清除” 和 “复制” 两个算法的优点。也是分两阶段，第一阶段从根节点开始标记所有被引用对象，第二阶段遍历整个堆，把清除未标记对象并且把存活对象“压缩”到堆的其中一块，按顺序排放。</p>
-<p>优点：避免了 “标记-清除” 的碎片问题，同时也避免了 “复制” 算法的空间问题。</p>
-<p>缺点：效率比复制算法低，需要多维护一个链表使幸存对象连续。</p>
-</li>
-<li><p><strong>分代收集算法</strong>：一般把Java堆分为新生代和老年代，这样就可以根据各个年代的特点采用适当的收集算法。在新生代中，每次垃圾收集时都发现有大批对象死去，只有少量存活，那就选用复制算法，只需要付出少量存活对象的复制成本就可以完成收集。而老年代中因为对象存活率高、没有额外空间对它进行分配担保，就必须使用“标记-清理”或“标记-整理”算法来进行回收。</p>
-</li>
-</ul>
-</li>
-<li><p><strong>GC什么时候开始？</strong></p>
-<p>GC经常发生的区域是堆区，堆区还可以细分为新生代1/3、老年代2/3，新生代还分为一个Eden区8/10和两个Survivor1/10区。</p>
-<ul>
-<li><p><strong>Minor GC</strong>，发生在新生代的GC，对象优先在Eden中分配，当Eden中没有足够空间时，虚拟机将发生一次Minor GC，因为Java大多数对象都是朝生夕灭，所以Minor GC非常频繁，而且速度也很快;</p>
-</li>
-<li><p><strong>Full GC</strong>，发生在老年代的GC，当老年代没有足够的空间时即发生Full GC，发生Full GC一般都会有一次Minor GC。大对象直接进入老年代，如很长的字符串数组，虚拟机提供一个-XX:PretenureSizeThreadhold参数，令大于这个参数值的对象直接在老年代中分配，避免在Eden区和两个Survivor区发生大量的内存拷贝;</p>
-</li>
-<li><p>发生Minor GC时，虚拟机会检测之前每次晋升到老年代的平均大小是否大于老年代的剩余空间大小，如果大于，则进行一次Full GC，如果小于，则查看HandlePromotionFailure设置是否允许担保失败，如果允许，那只会进行一次Minor GC，如果不允许，则改为进行一次Full GC。</p>
-</li>
-</ul>
-</li>
-<li><p><strong>引用的分类？</strong></p>
-<p><strong>强引用</strong>：通过new出来的引用，只要强引用还存在，则不会回收。</p>
-<p><strong>软引用</strong>：在内存不足的情况下，会被jvm回收。通过SoftReference类来实现。</p>
-<p><strong>弱引用</strong>：非必须对象，只要已发生GC就会把它干掉。通过WeakReference类来实现。</p>
-<p><strong>虚引用</strong>：相当于没有引用，被jvm干掉会收到系统通知。通过PhantomReference类来实现。</p>
-</li>
-<li><p><strong>垃圾收集器？</strong></p>
-<ul>
-<li><p><strong>Serial收集器</strong>：串行收集器效率很高，可能会产生较长的停顿，<strong>单线程-复制算法</strong>。</p>
-</li>
-<li><p><strong>ParNew收集器</strong>：Serial收集器的多线程版本，<strong>多线程-复制算法</strong>。</p>
-</li>
-<li><p><strong>Parallel Scavenge收集器</strong>：Parallel Scavenge收集器类似ParNew收集器，可以通过参数来打开<strong>自适应调节策略</strong>，动态调整这些参数以提供最合适的停顿时间或最大的吞吐量。（<strong>多线程-复制算法</strong>）</p>
-</li>
-<li><p><strong>Serial Old收集器</strong>：Serial的老年代版本，<strong>单线程-标记-整理算法</strong></p>
-</li>
-<li><p><strong>Parallel Old 收集器</strong>：Parallel Scavenge的老年代版本，在老年代提供吞吐量优先。<strong>多-标记-整理</strong></p>
-</li>
-<li><p><strong>CMS收集器</strong>：是一种以获取最短回收停顿时间为目标的收集器，给用户带来较好的体验。<strong>多-标记-清除</strong></p>
-<p><strong>优点：并发收集、低停顿。</strong></p>
-<p><strong>缺点：产生大量空间碎片、并发阶段会降低吞吐量。</strong></p>
-</li>
-<li><p><strong>G1收集器</strong>：Garbage First 收集器避免全区域垃圾收集，它把堆内存划分为大小固定的几个独立区域，并且跟踪这些区域的垃圾收集进度，同时在后台维护一个优先级列表，每次根据所允许的收集时间， 优先回收垃圾最多的区域。区域划分和优先级区域回收机制，确保 G1 收集器可以在有限时间获得最高的垃圾收集效率。<strong>标记-整理</strong></p>
-<p><strong>空间整合，G1收集器采用标记整理算法，不会产生内存空间碎片。</strong></p>
-<p><strong>可预测停顿，在不牺牲吞吐量的前提下，实现低停顿垃圾回收。</strong></p>
-<p>上面提到的垃圾收集器，收集的范围都是整个新生代或者老年代，G1将整个Java堆划分为多个大小相等的独立区域(Region)，虽然还保留有新生代和老年代的概念，但新生代和老年代不再是物理隔阂了，它们都是一部分(可以不连续)Region的集合。</p>
-</li>
-</ul>
-</li>
-</ol>
+<h3 id="4、JVM垃圾收集算法与收集器"><a href="#4、JVM垃圾收集算法与收集器" class="headerlink" title="4、JVM垃圾收集算法与收集器"></a>4、JVM垃圾收集算法与收集器</h3><p>请参考我的另一篇博客：</p>
 <h3 id="5、JVM生产问题的排查与解决"><a href="#5、JVM生产问题的排查与解决" class="headerlink" title="5、JVM生产问题的排查与解决"></a>5、JVM生产问题的排查与解决</h3><h4 id="生产服务器变慢怎么办"><a href="#生产服务器变慢怎么办" class="headerlink" title="生产服务器变慢怎么办"></a>生产服务器变慢怎么办</h4><h4 id="整机：top"><a href="#整机：top" class="headerlink" title="整机：top"></a>整机：top</h4><ul>
 <li><p>右上角<strong>load average</strong>：3个值代表1分钟，5分钟，15分钟系统的平均负载值，3个值相加除以3乘以100%，如果结果高于60%，说明系统的负载压力很大。（也可以直接输入uptime查看负载精简版）</p>
 </li>
@@ -1312,7 +1244,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">96.4k</span>&nbsp;字
+                class="white-color">98.9k</span>&nbsp;字
             
             
             

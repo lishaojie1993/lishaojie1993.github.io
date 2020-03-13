@@ -600,6 +600,28 @@
         
             
             <div class="carousel-item amber white-text carousel-post bg-cover"
+                 style="background-image: url('https://tva1.sinaimg.cn/large/006tNbRwgy1gashd8fvkgj30p00godhc.jpg');">
+                <div class="container">
+                    <div class="row">
+                        <div class="col s10 offset-s1">
+                            <div class="title center-align">科学上网推荐,谷歌浏览器插件Ghelper</div>
+                            <div class="description center-align">
+                                
+                                    前言今天给大家推荐一款科学上网的插件——Ghelper。网上免费的翻墙软件也不少，不过免费的要么速度慢，要么用不了两天就被封，所以我就想寻求一条性价比高的科学上网途径。几经周折，最后选择了这款Google的插件。（据说前段时间搬瓦工出了一款
+                                
+                            </div>
+                            <div class="cover-btns">
+                                <a href="/2020/01/10/ghelper/" class="waves-effect waves-light btn" target="_blank">
+                                    <i class="icon fa fa-eye fa-fw"></i>阅读更多
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+            
+            <div class="carousel-item amber white-text carousel-post bg-cover"
                  style="background-image: url('/medias/featureimages/22.jpg');">
                 <div class="container">
                     <div class="row">
@@ -614,28 +636,6 @@
                             </div>
                             <div class="cover-btns">
                                 <a href="/2019/04/26/film/" class="waves-effect waves-light btn" target="_blank">
-                                    <i class="icon fa fa-eye fa-fw"></i>阅读更多
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        
-            
-            <div class="carousel-item amber white-text carousel-post bg-cover"
-                 style="background-image: url('https://tva1.sinaimg.cn/large/006tNbRwgy1gashd8fvkgj30p00godhc.jpg');">
-                <div class="container">
-                    <div class="row">
-                        <div class="col s10 offset-s1">
-                            <div class="title center-align">科学上网推荐,谷歌浏览器插件Ghelper</div>
-                            <div class="description center-align">
-                                
-                                    前言今天给大家推荐一款科学上网的插件——Ghelper。网上免费的翻墙软件也不少，不过免费的要么速度慢，要么用不了两天就被封，所以我就想寻求一条性价比高的科学上网途径。几经周折，最后选择了这款Google的插件。（据说前段时间搬瓦工出了一款
-                                
-                            </div>
-                            <div class="cover-btns">
-                                <a href="/2020/01/10/ghelper/" class="waves-effect waves-light btn" target="_blank">
                                     <i class="icon fa fa-eye fa-fw"></i>阅读更多
                                 </a>
                             </div>
@@ -910,6 +910,55 @@
     <!-- 所有文章卡片 -->
     <article id="articles" class="container articles">
         <div class="row article-row">
+            
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/2020/03/04/GC/">
+                        <div class="card-image">
+                            
+                            <img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="/medias/featureimages/15.jpg" class="responsive-img" alt="垃圾回收-GC">
+                            
+                            <span class="card-title">垃圾回收-GC</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                筛选被回收对象
+引用计数算法：每个对象有一个引用计数属性，新增一个引用时计数加1，引用释放时计数减1，计数为0时可以回收。此方法简单，无法解决对象相互循环引用的问题。
+
+可达性分析算法：从GC Roots开始向下搜索，搜索所走过的路径称为引
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-03-04
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-user fa-fw"></i>
+                                lishaojie-C
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/JVM/">
+                            <span class="chip bg-color">JVM</span>
+                        </a>
+                        
+                        <a href="/tags/GC/">
+                            <span class="chip bg-color">GC</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
             
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
@@ -1450,59 +1499,6 @@ xxx in:readme 项目的readme文
                 </div>
             </div>
             
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2020/01/17/firewall/">
-                        <div class="card-image">
-                            
-                            <img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="/medias/featureimages/3.jpg" class="responsive-img" alt="CentOS 7 防火墙-iptables">
-                            
-                            <span class="card-title">CentOS 7 防火墙-iptables</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                关闭默认防火墙CentOS 7默认使用的防火墙是firewall，需要将其关闭
-
-systemctl stop firewalld.service #停止firewall
-systemctl disable firewalld.servic
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-01-17
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/System/" class="post-category">
-                                    System
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/CentOS/">
-                            <span class="chip bg-color">CentOS</span>
-                        </a>
-                        
-                        <a href="/tags/FireWall/">
-                            <span class="chip bg-color">FireWall</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
         </div>
     </article>
 
@@ -1547,7 +1543,7 @@ systemctl disable firewalld.servic
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">96.4k</span>&nbsp;字
+                class="white-color">98.9k</span>&nbsp;字
             
             
             

@@ -998,32 +998,31 @@ public class StackOverflowDemo {
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/03/02/OOM/">
+                <a href="/2020/03/04/GC/">
                     <div class="card-image">
                         
-                        <img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/featureimages/26.jpg" class="responsive-img" alt="内存溢出-OOM">
+                        <img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/featureimages/15.jpg" class="responsive-img" alt="垃圾回收-GC">
                         
-                        <span class="card-title">内存溢出-OOM</span>
+                        <span class="card-title">垃圾回收-GC</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            内存溢出-OOM
-java.lang.StackOverflowError此错误为栈内存溢出，出现原因是深度的方法调用。
-public class StackOverflowDemo {
-    public static void mai
+                            筛选被回收对象
+引用计数算法：每个对象有一个引用计数属性，新增一个引用时计数加1，引用释放时计数减1，计数为0时可以回收。此方法简单，无法解决对象相互循环引用的问题。
+
+可达性分析算法：从GC Roots开始向下搜索，搜索所走过的路径称为引
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-03-02
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-03-04
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -1032,7 +1031,6 @@ public class StackOverflowDemo {
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
@@ -1040,8 +1038,8 @@ public class StackOverflowDemo {
                         <span class="chip bg-color">JVM</span>
                     </a>
                     
-                    <a href="/tags/OOM/">
-                        <span class="chip bg-color">OOM</span>
+                    <a href="/tags/GC/">
+                        <span class="chip bg-color">GC</span>
                     </a>
                     
                 </div>
@@ -1278,7 +1276,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">96.4k</span>&nbsp;字
+                class="white-color">98.9k</span>&nbsp;字
             
             
             
