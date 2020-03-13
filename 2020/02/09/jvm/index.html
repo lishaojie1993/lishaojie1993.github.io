@@ -670,7 +670,7 @@
 <p>主要是为了安全性，避免用户自己编写的类动态替换 Java 的一些核心类，比如 String，同时也避免了重复加载，因为 JVM 中区分不同类，不仅仅是根据类名，相同的 class 文件被不同的 ClassLoader 加载就是不同的两个类，如果相互转型的话会抛java.lang.ClassCaseException.</p>
 </li>
 </ol>
-<h3 id="4、JVM垃圾收集算法与收集器"><a href="#4、JVM垃圾收集算法与收集器" class="headerlink" title="4、JVM垃圾收集算法与收集器"></a>4、JVM垃圾收集算法与收集器</h3><p>请参考我的另一篇博客：</p>
+<h3 id="4、JVM垃圾收集算法与收集器"><a href="#4、JVM垃圾收集算法与收集器" class="headerlink" title="4、JVM垃圾收集算法与收集器"></a>4、JVM垃圾收集算法与收集器</h3><p>请参考我的另一篇博客：<a href="https://lishaojie1993.gitee.io/2020/03/04/GC/" target="_blank" rel="noopener">垃圾回收-GC</a></p>
 <h3 id="5、JVM生产问题的排查与解决"><a href="#5、JVM生产问题的排查与解决" class="headerlink" title="5、JVM生产问题的排查与解决"></a>5、JVM生产问题的排查与解决</h3><h4 id="生产服务器变慢怎么办"><a href="#生产服务器变慢怎么办" class="headerlink" title="生产服务器变慢怎么办"></a>生产服务器变慢怎么办</h4><h4 id="整机：top"><a href="#整机：top" class="headerlink" title="整机：top"></a>整机：top</h4><ul>
 <li><p>右上角<strong>load average</strong>：3个值代表1分钟，5分钟，15分钟系统的平均负载值，3个值相加除以3乘以100%，如果结果高于60%，说明系统的负载压力很大。（也可以直接输入uptime查看负载精简版）</p>
 </li>
