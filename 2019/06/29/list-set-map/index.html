@@ -4,10 +4,11 @@
 
 <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="集合类不安全问题, 睡到自然醒">
-    <meta name="description" content="ArrayListArrayList初始化public class ListDemo {
-    public static void main(String[] args){
-        //根据源码得知ArrayList初始化：构造">
+    <meta name="keywords" content="Java集合, 睡到自然醒">
+    <meta name="description" content="集合类存放于 Java.util 包中，主要有 3 种:set(集)、list(列表包含 Queue)和 map(映射)。
+
+Collection:Collection 是集合 List、Set、Queue 的最基本的接口。
+Iterato">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -15,7 +16,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>集合类不安全问题 | 睡到自然醒</title>
+    <title>Java集合 | 睡到自然醒</title>
     <link rel="icon" type="image/png" href="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/libs/awesome/css/all.css">
@@ -400,12 +401,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/featureimages/5.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/featureimages/12.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">集合类不安全问题</h1>
+                    <h1 class="description center-align post-title">Java集合</h1>
                 </div>
             </div>
         </div>
@@ -547,14 +548,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    652
+                    1.2k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    3 分
+                    5 分
                 </div>
                 
 
@@ -570,7 +571,41 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="ArrayList"><a href="#ArrayList" class="headerlink" title="ArrayList"></a>ArrayList</h2><h3 id="ArrayList初始化"><a href="#ArrayList初始化" class="headerlink" title="ArrayList初始化"></a>ArrayList初始化</h3><pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ListDemo</span> <span class="token punctuation">{</span>
+                <p>集合类存放于 Java.util 包中，主要有 3 种:set(集)、list(列表包含 Queue)和 map(映射)。</p>
+<ol>
+<li>Collection:Collection 是集合 List、Set、Queue 的最基本的接口。</li>
+<li>Iterator:迭代器，可以通过迭代器遍历集合中的数据。</li>
+<li>Map:是映射表的基础接口。</li>
+</ol>
+<h2 id="Collection"><a href="#Collection" class="headerlink" title="Collection"></a>Collection</h2><h3 id="List-排列有序，可重复"><a href="#List-排列有序，可重复" class="headerlink" title="List (排列有序，可重复)"></a>List (排列有序，可重复)</h3><p>Java 的 List 是很常用的数据类型。List 是有序的 Collection。Java List 一共三个实现类: 分别是 ArrayList、Vector 和 LinkedList。</p>
+<ol>
+<li>ArrayList：排列有序，可重复，底层为数组，查找快，增删慢，<strong>线程不安全，扩展为原来的1.5倍。</strong><ul>
+<li>查找快，增删慢</li>
+<li>线程不安全</li>
+<li>扩容：当前容量*1.5+1</li>
+</ul>
+</li>
+<li>Vector：排列有序，可重复，底层为数组，查找快，增删慢，<strong>线程安全，扩展为原来的2倍。</strong></li>
+<li>LinkedList：排列有序，可重复，底层为<strong>双向链表，增删快，查找慢</strong>，线程不安全。<ul>
+<li>排列</li>
+</ul>
+</li>
+</ol>
+<h3 id="Set-排列无序，不可重复"><a href="#Set-排列无序，不可重复" class="headerlink" title="Set (排列无序，不可重复)"></a>Set (排列无序，不可重复)</h3><ol>
+<li>HashSet：排列无序，不可重复，底层为HashMap。</li>
+<li>TreeSet：排列有序，不可重复，底层为二叉树。</li>
+<li>LinkedHashSet：继承于 HashSet，并且其内部是通过 LinkedHashMap 来实现的。使用双向链表记录插入顺序。</li>
+</ol>
+<h3 id="Queue"><a href="#Queue" class="headerlink" title="Queue"></a>Queue</h3><p>在两端出入的list，所以也可以使用数组或链表来实现。</p>
+<p>想了解阻塞队列相关请参考：<a href="https://lishaojie1993.gitee.io/2020/02/16/BlockingQueue/" target="_blank" rel="noopener">阻塞队列-BlockingQueue</a></p>
+<h2 id="Map"><a href="#Map" class="headerlink" title="Map"></a>Map</h2><h3 id="HashMap-数组-链表-红黑树"><a href="#HashMap-数组-链表-红黑树" class="headerlink" title="HashMap (数组+链表+红黑树)"></a>HashMap (数组+链表+红黑树)</h3><p>键不可重复，值可重复，底层哈希表，<strong>线程不安全，允许一个key为null，value也可以为null。</strong></p>
+<p>详情可参考：<a href="https://lishaojie1993.gitee.io/2019/04/18/HashMap/" target="_blank" rel="noopener">HashMap的底层实现原理</a></p>
+<h3 id="ConcurrentHashMap-Segment-继承-ReentrantLock-加锁"><a href="#ConcurrentHashMap-Segment-继承-ReentrantLock-加锁" class="headerlink" title="ConcurrentHashMap(Segment 继承 ReentrantLock 加锁)"></a>ConcurrentHashMap(<strong>Segment</strong> 继承 <strong>ReentrantLock</strong> 加锁)</h3><p>简单理解就是，ConcurrentHashMap 是一个 Segment 数组，Segment 通过继承 ReentrantLock 来进行加锁，所以每次需要加锁的操作锁住的是一个 segment，这样只要保证每 个 Segment 是线程安全的，也就实现了全局的线程安全。</p>
+<p>详情可参考：<a href="https://lishaojie1993.gitee.io/2019/03/19/ConcurrentHashMap/" target="_blank" rel="noopener">ConcurrentHashMap底层实现</a></p>
+<h3 id="HashTable-线程安全"><a href="#HashTable-线程安全" class="headerlink" title="HashTable (线程安全)"></a>HashTable (线程安全)</h3><p>键不可重复，值可重复，底层哈希表，<strong>线程安全，key、value都不允许为null。</strong></p>
+<h3 id="TreeMap-可排序"><a href="#TreeMap-可排序" class="headerlink" title="TreeMap (可排序)"></a>TreeMap (可排序)</h3><p>键不可重复，值可重复，底层二叉树。</p>
+<h3 id="LinkHashMap-记录插入顺序"><a href="#LinkHashMap-记录插入顺序" class="headerlink" title="LinkHashMap (记录插入顺序)"></a>LinkHashMap (记录插入顺序)</h3><p>LinkedHashMap 是 HashMap 的一个子类，保存了记录的插入顺序。</p>
+<h2 id="集合类不安全问题"><a href="#集合类不安全问题" class="headerlink" title="集合类不安全问题"></a>集合类不安全问题</h2><h3 id="ArrayList初始化"><a href="#ArrayList初始化" class="headerlink" title="ArrayList初始化"></a>ArrayList初始化</h3><pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ListDemo</span> <span class="token punctuation">{</span>
     <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span><span class="token punctuation">{</span>
         <span class="token comment" spellcheck="true">//根据源码得知ArrayList初始化：构造初始容量为10的空数组</span>
         List<span class="token operator">&lt;</span>String<span class="token operator">></span> list <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ArrayList</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -618,7 +653,7 @@
 <li><strong>List<string> list = new CopyOnWriteArrayList&lt;&gt;();</string></strong></li>
 </ol>
 <p>CopyOnWrite容器即<strong>“写时复制”</strong>的容器<strong>object[] element</strong>，往这个容器里添加元素的时候，不直接往当前容器中添加，而是先拷贝当前容器，在拷贝出的新容器中<strong>object[] newElement</strong>添加元素，添加完成后再将原容器的引用指向新容器<strong>setArray(newElement)</strong>，这样的好处是可以对CopyOnWrite容器进行并发的读，是一种<strong>读写分离</strong>的思想。</p>
-<h2 id="HashSet"><a href="#HashSet" class="headerlink" title="HashSet"></a>HashSet</h2><p>HashSet的底层实现是<strong>HashMap</strong>，默认初始容量是16，负载因子是0.75。</p>
+<h3 id="HashSet初始化"><a href="#HashSet初始化" class="headerlink" title="HashSet初始化"></a>HashSet初始化</h3><p>HashSet的底层实现是<strong>HashMap</strong>，默认初始容量是16，负载因子是0.75。</p>
 <p>虽然底层是HashMap，不过HashSet只关心key，value都是一个PRESENT的常量。</p>
 <h3 id="HashSet线程不安全"><a href="#HashSet线程不安全" class="headerlink" title="HashSet线程不安全"></a>HashSet线程不安全</h3><h4 id="故障现象-1"><a href="#故障现象-1" class="headerlink" title="故障现象"></a>故障现象</h4><p><strong>java.util.ConcurrentModificationException：并发修改异常</strong></p>
 <pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">SetDemo</span> <span class="token punctuation">{</span>
@@ -659,7 +694,7 @@
   al <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">CopyOnWriteArrayList</span><span class="token operator">&lt;</span>E<span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><strong>通过源码可以看出CopyOnWriteArraySet调用的是CopyOnWriteArrayList.</strong></p>
-<h2 id="HashMap"><a href="#HashMap" class="headerlink" title="HashMap"></a>HashMap</h2><p>故障现象和原因都同上，解决方案使用<strong>ConCurrentHashMap</strong>。</p>
+<h2 id="HashMap"><a href="#HashMap" class="headerlink" title="HashMap"></a>HashMap</h2><p>故障现象和原因都同上，解决方案使用<strong>ConCurrentHashMap</strong>，可参考上文中的链接。</p>
 
             </div>
             <hr/>
@@ -1199,7 +1234,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">98.9k</span>&nbsp;字
+                class="white-color">100.2k</span>&nbsp;字
             
             
             

@@ -607,7 +607,8 @@
 <li><p>发生Minor GC时，虚拟机会检测之前每次晋升到老年代的平均大小是否大于老年代的剩余空间大小，如果大于，则进行一次Full GC，如果小于，则查看HandlePromotionFailure设置是否允许担保失败，如果允许，那只会进行一次Minor GC，如果不允许，则改为进行一次Full GC。</p>
 </li>
 </ul>
-<h2 id="引用的分类"><a href="#引用的分类" class="headerlink" title="引用的分类"></a>引用的分类</h2><ul>
+<h2 id="引用-强软弱虚"><a href="#引用-强软弱虚" class="headerlink" title="引用-强软弱虚"></a>引用-强软弱虚</h2><p><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gctibb8vs6j30pu050wh2.jpg" alt></p>
+<ul>
 <li><p><strong>强引用</strong>：通过new出来的引用，只要强引用还存在，则不会回收。</p>
 </li>
 <li><p><strong>软引用</strong>：在内存不足的情况下，会被jvm回收。通过SoftReference类来实现。</p>
@@ -884,6 +885,10 @@ Java HotSpot<span class="token punctuation">(</span>TM<span class="token punctua
 </li>
 </ul>
 <h3 id="生产部署和调参优化"><a href="#生产部署和调参优化" class="headerlink" title="生产部署和调参优化"></a>生产部署和调参优化</h3><p>定制化诉求：java -server -Xms1024m -Xmx1024m -XX:+UseG1GC -jar <code>jar包/war包</code></p>
+<h3 id="查看日志参数-XX-PrintGCDetails"><a href="#查看日志参数-XX-PrintGCDetails" class="headerlink" title="查看日志参数-XX:+PrintGCDetails"></a>查看日志参数-XX:+PrintGCDetails</h3><p><strong>YoungGC</strong></p>
+<p><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gctgwjxsv3j316c0dax31.jpg" alt></p>
+<p><strong>FullGC</strong></p>
+<p><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gcthckmrgyj32u60ngnpf.jpg" alt></p>
 
             </div>
             <hr/>
@@ -1428,7 +1433,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">98.9k</span>&nbsp;字
+                class="white-color">100.2k</span>&nbsp;字
             
             
             

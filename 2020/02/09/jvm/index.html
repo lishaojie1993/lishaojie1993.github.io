@@ -5,7 +5,7 @@
 <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
     <meta name="keywords" content="JVM底层原理与性能优化, 睡到自然醒">
-    <meta name="description" content="1、JVM基础知识JVM由哪些部分组成？
+    <meta name="description" content="1、JVM内存结构JVM由哪些部分组成？
 类加载器（ClassLoader）
 运行时数据区（Runtime Data Area）
 执行引擎（Execution Engine）
@@ -551,14 +551,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    2.3k
+                    3k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    8 分
+                    11 分
                 </div>
                 
 
@@ -574,14 +574,21 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h3 id="1、JVM基础知识"><a href="#1、JVM基础知识" class="headerlink" title="1、JVM基础知识"></a>1、JVM基础知识</h3><h4 id="JVM由哪些部分组成？"><a href="#JVM由哪些部分组成？" class="headerlink" title="JVM由哪些部分组成？"></a>JVM由哪些部分组成？</h4><ol>
+                <h2 id="1、JVM内存结构"><a href="#1、JVM内存结构" class="headerlink" title="1、JVM内存结构"></a>1、JVM内存结构</h2><h4 id="JVM由哪些部分组成？"><a href="#JVM由哪些部分组成？" class="headerlink" title="JVM由哪些部分组成？"></a>JVM由哪些部分组成？</h4><ol>
 <li><strong>类加载器</strong>（ClassLoader）</li>
 <li><strong>运行时数据区</strong>（Runtime Data Area）</li>
 <li><strong>执行引擎</strong>（Execution Engine）</li>
 <li><strong>本地库接口</strong>（Native Interface）</li>
 </ol>
 <h4 id="各组成部分的用途？"><a href="#各组成部分的用途？" class="headerlink" title="各组成部分的用途？"></a>各组成部分的用途？</h4><p>程序在执行之前先要把java代码转换成字节码(class文件)，jvm需要把字节码通过<strong>类加载器</strong>把文件加载到内存中<strong>(运行时数据区)</strong>，而字节码文件是jvm的一套指令集规范，并不能直接交给底层操作系统去执行，因此需要特定的命令解析器<strong>(执行引擎)</strong>将字节码翻译成底层系统指令再交由CPU去执行，而这个过程中需要调用其他语言的接口<strong>(本地库接口)</strong>来实现整个程序的功能。</p>
-<h4 id="类加载器是什么？"><a href="#类加载器是什么？" class="headerlink" title="类加载器是什么？"></a>类加载器是什么？</h4><p>顾名思义，类加载器用来加载 Java 类到 jvm 中。</p>
+<h4 id="类加载器是什么？"><a href="#类加载器是什么？" class="headerlink" title="类加载器是什么？"></a>类加载器是什么？</h4><p>实现通过类的权限定名获取该类的二进制字节流的代码块叫做类加载器。</p>
+<p>主要有一下四种类加载器:</p>
+<ul>
+<li>启动类加载器(Bootstrap ClassLoader)用来加载java核心类库，无法被java程序直接引用。</li>
+<li>扩展类加载器(extensions class loader):它用来加载 Java 的扩展库。Java 虚拟机的实现会提供一个扩展库目录。该类加载器在此目录里面查找并加载 Java 类。</li>
+<li>系统类加载器（system class loader）：它根据 Java 应用的类路径（CLASSPATH）来加载 Java 类。一般来说，Java 应用的类都是由它来完成加载的。可以通过 ClassLoader.getSystemClassLoader()来获取它。</li>
+<li>用户自定义类加载器，通过继承 java.lang.ClassLoader类的方式实现。</li>
+</ul>
 <p>类加载器把 Java 字节码转换成 java.lang.Class 类的一个实例。通过此实例的 newInstance()方法就可以创建出该类的一个对象。实际的情况可能更加复杂，比如 Java 字节代码可能是通过工具动态生成的，也可能是通过网络下载的。</p>
 <h4 id="类的加载过程"><a href="#类的加载过程" class="headerlink" title="类的加载过程"></a>类的加载过程</h4><ol>
 <li><p>加载：程序运行之前jvm通过<strong>类加载器</strong>把编译完成的.class二进制文件加载到内存，供程序使用。</p>
@@ -595,7 +602,26 @@
 </li>
 </ol>
 <p><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/0082zybpgy1gcb1tmkh5oj30hl05j3zc.jpg" alt></p>
-<h3 id="2、Java内存模型"><a href="#2、Java内存模型" class="headerlink" title="2、Java内存模型"></a>2、Java内存模型</h3><h4 id="JMM（Java-Memory-Model）"><a href="#JMM（Java-Memory-Model）" class="headerlink" title="JMM（Java Memory Model）"></a>JMM（Java Memory Model）</h4><ul>
+<h4 id="类加载器的双亲委派模型"><a href="#类加载器的双亲委派模型" class="headerlink" title="类加载器的双亲委派模型"></a>类加载器的双亲委派模型</h4><ol>
+<li><p><strong>什么是双亲委派模型？</strong></p>
+<p>双亲委派模型会保证父类加载器先加载类。（延伸：jvm判定两个类相同，不仅类名一致，还要被同一类加载器加载）</p>
+</li>
+<li><p><strong>双亲委派模型的工作过程？</strong></p>
+<ul>
+<li><p>当前 ClassLoader 首先从自己已经加载的类中查询是否此类已经加载，如果已经加载则直接返回原来已经加载的类。</p>
+<p>每个类加载器都有自己的加载缓存，当一个类被加载了以后就会放入缓存，等下次加载的时候就可以直接返回了。</p>
+</li>
+<li><p>当前 ClassLoader 的缓存中没有找到被加载的类的时候，委托父类加载器去加载，父类加载器采用同样的策略，首先查看自己的缓存，然后委托父类的父类去加载，一直到 bootstrap ClassLoader.</p>
+</li>
+<li><p>当所有的父类加载器都没有加载的时候，再由当前的类加载器加载，并将其放入它自己的缓存中，以便下次有加载请求的时候直接返回。</p>
+</li>
+</ul>
+</li>
+<li><p><strong>为什么这样设计(双亲委派的好处)？</strong></p>
+<p>主要是为了安全性，避免用户自己编写的类动态替换 Java 的一些核心类，比如 String，同时也避免了重复加载，因为 JVM 中区分不同类，不仅仅是根据类名，相同的 class 文件被不同的 ClassLoader 加载就是不同的两个类，如果相互转型的话会抛java.lang.ClassCaseException.</p>
+</li>
+</ol>
+<h2 id="2、Java内存模型"><a href="#2、Java内存模型" class="headerlink" title="2、Java内存模型"></a>2、Java内存模型</h2><h4 id="JMM（Java-Memory-Model）"><a href="#JMM（Java-Memory-Model）" class="headerlink" title="JMM（Java Memory Model）"></a>JMM（Java Memory Model）</h4><ul>
 <li>Java内存模型本身是一种抽象的概念，并不真实存在，它描述的是一种规范，定义了程序中各个变量的访问方式。</li>
 <li>线程之间的共享变量存储在主内存中，每个线程都有一个私有的本地内存，本地内存中存储了共享变量的副本。</li>
 </ul>
@@ -651,49 +677,111 @@
 <p>而OutOfMemoryError是指当线程申请栈时发现栈已经满了，而且内存也全都用光了。 </p>
 </li>
 </ul>
-<h3 id="3、类加载器的双亲委派模型"><a href="#3、类加载器的双亲委派模型" class="headerlink" title="3、类加载器的双亲委派模型"></a>3、类加载器的双亲委派模型</h3><ol>
-<li><p><strong>什么是双亲委派模型？</strong></p>
-<p>双亲委派模型会保证父类加载器先加载类。（延伸：jvm判定两个类相同，不仅类名一致，还要被同一类加载器加载）</p>
+<h2 id="3、JVM垃圾收集算法与收集器"><a href="#3、JVM垃圾收集算法与收集器" class="headerlink" title="3、JVM垃圾收集算法与收集器"></a>3、JVM垃圾收集算法与收集器</h2><p>请参考我的另一篇博客：<a href="https://lishaojie1993.gitee.io/2020/03/04/GC/" target="_blank" rel="noopener">垃圾回收-GC</a></p>
+<h2 id="4、JVM生产问题的排查与解决"><a href="#4、JVM生产问题的排查与解决" class="headerlink" title="4、JVM生产问题的排查与解决"></a>4、JVM生产问题的排查与解决</h2><h3 id="JVM的参数类型"><a href="#JVM的参数类型" class="headerlink" title="JVM的参数类型"></a>JVM的参数类型</h3><h4 id="标配参数"><a href="#标配参数" class="headerlink" title="标配参数"></a>标配参数</h4><ul>
+<li>-version</li>
+<li>-help</li>
+<li>java -showversion</li>
+</ul>
+<h4 id="X参数（了解）"><a href="#X参数（了解）" class="headerlink" title="X参数（了解）"></a>X参数（了解）</h4><ul>
+<li>-Xint：解释执行（java -Xint -version）</li>
+<li>-Xcomp：第一次使用就编译成本地代码</li>
+<li>-Xmixed：混合模式（先编译再执行）默认</li>
+</ul>
+<h4 id="XX参数（重点掌握）"><a href="#XX参数（重点掌握）" class="headerlink" title="XX参数（重点掌握）"></a>XX参数（重点掌握）</h4><h5 id="Boolean类型"><a href="#Boolean类型" class="headerlink" title="Boolean类型"></a>Boolean类型</h5><ul>
+<li>公式<ul>
+<li>-XX:+或者-某个属性（+表示开启｜-表示关闭）</li>
+</ul>
 </li>
-<li><p><strong>双亲委派模型的工作过程？</strong></p>
+<li>Case<ul>
+<li>是否打印GC的收集细节：-XX:+PrintGCDetails 或 -XX:-PrintGCDetails</li>
+<li>是否使用串行垃圾收集器：-XX:+UseSerialGC 或 -XX:-SerialGC</li>
+</ul>
+</li>
+</ul>
+<img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gcs8t3ec2uj30j409s7a4.jpg" style="zoom:50%;">
+
+<h5 id="KV设值类型"><a href="#KV设值类型" class="headerlink" title="KV设值类型"></a>KV设值类型</h5><ul>
+<li>公式<ul>
+<li>-XX:属性key=属性值value</li>
+</ul>
+</li>
+<li>Case<ul>
+<li>-XX:MetaspaceSize=128m（设置元空间的大小）</li>
+<li>-XX:MaxTenuringThreshold=15（年轻代复制算法的最大年龄限制）</li>
+</ul>
+</li>
+</ul>
+<img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gcs940eaisj30jw09mdlt.jpg" style="zoom:50%;">
+
 <ul>
-<li><p>当前 ClassLoader 首先从自己已经加载的类中查询是否此类已经加载，如果已经加载则直接返回原来已经加载的类。</p>
-<p>每个类加载器都有自己的加载缓存，当一个类被加载了以后就会放入缓存，等下次加载的时候就可以直接返回了。</p>
-</li>
-<li><p>当前 ClassLoader 的缓存中没有找到被加载的类的时候，委托父类加载器去加载，父类加载器采用同样的策略，首先查看自己的缓存，然后委托父类的父类去加载，一直到 bootstrap ClassLoader.</p>
-</li>
-<li><p>当所有的父类加载器都没有加载的时候，再由当前的类加载器加载，并将其放入它自己的缓存中，以便下次有加载请求的时候直接返回。</p>
-</li>
+<li>两个经典参数（<strong>属于XX参数</strong>）<ul>
+<li>-Xms：等价于-XX:InitialHeapSize</li>
+<li>-Xmx：等价于-XX:MaxHeapSize</li>
 </ul>
 </li>
-<li><p><strong>为什么这样设计(双亲委派的好处)？</strong></p>
-<p>主要是为了安全性，避免用户自己编写的类动态替换 Java 的一些核心类，比如 String，同时也避免了重复加载，因为 JVM 中区分不同类，不仅仅是根据类名，相同的 class 文件被不同的 ClassLoader 加载就是不同的两个类，如果相互转型的话会抛java.lang.ClassCaseException.</p>
-</li>
-</ol>
-<h3 id="4、JVM垃圾收集算法与收集器"><a href="#4、JVM垃圾收集算法与收集器" class="headerlink" title="4、JVM垃圾收集算法与收集器"></a>4、JVM垃圾收集算法与收集器</h3><p>请参考我的另一篇博客：<a href="https://lishaojie1993.gitee.io/2020/03/04/GC/" target="_blank" rel="noopener">垃圾回收-GC</a></p>
-<h3 id="5、JVM生产问题的排查与解决"><a href="#5、JVM生产问题的排查与解决" class="headerlink" title="5、JVM生产问题的排查与解决"></a>5、JVM生产问题的排查与解决</h3><h4 id="生产服务器变慢怎么办"><a href="#生产服务器变慢怎么办" class="headerlink" title="生产服务器变慢怎么办"></a>生产服务器变慢怎么办</h4><h4 id="整机：top"><a href="#整机：top" class="headerlink" title="整机：top"></a>整机：top</h4><ul>
-<li><p>右上角<strong>load average</strong>：3个值代表1分钟，5分钟，15分钟系统的平均负载值，3个值相加除以3乘以100%，如果结果高于60%，说明系统的负载压力很大。（也可以直接输入uptime查看负载精简版）</p>
-</li>
-<li><p>查看<strong>%CPU</strong>和内存<strong>%MEM</strong>的占用比例。</p>
+</ul>
+<h3 id="如何查看JVM参数（重点）"><a href="#如何查看JVM参数（重点）" class="headerlink" title="如何查看JVM参数（重点）"></a>如何查看JVM参数（重点）</h3><ul>
+<li><strong>java -XX:+PrintFlagsInitial</strong>：查看初始默认值</li>
+<li><strong>java -XX:+PrintFlagsFinal</strong>：查看修改更新，“=”是默认加载的，带“:”的是用户或者JVM修改过的</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gcsa2u9s1hj31a40dktnn.jpg" alt></p>
+<ul>
+<li><p><strong>java -XX:+PrintCommandLineFlags -version</strong>：打印命令行参数，可以查看默认的垃圾回收器。</p>
+<pre class="line-numbers language-bash"><code class="language-bash">➜  <span class="token variable"><span class="token variable">`</span>demo<span class="token variable">`</span></span> java -XX:+PrintCommandLineFlags -version
+-XX:InitialHeapSize<span class="token operator">=</span>134217728 -XX:MaxHeapSize<span class="token operator">=</span>2147483648 -XX:+PrintCommandLineFlags -XX:+UseCompressedClassPointers -XX:+UseCompressedOops -XX:+UseParallelGC 
+java version <span class="token string">"1.8.0_191"</span>
+Java<span class="token punctuation">(</span>TM<span class="token punctuation">)</span> SE Runtime Environment <span class="token punctuation">(</span>build 1.8.0_191-b12<span class="token punctuation">)</span>
+Java HotSpot<span class="token punctuation">(</span>TM<span class="token punctuation">)</span> 64-Bit Server VM <span class="token punctuation">(</span>build 25.191-b12, mixed mode<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 </ul>
-<h4 id="CPU：vmstat-n-2-3"><a href="#CPU：vmstat-n-2-3" class="headerlink" title="CPU：vmstat -n 2 3"></a>CPU：vmstat -n 2 3</h4><p><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/0082zybpgy1gcb49fonjej3148064gne.jpg" alt></p>
-<p><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/0082zybpgy1gcb4dp2a9kj31b10e7n9w.jpg" alt></p>
+<h3 id="JVM常用的配置参数"><a href="#JVM常用的配置参数" class="headerlink" title="JVM常用的配置参数"></a>JVM常用的配置参数</h3><p>-Xms：初始内存大小，默认为物理内存1/64，等价于-XX:InitialHeapSize。</p>
+<p>-Xmx：最大分配内存，默认为物理内存1/4，等价于-XX:MaxHeapSize。</p>
+<p>-Xss：设置单个线程栈的大小，一般默认为512k～1024k，等价于-XX:ThreadStackSize。</p>
+<p>-Xmn：设置新声嗲的大小。</p>
+<p>-XX:MetaspaceSize：设置元空间大小。（-Xms10 -Xmx10m -XX:MetaspaceSize=1024m -XX:+PrintFlagsFinal）</p>
+<p>-XX:+PrintGCDetails：显示GC日志。</p>
+<p>-XX:SurvivorRatio：设置新生代中eden和s0和s1空间的比例。-XX:SurvivorRatio=8(默认)</p>
+<p>-XX:NewRatio：配置老年代在堆中的占比，剩下1给新生代。-XX:NewRatio=2(新生代占1/3，老年代占2/3)</p>
+<p>-XX:MaxTenuringThreshld：设置对象在新生代中的最大年龄。默认是15.</p>
+<p><strong>典型案例设置</strong></p>
+<p>-Xms128m -Xmx4096 -Xss1024k -XX:MetaspaceSize=512m -XX:+PrintCommandLineFlags -XX:+PrintGCDetails -XX:+UseG1GC</p>
+<hr>
+<h3 id="生产服务器变慢怎么办"><a href="#生产服务器变慢怎么办" class="headerlink" title="生产服务器变慢怎么办"></a>生产服务器变慢怎么办</h3><blockquote>
+<p>整机：top</p>
+<p>CPU：vmstat -n 2 3</p>
+<p>内存：free -m</p>
+<p>硬盘：df -h</p>
+<p>磁盘IO：iostat -xdk 2 3</p>
+<p>网络IO：ifstat</p>
+</blockquote>
+<ul>
+<li><p>整机：<code>top</code></p>
+<ul>
+<li>右上角<strong>load average</strong>：3个值代表1分钟，5分钟，15分钟系统的平均负载值，3个值相加除以3乘以100%，如果结果高于60%，说明系统的负载压力很大。（也可以直接输入uptime查看负载精简版）</li>
+<li>查看<strong>%CPU</strong>和内存<strong>%MEM</strong>的占用比例。</li>
+</ul>
+</li>
+<li><p>CPU：<code>vmstat -n 2 3</code></p>
+<p><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/0082zybpgy1gcb49fonjej3148064gne.jpg" alt><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/0082zybpgy1gcb4dp2a9kj31b10e7n9w.jpg" alt></p>
 <ul>
 <li><strong>id</strong>：处于空闲的CPU百分比；</li>
 <li><strong>wa</strong>：系统等待IO的CPU时间百分比；</li>
 <li><strong>st</strong>：来自于一个虚拟机偷取的CPU时间的百分比。</li>
 </ul>
-<h4 id="内存：free-m"><a href="#内存：free-m" class="headerlink" title="内存：free -m"></a>内存：free -m</h4><p><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/0082zybpgy1gcb849y0dcj314u0c442f.jpg" alt></p>
-<p><strong>查看额外：pidstat -p 进程号 -r 采样间隔秒数</strong></p>
-<p><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/0082zybpgy1gcb86vzxduj30sw070tc6.jpg" alt></p>
-<h4 id="硬盘：df-h"><a href="#硬盘：df-h" class="headerlink" title="硬盘：df -h"></a>硬盘：df -h</h4><p><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gcb93btg9wj30y00d27o5.jpg" alt></p>
-<h4 id="磁盘IO：iostat-xdk-2-3"><a href="#磁盘IO：iostat-xdk-2-3" class="headerlink" title="磁盘IO：iostat -xdk 2 3"></a>磁盘IO：iostat -xdk 2 3</h4><p><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gcbap9iegoj31po0ke4iz.jpg" alt></p>
-<p><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gcbalqfgp2j317c0cz7fs.jpg" alt></p>
-<p><strong>查看额外：pidstat -d 采样间隔秒数 -p 进程号</strong> </p>
-<p><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gcbau03v5mj314e0awdpt.jpg" alt></p>
-<h4 id="网络IO：ifstat"><a href="#网络IO：ifstat" class="headerlink" title="网络IO：ifstat"></a>网络IO：<strong>ifstat</strong></h4><p><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gcbb07rl5uj312s09wgq6.jpg" alt></p>
-<h4 id="生产环境CPU占用过高怎么办"><a href="#生产环境CPU占用过高怎么办" class="headerlink" title="生产环境CPU占用过高怎么办"></a>生产环境CPU占用过高怎么办</h4><ol>
+</li>
+<li><p>内存：<code>free -m</code><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/0082zybpgy1gcb849y0dcj314u0c442f.jpg" alt></p>
+<p>查看额外：pidstat -p 进程号 -r 采样间隔秒数<img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/0082zybpgy1gcb86vzxduj30sw070tc6.jpg" alt></p>
+</li>
+<li><p>硬盘：<code>df -h</code><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gcb93btg9wj30y00d27o5.jpg" alt></p>
+</li>
+<li><p>磁盘IO：<code>iostat -xdk 2 3</code></p>
+<p><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gcbap9iegoj31po0ke4iz.jpg" alt><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gcbalqfgp2j317c0cz7fs.jpg" alt><strong>查看额外：pidstat -d 采样间隔秒数 -p 进程号</strong> <img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gcbau03v5mj314e0awdpt.jpg" alt></p>
+</li>
+<li><p>网络IO：<code>ifstat</code><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gcbb07rl5uj312s09wgq6.jpg" alt></p>
+</li>
+</ul>
+<h3 id="生产环境CPU占用过高怎么办"><a href="#生产环境CPU占用过高怎么办" class="headerlink" title="生产环境CPU占用过高怎么办"></a>生产环境CPU占用过高怎么办</h3><ol>
 <li><p>先用top命令找出CPU占比最高的。</p>
 </li>
 <li><p>ps -ef | grep java | grep -v grep 或者 jps -l 进一步定位，得知是什么应用程序——PID。</p>
@@ -1244,7 +1332,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">98.9k</span>&nbsp;字
+                class="white-color">100.2k</span>&nbsp;字
             
             
             
