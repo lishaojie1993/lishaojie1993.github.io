@@ -5,10 +5,10 @@
 <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
     <meta name="keywords" content="内存溢出-OOM, 睡到自然醒">
-    <meta name="description" content="内存溢出-OOM
+    <meta name="description" content="OOM架构
 java.lang.StackOverflowError此错误为栈内存溢出，出现原因是深度的方法调用。
 public class StackOverflowDemo {
-    public static void mai">
+    public static void main(S">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -575,8 +575,8 @@ public class StackOverflowDemo {
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="内存溢出-OOM"><a href="#内存溢出-OOM" class="headerlink" title="内存溢出-OOM"></a>内存溢出-OOM</h2><p><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gcr5s7fjhtj30us0gqwou.jpg" alt></p>
-<h3 id="java-lang-StackOverflowError"><a href="#java-lang-StackOverflowError" class="headerlink" title="java.lang.StackOverflowError"></a>java.lang.StackOverflowError</h3><p>此错误为<strong>栈内存溢出</strong>，出现原因是深度的方法调用。</p>
+                <h2 id="OOM架构"><a href="#OOM架构" class="headerlink" title="OOM架构"></a>OOM架构</h2><p><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gcr5s7fjhtj30us0gqwou.jpg" alt></p>
+<h2 id="java-lang-StackOverflowError"><a href="#java-lang-StackOverflowError" class="headerlink" title="java.lang.StackOverflowError"></a>java.lang.StackOverflowError</h2><p>此错误为<strong>栈内存溢出</strong>，出现原因是深度的方法调用。</p>
 <pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">StackOverflowDemo</span> <span class="token punctuation">{</span>
     <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span><span class="token punctuation">{</span>
         <span class="token function">testDemo</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -589,9 +589,7 @@ public class StackOverflowDemo {
 <span class="token comment" spellcheck="true">//    at StackOverflowDemo.testDemo(StackOverflowDemo.java:6)</span>
 <span class="token comment" spellcheck="true">//    at StackOverflowDemo.testDemo(StackOverflowDemo.java:6)</span>
 <span class="token comment" spellcheck="true">//    at StackOverflowDemo.testDemo(StackOverflowDemo.java:6)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="java-lang-OutOfMemoryError"><a href="#java-lang-OutOfMemoryError" class="headerlink" title="java.lang.OutOfMemoryError"></a>java.lang.OutOfMemoryError</h3><ul>
-<li><p>java.lang.OutOfMemoryError:<strong>Java heap space</strong></p>
-<blockquote>
+<h2 id="java-lang-OutOfMemoryError"><a href="#java-lang-OutOfMemoryError" class="headerlink" title="java.lang.OutOfMemoryError"></a>java.lang.OutOfMemoryError</h2><h3 id="Java-heap-space"><a href="#Java-heap-space" class="headerlink" title="Java heap space"></a>Java heap space</h3><blockquote>
 <p>由于<strong>对象太多</strong>导致内存溢出。</p>
 </blockquote>
 <pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">JavaHeapSpaceDemo</span> <span class="token punctuation">{</span>
@@ -602,49 +600,47 @@ public class StackOverflowDemo {
 <span class="token comment" spellcheck="true">//修改运行时虚拟机参数：Run ➞ Edit Configurations ➞ VM options：-Xms10m -Xmx10m</span>
 <span class="token comment" spellcheck="true">//Exception in thread "main" java.lang.OutOfMemoryError: Java heap space</span>
 <span class="token comment" spellcheck="true">//    at JavaHeapSpaceDemo.main(JavaHeapSpaceDemo.java:3)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-</li>
-</ul>
 <hr>
-<p>  java.lang.OutOfMemoryError:<strong>GC overhead limit exceeded</strong></p>
-<blockquote>
+<h3 id="GC-overhead-limit-exceeded"><a href="#GC-overhead-limit-exceeded" class="headerlink" title="GC overhead limit exceeded"></a>GC overhead limit exceeded</h3><blockquote>
 <p>由于<strong>GC回收时间过长</strong>导致内存溢出。</p>
 </blockquote>
-<p>  过长的定义是：超过98%的时间用来做GC并且回收了不到2%的堆内存，连续多次GC都只回收了不到2%内存的极端情况下才会出现此错误。假如不抛出GC overhead limit exceeded会出现什么情况呢？那就是GC清理出的那点内存很快会再次被填满，迫使再次执行GC，恶性循环。CPU使用率一直是100%但是GC却没有明显效果。</p>
-<pre class="line-numbers language-java"><code class="language-java">  <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">GCOverHeadDemo</span> <span class="token punctuation">{</span>
-      <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span><span class="token punctuation">{</span>
-          <span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
-          List<span class="token operator">&lt;</span>String<span class="token operator">></span> list <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ArrayList</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-          <span class="token keyword">try</span> <span class="token punctuation">{</span>
-              <span class="token keyword">while</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-                  list<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>String<span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span><span class="token operator">++</span>i<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">intern</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-              <span class="token punctuation">}</span>
-          <span class="token punctuation">}</span><span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">Throwable</span> e<span class="token punctuation">)</span><span class="token punctuation">{</span>
-              e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-              <span class="token keyword">throw</span> e<span class="token punctuation">;</span>
-          <span class="token punctuation">}</span>
-      <span class="token punctuation">}</span>
-  <span class="token punctuation">}</span>
-  <span class="token comment" spellcheck="true">//修改运行时虚拟机参数：-Xms10m -Xmx10m -XX:+PrintGCDetails -XX:MaxDirectMemorySize=5m</span>
-  <span class="token comment" spellcheck="true">//java.lang.OutOfMemoryError: GC overhead limit exceeded</span>
-  <span class="token comment" spellcheck="true">//    at java.lang.Integer.toString(Integer.java:401)</span>
-  <span class="token comment" spellcheck="true">//    at java.lang.String.valueOf(String.java:3099)</span>
-  <span class="token comment" spellcheck="true">//    at GCOverHeadDemo.main(GCOverHeadDemo.java:10)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>过长的定义是：超过98%的时间用来做GC并且回收了不到2%的堆内存，连续多次GC都只回收了不到2%内存的极端情况下才会出现此错误。假如不抛出GC overhead limit exceeded会出现什么情况呢？那就是GC清理出的那点内存很快会再次被填满，迫使再次执行GC，恶性循环。CPU使用率一直是100%但是GC却没有明显效果。</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">GCOverHeadDemo</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        List<span class="token operator">&lt;</span>String<span class="token operator">></span> list <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ArrayList</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">try</span> <span class="token punctuation">{</span>
+            <span class="token keyword">while</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+                list<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>String<span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span><span class="token operator">++</span>i<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">intern</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span><span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">Throwable</span> e<span class="token punctuation">)</span><span class="token punctuation">{</span>
+            e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">throw</span> e<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span class="token comment" spellcheck="true">//修改运行时虚拟机参数：-Xms10m -Xmx10m -XX:+PrintGCDetails -XX:MaxDirectMemorySize=5m</span>
+<span class="token comment" spellcheck="true">//java.lang.OutOfMemoryError: GC overhead limit exceeded</span>
+<span class="token comment" spellcheck="true">//    at java.lang.Integer.toString(Integer.java:401)</span>
+<span class="token comment" spellcheck="true">//    at java.lang.String.valueOf(String.java:3099)</span>
+<span class="token comment" spellcheck="true">//    at GCOverHeadDemo.main(GCOverHeadDemo.java:10)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <hr>
-<p>  java.lang.OutOfMemoryError:<strong>Direct buffer memory</strong></p>
-<blockquote>
+<h3 id="Direct-buffer-memory"><a href="#Direct-buffer-memory" class="headerlink" title="Direct buffer memory"></a>Direct buffer memory</h3><blockquote>
 <p>由于<strong>本地内存不足</strong>导致内存溢出。</p>
 </blockquote>
-<p>  写NIO程序经常使用ByteBuffer对象来读取或者写入数据，这是一种基于通道(Channel)与缓冲区(Buffer)的I/O方式。它可以使用Native函数库<strong>直接分配堆外内存</strong>，然后通过一个存储在Java堆里面的DirectByteBuffer对象作为这块内存的引用进行操作。这样能在一些场景中显著提高性能，避免了在Java堆和Native堆中来回复制数据。</p>
+<p>写NIO程序经常使用ByteBuffer对象来读取或者写入数据，这是一种基于通道(Channel)与缓冲区(Buffer)的I/O方式。它可以使用Native函数库<strong>直接分配堆外内存</strong>，然后通过一个存储在Java堆里面的DirectByteBuffer对象作为这块内存的引用进行操作。这样能在一些场景中显著提高性能，避免了在Java堆和Native堆中来回复制数据。</p>
 <ul>
 <li><p>ByteBuffer.allocate(capability)：这种方式是分配JVM堆内存，属于GC管辖范围，由于需要拷贝所以速度相对较慢。</p>
 </li>
 <li><p>ByteBuffer.allocateDirect(capability)：这种方式是<strong>分配系统本地内存</strong>，不属于GC管辖范围，不需要内存拷贝速度快。</p>
+</li>
+</ul>
 <p>但如果不断分配本地内存，堆内存很少使用，那么JVM就不需要执行GC，DirectByteBuffer对象们就不会被回收。这时候虽然堆内存充足，但是本地内存已经使用光了，再次尝试分配本地内存就会出现OutOfMemoryError。</p>
 <pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">DirectBufferMemoryDemo</span> <span class="token punctuation">{</span>
-  <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-      System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"配置的最大直接内存："</span><span class="token operator">+</span><span class="token punctuation">(</span>sun<span class="token punctuation">.</span>misc<span class="token punctuation">.</span>VM<span class="token punctuation">.</span><span class="token function">maxDirectMemory</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">/</span><span class="token punctuation">(</span><span class="token keyword">double</span><span class="token punctuation">)</span><span class="token number">1024</span><span class="token operator">/</span><span class="token number">1024</span><span class="token punctuation">)</span><span class="token operator">+</span><span class="token string">"MB"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-      ByteBuffer bb <span class="token operator">=</span> ByteBuffer<span class="token punctuation">.</span><span class="token function">allocateDirect</span><span class="token punctuation">(</span><span class="token number">6</span><span class="token operator">*</span><span class="token number">1024</span><span class="token operator">*</span><span class="token number">1024</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//6MB</span>
-  <span class="token punctuation">}</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"配置的最大直接内存："</span><span class="token operator">+</span><span class="token punctuation">(</span>sun<span class="token punctuation">.</span>misc<span class="token punctuation">.</span>VM<span class="token punctuation">.</span><span class="token function">maxDirectMemory</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">/</span><span class="token punctuation">(</span><span class="token keyword">double</span><span class="token punctuation">)</span><span class="token number">1024</span><span class="token operator">/</span><span class="token number">1024</span><span class="token punctuation">)</span><span class="token operator">+</span><span class="token string">"MB"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        ByteBuffer bb <span class="token operator">=</span> ByteBuffer<span class="token punctuation">.</span><span class="token function">allocateDirect</span><span class="token punctuation">(</span><span class="token number">6</span><span class="token operator">*</span><span class="token number">1024</span><span class="token operator">*</span><span class="token number">1024</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//6MB</span>
+    <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 <span class="token comment" spellcheck="true">//修改运行时虚拟机参数：-Xms10m -Xmx10m -XX:+PrintGCDetails -XX:MaxDirectMemorySize=5m</span>
 <span class="token comment" spellcheck="true">//配置的最大直接内存：5.0MB</span>
@@ -653,48 +649,44 @@ public class StackOverflowDemo {
 <span class="token comment" spellcheck="true">//    at java.nio.DirectByteBuffer.&lt;init>(DirectByteBuffer.java:123)</span>
 <span class="token comment" spellcheck="true">//    at java.nio.ByteBuffer.allocateDirect(ByteBuffer.java:311)</span>
 <span class="token comment" spellcheck="true">//    at DirectBufferMemoryDemo.main(DirectBufferMemoryDemo.java:6)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-</li>
-</ul>
 <hr>
-<p>  java.lang.OutOfMemoryError:<strong>unable to create newnative thread</strong></p>
-<blockquote>
+<h3 id="unable-to-create-newnative-thread"><a href="#unable-to-create-newnative-thread" class="headerlink" title="unable to create newnative thread"></a>unable to create newnative thread</h3><blockquote>
 <p>由于应用程序<strong>创建太多线程超过系统承载极限</strong>导致内存溢出。</p>
 </blockquote>
-<p>  这个错误在高并发请求服务器时比较常见，linux系统默认允许单个进程可以创建1024个线程（1024是理论数据，一般到900多就会抛异常），如果超过这个数量就会报OutOfMemoryError:unable to create newnative thread。</p>
-<pre class="line-numbers language-java"><code class="language-java">  <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">UnableCreateNewThreadDemo</span> <span class="token punctuation">{</span>
-      <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span><span class="token punctuation">{</span>
-          <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span><span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token comment" spellcheck="true">//注意for循环中没有配置范围</span>
-              System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//linux下创建940个线程后抛出异常</span>
-              <span class="token keyword">new</span> <span class="token class-name">Thread</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">-</span><span class="token operator">></span><span class="token punctuation">{</span>
-                  <span class="token keyword">try</span> <span class="token punctuation">{</span>
-                      Thread<span class="token punctuation">.</span><span class="token function">sleep</span><span class="token punctuation">(</span>Integer<span class="token punctuation">.</span>MAX_VALUE<span class="token punctuation">)</span><span class="token punctuation">;</span>
-                  <span class="token punctuation">}</span><span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">InterruptedException</span> e<span class="token punctuation">)</span><span class="token punctuation">{</span>
-                      e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-                  <span class="token punctuation">}</span>
-              <span class="token punctuation">}</span><span class="token punctuation">,</span><span class="token string">""</span><span class="token operator">+</span>i<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-          <span class="token punctuation">}</span>
-      <span class="token punctuation">}</span>
-  <span class="token punctuation">}</span>
-  <span class="token comment" spellcheck="true">//Exception in thread "main" java.lang.OutOfMemoryError: unable to create new native thread</span>
-  <span class="token comment" spellcheck="true">//    at java.lang.Thread.start0(Native Method)</span>
-  <span class="token comment" spellcheck="true">//    at java.lang.Thread.start(Thread.java:717)</span>
-  <span class="token comment" spellcheck="true">//    at UnableCreateNewThreadDemo.main(UnableCreateNewThreadDemo.java:11)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>  解决方案无非两种：降低应用程序创建线程的数量、修改linux系统的服务器配置扩大限制。</p>
-<p>  在linux的普通用户下：$ ulimit -u</p>
-<p>  得到的返回结果是：$ 1024 </p>
-<p>  $ vim /etc/security/limits.d/90-nproc.conf</p>
-<pre class="line-numbers language-bash"><code class="language-bash">  *        soft        nproc        1024
-  root     soft        nproc        unlimited<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>  如必要扩大限制，可以在root用户下添加普通用户并设置线程数量，不要直接修改 *</p>
+<p>这个错误在高并发请求服务器时比较常见，linux系统默认允许单个进程可以创建1024个线程（1024是理论数据，一般到900多就会抛异常），如果超过这个数量就会报OutOfMemoryError:unable to create newnative thread。</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">UnableCreateNewThreadDemo</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span><span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token comment" spellcheck="true">//注意for循环中没有配置范围</span>
+            System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//linux下创建940个线程后抛出异常</span>
+            <span class="token keyword">new</span> <span class="token class-name">Thread</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">-</span><span class="token operator">></span><span class="token punctuation">{</span>
+                <span class="token keyword">try</span> <span class="token punctuation">{</span>
+                    Thread<span class="token punctuation">.</span><span class="token function">sleep</span><span class="token punctuation">(</span>Integer<span class="token punctuation">.</span>MAX_VALUE<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span><span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">InterruptedException</span> e<span class="token punctuation">)</span><span class="token punctuation">{</span>
+                    e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span><span class="token punctuation">,</span><span class="token string">""</span><span class="token operator">+</span>i<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span class="token comment" spellcheck="true">//Exception in thread "main" java.lang.OutOfMemoryError: unable to create new native thread</span>
+<span class="token comment" spellcheck="true">//    at java.lang.Thread.start0(Native Method)</span>
+<span class="token comment" spellcheck="true">//    at java.lang.Thread.start(Thread.java:717)</span>
+<span class="token comment" spellcheck="true">//    at UnableCreateNewThreadDemo.main(UnableCreateNewThreadDemo.java:11)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>解决方案无非两种：降低应用程序创建线程的数量、修改linux系统的服务器配置扩大限制。</p>
+<p>在linux的普通用户下：$ ulimit -u</p>
+<p>得到的返回结果是：$ 1024 </p>
+<p>$ vim /etc/security/limits.d/90-nproc.conf</p>
+<pre class="line-numbers language-bash"><code class="language-bash">*        soft        nproc        1024
+root     soft        nproc        unlimited<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>如必要扩大限制，可以在root用户下添加普通用户并设置线程数量，不要直接修改 *</p>
 <hr>
-<p>  java.lang.OutOfMemoryError:<strong>Metaspace</strong></p>
-<blockquote>
+<h3 id="Metaspace"><a href="#Metaspace" class="headerlink" title="Metaspace"></a>Metaspace</h3><blockquote>
 <p>由于元空间满了导致内存溢出。</p>
 </blockquote>
-<p>  Java8以后使用Metaspace来替代永久代。查看元空间的初始大小的方式如下：</p>
-<p>  ➜ <code>demo</code> java -XX:+PrintFlagsInitial</p>
-<p>  <img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gcra0rclwrj31ak0bqk4w.jpg" alt></p>
-<p>  永久代（元空间）存放了以下信息：</p>
+<p>Java8以后使用Metaspace来替代永久代。查看元空间的初始大小的方式如下：</p>
+<p>➜ <code>demo</code> java -XX:+PrintFlagsInitial</p>
+<p><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gcra0rclwrj31ak0bqk4w.jpg" alt></p>
+<p>永久代（元空间）存放了以下信息：</p>
 <ul>
 <li><p>虚拟机加载的类信息</p>
 </li>
@@ -703,38 +695,38 @@ public class StackOverflowDemo {
 <li><p>静态变量</p>
 </li>
 <li><p>即时编译后的代码</p>
+</li>
+</ul>
 <p>Metaspace元空间与永久代最大的区别在于：Metaspace并不在虚拟机内存中，而是使用本地内存。</p>
 <pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">MetaSpaceDemo</span> <span class="token punctuation">{</span>
-  <span class="token keyword">static</span> <span class="token keyword">class</span> <span class="token class-name">OOMTest</span> <span class="token punctuation">{</span><span class="token punctuation">}</span> <span class="token comment" spellcheck="true">//静态内部类</span>
-  <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-      <span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
-      <span class="token keyword">try</span> <span class="token punctuation">{</span>
-          <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-              i<span class="token operator">++</span><span class="token punctuation">;</span>
-              Enhancer enhancer <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Enhancer</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-              enhancer<span class="token punctuation">.</span><span class="token function">setSuperclass</span><span class="token punctuation">(</span>OOMTest<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-              enhancer<span class="token punctuation">.</span><span class="token function">setUseCache</span><span class="token punctuation">(</span><span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-              enhancer<span class="token punctuation">.</span><span class="token function">setCallback</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">MethodInterceptor</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                  <span class="token annotation punctuation">@Override</span>
-                  <span class="token keyword">public</span> Object <span class="token function">intercept</span><span class="token punctuation">(</span>Object o<span class="token punctuation">,</span> Method method<span class="token punctuation">,</span> Object<span class="token punctuation">[</span><span class="token punctuation">]</span> objects<span class="token punctuation">,</span> MethodProxy methodProxy<span class="token punctuation">)</span> <span class="token keyword">throws</span> Throwable <span class="token punctuation">{</span>
-                      <span class="token keyword">return</span> methodProxy<span class="token punctuation">.</span><span class="token function">invokeSuper</span><span class="token punctuation">(</span>o<span class="token punctuation">,</span>args<span class="token punctuation">)</span><span class="token punctuation">;</span>
-                  <span class="token punctuation">}</span>
-              <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-              enhancer<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-          <span class="token punctuation">}</span>
-      <span class="token punctuation">}</span><span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">Throwable</span> e<span class="token punctuation">)</span><span class="token punctuation">{</span>
-          System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>i<span class="token operator">+</span><span class="token string">"次后发生异常"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-          e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token punctuation">}</span>
-  <span class="token punctuation">}</span>
+    <span class="token keyword">static</span> <span class="token keyword">class</span> <span class="token class-name">OOMTest</span> <span class="token punctuation">{</span><span class="token punctuation">}</span> <span class="token comment" spellcheck="true">//静态内部类</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token keyword">try</span> <span class="token punctuation">{</span>
+            <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+                i<span class="token operator">++</span><span class="token punctuation">;</span>
+                Enhancer enhancer <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Enhancer</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                enhancer<span class="token punctuation">.</span><span class="token function">setSuperclass</span><span class="token punctuation">(</span>OOMTest<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                enhancer<span class="token punctuation">.</span><span class="token function">setUseCache</span><span class="token punctuation">(</span><span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                enhancer<span class="token punctuation">.</span><span class="token function">setCallback</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">MethodInterceptor</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    <span class="token annotation punctuation">@Override</span>
+                    <span class="token keyword">public</span> Object <span class="token function">intercept</span><span class="token punctuation">(</span>Object o<span class="token punctuation">,</span> Method method<span class="token punctuation">,</span> Object<span class="token punctuation">[</span><span class="token punctuation">]</span> objects<span class="token punctuation">,</span> MethodProxy methodProxy<span class="token punctuation">)</span> <span class="token keyword">throws</span> Throwable <span class="token punctuation">{</span>
+                        <span class="token keyword">return</span> methodProxy<span class="token punctuation">.</span><span class="token function">invokeSuper</span><span class="token punctuation">(</span>o<span class="token punctuation">,</span>args<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token punctuation">}</span>
+                <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                enhancer<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span><span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">Throwable</span> e<span class="token punctuation">)</span><span class="token punctuation">{</span>
+            System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>i<span class="token operator">+</span><span class="token string">"次后发生异常"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 <span class="token comment" spellcheck="true">//修改运行时虚拟机参数：-XX:MetaspaceSize=8m -XX:MaxMetaspaceSize=8m</span>
 <span class="token comment" spellcheck="true">//362次后发生异常</span>
 <span class="token comment" spellcheck="true">//Caused by: java.lang.OutOfMemoryError: Metaspace</span>
 <span class="token comment" spellcheck="true">//    at java.lang.ClassLoader.defineClass1(Native Method)</span>
 <span class="token comment" spellcheck="true">//    at java.lang.ClassLoader.defineClass(ClassLoader.java:763)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-</li>
-</ul>
 
             </div>
             <hr/>
@@ -1013,10 +1005,10 @@ public class StackOverflowDemo {
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            筛选被回收对象
+                            如何确定垃圾
 引用计数算法：每个对象有一个引用计数属性，新增一个引用时计数加1，引用释放时计数减1，计数为0时可以回收。此方法简单，无法解决对象相互循环引用的问题。
 
-可达性分析算法：从GC Roots开始向下搜索，搜索所走过的路径称为引
+可达性分析算法：从GC Roots开始向下搜索，搜索所走过的路径称为引用
                         
                     </div>
                     <div class="publish-info">
@@ -1064,9 +1056,7 @@ public class StackOverflowDemo {
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            公平锁｜非公平锁公平锁：是指多个线程按照申请锁的顺序来获取锁，性能下降，但是顺序得到保障，讲究先来后到。
-非公平锁：是指多个线程获取锁的顺序并不是按照申请锁的顺序，先抢先得，抢不到再排队。
-//可重入锁的空构造方法默认使用Reentrant
+                            乐观锁｜悲观锁乐观锁乐观锁是一种乐观思想，即认为读多写少，遇到并发写的可能性低，每次去拿数据的时候都认为别人不会修改，所以不会上锁，但是在更新的时候会判断一下在此期间别人有没有去更新这个数据，采取在写时先读出当前版本号，然后加锁操作（比较跟
                         
                     </div>
                     <div class="publish-info">
@@ -1276,7 +1266,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">106k</span>&nbsp;字
+                class="white-color">109.9k</span>&nbsp;字
             
             
             

@@ -1040,9 +1040,7 @@ private transient volatile Nod">
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            公平锁｜非公平锁公平锁：是指多个线程按照申请锁的顺序来获取锁，性能下降，但是顺序得到保障，讲究先来后到。
-非公平锁：是指多个线程获取锁的顺序并不是按照申请锁的顺序，先抢先得，抢不到再排队。
-//可重入锁的空构造方法默认使用Reentrant
+                            乐观锁｜悲观锁乐观锁乐观锁是一种乐观思想，即认为读多写少，遇到并发写的可能性低，每次去拿数据的时候都认为别人不会修改，所以不会上锁，但是在更新的时候会判断一下在此期间别人有没有去更新这个数据，采取在写时先读出当前版本号，然后加锁操作（比较跟
                         
                     </div>
                     <div class="publish-info">
@@ -1303,7 +1301,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">106k</span>&nbsp;字
+                class="white-color">109.9k</span>&nbsp;字
             
             
             

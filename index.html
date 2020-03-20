@@ -950,10 +950,10 @@
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                筛选被回收对象
+                                如何确定垃圾
 引用计数算法：每个对象有一个引用计数属性，新增一个引用时计数加1，引用释放时计数减1，计数为0时可以回收。此方法简单，无法解决对象相互循环引用的问题。
 
-可达性分析算法：从GC Roots开始向下搜索，搜索所走过的路径称为引
+可达性分析算法：从GC Roots开始向下搜索，搜索所走过的路径称为引用
                             
                         </div>
                         <div class="publish-info">
@@ -999,10 +999,10 @@
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                内存溢出-OOM
+                                OOM架构
 java.lang.StackOverflowError此错误为栈内存溢出，出现原因是深度的方法调用。
 public class StackOverflowDemo {
-    public static void mai
+    public static void main(S
                             
                         </div>
                         <div class="publish-info">
@@ -1048,9 +1048,7 @@ public class StackOverflowDemo {
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                公平锁｜非公平锁公平锁：是指多个线程按照申请锁的顺序来获取锁，性能下降，但是顺序得到保障，讲究先来后到。
-非公平锁：是指多个线程获取锁的顺序并不是按照申请锁的顺序，先抢先得，抢不到再排队。
-//可重入锁的空构造方法默认使用Reentrant
+                                乐观锁｜悲观锁乐观锁乐观锁是一种乐观思想，即认为读多写少，遇到并发写的可能性低，每次去拿数据的时候都认为别人不会修改，所以不会上锁，但是在更新的时候会判断一下在此期间别人有没有去更新这个数据，采取在写时先读出当前版本号，然后加锁操作（比较跟
                             
                         </div>
                         <div class="publish-info">
@@ -1183,9 +1181,9 @@ void lock(){
                     <a href="/2020/02/19/Thread-Pool/">
                         <div class="card-image">
                             
-                            <img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="/medias/featureimages/11.jpg" class="responsive-img" alt="线程池实现原理与源码分析">
+                            <img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="/medias/featureimages/11.jpg" class="responsive-img" alt="线程池-ThreadPool">
                             
-                            <span class="card-title">线程池实现原理与源码分析</span>
+                            <span class="card-title">线程池-ThreadPool</span>
                         </div>
                     </a>
 
@@ -1508,7 +1506,7 @@ xxx in:readme 项目的readme文
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">106k</span>&nbsp;字
+                class="white-color">109.9k</span>&nbsp;字
             
             
             

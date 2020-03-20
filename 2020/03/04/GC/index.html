@@ -5,10 +5,10 @@
 <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
     <meta name="keywords" content="垃圾回收-GC, 睡到自然醒">
-    <meta name="description" content="筛选被回收对象
+    <meta name="description" content="如何确定垃圾
 引用计数算法：每个对象有一个引用计数属性，新增一个引用时计数加1，引用释放时计数减1，计数为0时可以回收。此方法简单，无法解决对象相互循环引用的问题。
 
-可达性分析算法：从GC Roots开始向下搜索，搜索所走过的路径称为引">
+可达性分析算法：从GC Roots开始向下搜索，搜索所走过的路径称为引用">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -575,7 +575,7 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="筛选被回收对象"><a href="#筛选被回收对象" class="headerlink" title="筛选被回收对象"></a>筛选被回收对象</h2><ul>
+                <h2 id="如何确定垃圾"><a href="#如何确定垃圾" class="headerlink" title="如何确定垃圾"></a>如何确定垃圾</h2><ul>
 <li><p><strong>引用计数算法</strong>：每个对象有一个引用计数属性，新增一个引用时计数加1，引用释放时计数减1，计数为0时可以回收。此方法简单，无法解决对象相互循环引用的问题。</p>
 </li>
 <li><p><strong>可达性分析算法</strong>：从GC Roots开始向下搜索，搜索所走过的路径称为引用链。当一个对象到GC Roots没有任何引用链相连时，则证明此对象是不可用的。不可达对象。</p>
@@ -1217,10 +1217,10 @@ Java HotSpot<span class="token punctuation">(</span>TM<span class="token punctua
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            内存溢出-OOM
+                            OOM架构
 java.lang.StackOverflowError此错误为栈内存溢出，出现原因是深度的方法调用。
 public class StackOverflowDemo {
-    public static void mai
+    public static void main(S
                         
                     </div>
                     <div class="publish-info">
@@ -1430,7 +1430,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">106k</span>&nbsp;字
+                class="white-color">109.9k</span>&nbsp;字
             
             
             
