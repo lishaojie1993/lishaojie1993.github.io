@@ -5,9 +5,8 @@
 <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
     <meta name="keywords" content="消息队列-MQ, 睡到自然醒">
-    <meta name="description" content="为什么使用消息队列？说说优缺点？我们公司有个什么业务场景，这个场景有个什么技术挑战，如果不用MQ会很麻烦，用了MQ之后带来了很多好处。
-比较核心的使用场景有3个：解耦、异步、削峰。同样也是使用MQ的优点。
-解耦举例：A系统产生了一条比较重要">
+    <meta name="description" content="为什么使用消息队列？说说优缺点？比较核心的使用场景有3个：解耦、异步、削峰。同样也是使用MQ的优点。
+解耦举例：A系统产生了一条比较重要的数据，B、C、D系统都需要，如果不使用MQ的话，A系统要做很多事情，比如需要分别调用B、C、D系统的接">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -583,8 +582,7 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="为什么使用消息队列？说说优缺点？"><a href="#为什么使用消息队列？说说优缺点？" class="headerlink" title="为什么使用消息队列？说说优缺点？"></a>为什么使用消息队列？说说优缺点？</h2><p>我们公司有个什么业务场景，这个场景有个什么技术挑战，如果不用MQ会很麻烦，用了MQ之后带来了很多好处。</p>
-<p>比较核心的使用场景有3个：<strong>解耦、异步、削峰</strong>。同样也是使用MQ的<strong>优点</strong>。</p>
+                <h2 id="为什么使用消息队列？说说优缺点？"><a href="#为什么使用消息队列？说说优缺点？" class="headerlink" title="为什么使用消息队列？说说优缺点？"></a>为什么使用消息队列？说说优缺点？</h2><p>比较核心的使用场景有3个：<strong>解耦、异步、削峰</strong>。同样也是使用MQ的<strong>优点</strong>。</p>
 <p><strong>解耦举例</strong>：A系统产生了一条比较重要的数据，B、C、D系统都需要，如果不使用MQ的话，A系统要做很多事情，比如需要分别调用B、C、D系统的接口传递数据，还要考虑接口的参数，可用性等等， 如果有新系统加入的话，还要更改很麻烦。如果使用MQ的话，A系统把产生的数据直接发送到MQ就不用管了，谁需要这条消息自己去MQ里获取，如果某个系统不需要这些消息了就不用去消费数据了，这样A系统就不需要考虑其他系统是否调用成功，接口是否超时，失败重试等等，所有操作就变得很简单。</p>
 <p>总结：通过一个MQ的发布/订阅模型（Pub/Sub）系统A就跟其他系统解耦了。<a id="more"></a></p>
 <p><strong>异步举例</strong>：A系统发起一次请求，假设A系统本地处理SQL并发送需要20ms，然后分别调用B、C、D系统，分别耗时300ms，450ms，200ms，如果是同步调用的话，总耗时就是这几次调用的和，用户的内心是崩溃的。如果使用MQ的话，系统A可以连续发送3条消息到3个MQ队列中，耗时5ms，系统B、C、D自己从对应的消息队列中获取，需要耗时操作在各自系统执行。因为是异步调用，A系统不需要等待反馈，发送成功后直接给用户反馈的时间就是20ms+5ms=25ms，用户爽歪歪。</p>
@@ -1017,11 +1015,11 @@
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Mysql索引？索引是什么？索引是为了加速对表中数据行的检索而创建的一种分散存储的数据结构。
+                            Mysql索引？索引是什么？索引是帮助高效获取数据的数据结构。
 为什么要创建索引？
 创建索引可以大大提高系统的查询性能。
 通过创建唯一性索引，可以保证数据库表中每一行数据的唯一性。
-可以加速表和表之间的连接，特
+可以加速表和表之间的连接，特别是在实现数据的参考完整性方面
                         
                     </div>
                     <div class="publish-info">
@@ -1235,7 +1233,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">102.9k</span>&nbsp;字
+                class="white-color">106k</span>&nbsp;字
             
             
             
