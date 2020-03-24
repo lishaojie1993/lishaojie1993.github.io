@@ -4,9 +4,10 @@
 
 <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="ZooKeeper相关, 睡到自然醒">
+    <meta name="keywords" content="分布式协调框架-zk, 睡到自然醒">
     <meta name="description" content="zookeeper特点zookeeper是什么zookeeper 是一个开源的分布式协调服务，是分布式数据一致性的解决方案。
-zookeeper 本质上是一个分布式的小文件存储系统，提供基于类似于文件系统的目录树方式的数据存储，并且可以对树">
+
+Zookeeper提供一个多层级的节点命名空间（节点称为znode）。与文件系统不同的是，这些节点都可以设置关联">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -14,7 +15,7 @@ zookeeper 本质上是一个分布式的小文件存储系统，提供基于类�
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>ZooKeeper相关 | 睡到自然醒</title>
+    <title>分布式协调框架-zk | 睡到自然醒</title>
     <link rel="icon" type="image/png" href="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/libs/awesome/css/all.css">
@@ -27,9 +28,9 @@ zookeeper 本质上是一个分布式的小文件存储系统，提供基于类�
 
     <script src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/libs/jquery/jquery.min.js"></script>
     
+<link rel="alternate" href="/atom.xml" title="睡到自然醒" type="application/atom+xml">
 <link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
-<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"><link rel="alternate" href="/atom.xml" title="睡到自然醒" type="application/atom+xml">
-</head>
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
 
 
 <body>
@@ -404,7 +405,7 @@ zookeeper 本质上是一个分布式的小文件存储系统，提供基于类�
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">ZooKeeper相关</h1>
+                    <h1 class="description center-align post-title">分布式协调框架-zk</h1>
                 </div>
             </div>
         </div>
@@ -559,14 +560,14 @@ zookeeper 本质上是一个分布式的小文件存储系统，提供基于类�
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    3.4k
+                    3.5k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    12 分
+                    13 分
                 </div>
                 
 
@@ -583,7 +584,9 @@ zookeeper 本质上是一个分布式的小文件存储系统，提供基于类�
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <h2 id="zookeeper特点"><a href="#zookeeper特点" class="headerlink" title="zookeeper特点"></a>zookeeper特点</h2><h3 id="zookeeper是什么"><a href="#zookeeper是什么" class="headerlink" title="zookeeper是什么"></a>zookeeper是什么</h3><p>zookeeper 是一个开源的分布式协调服务，是分布式数据一致性的解决方案。</p>
-<p>zookeeper 本质上是一个分布式的小文件存储系统，提供基于类似于文件系统的目录树方式的数据存储，并且可以对树中的节点进行有效管理，从而用来维护和监控你存储的数据的状态变化，通过监控这些数据状态的变化，从而可以达到基于数据的集群管理。</p>
+<blockquote>
+<p>Zookeeper提供一个多层级的节点命名空间（节点称为znode）。与文件系统不同的是，这些节点都可以设置关联的数据，而文件系统中只有文件节点可以存放数据而目录节点不行。Zookeeper为了保证高吞吐和低延迟，在内存中维护了这个树状的目录结构，这种特性使得Zookeeper不能用于存放大量的数据，每个节点的存放数据上限为1M。</p>
+</blockquote>
 <h3 id="zookeeper能做什么"><a href="#zookeeper能做什么" class="headerlink" title="zookeeper能做什么"></a>zookeeper能做什么</h3><p>简单来说，zookeeper 主要做两件事，数据管理和监听服务。</p>
 <p>分布式应用程序可以基于 zookeeper 实现诸如数据发布/订阅、负载均衡、命名服务、分布式协调/通知、集群管理、leader 选举、分布式锁和分布式队列等功能。</p>
 <p>zookeeper 一个最常用的使用场景就是用于担任服务生产者和服务消费者的注册中心。 服务生产者将自己提供的服务注册到 zookeeper 中心，服务的消费者在进行服务调用的时候先到 zookeeper 中查找服务，获取到服务生产者的详细信息之后，再去调用服务生产者的内容与数据。如下图所示，在 Dubbo 架构中 zookeeper 就担任了注册中心这一角色。为了保证高可用，最好是以集群形态来部署 zookeeper，只要半数以上节点存活，zookeeper  就能正常服务。<a id="more"></a></p>
@@ -698,17 +701,19 @@ cd zookeeper-3.4.12<span aria-hidden="true" class="line-numbers-rows"><span></sp
 <h2 id="zookeeper的应用场景"><a href="#zookeeper的应用场景" class="headerlink" title="zookeeper的应用场景"></a>zookeeper的应用场景</h2><h3 id="实现命名服务-Name-Service"><a href="#实现命名服务-Name-Service" class="headerlink" title="实现命名服务(Name Service)"></a>实现命名服务(Name Service)</h3><p>命名服务也是分布式系统中比较常见的一类场景。在分布式系统中，通过使用命名服务，客户端应用能够根据指定名字来获取资源或服务的地址，提供者等信息。被命名的实体通常可以是集群中的机器，提供的服务，远程对象等等——这些我们都可以统称他们为名字（Name）。</p>
 <p>其中较为常见的就是一些分布式服务框架（如RPC、RMI）中的服务地址列表。通过在 zookeeper里创建顺序节点，能够很容易创建一个全局唯一的路径，这个路径就可以作为一个名字。</p>
 <p>zookeeper 的命名服务即生成全局唯一的ID。</p>
-<h3 id="实现分布式协调-通知"><a href="#实现分布式协调-通知" class="headerlink" title="实现分布式协调/通知"></a>实现分布式协调/通知</h3><p>zookeeper 中特有 Watcher 注册与异步通知机制，能够很好的实现分布式环境下不同机器，甚至不同系统之间的通知与协调，从而实现对数据变更的实时处理。使用方法通常是不同的客户端都对ZK上同一个 ZNode 进行注册，监听 ZNode 的变化（包括ZNode本身内容及子节点的），如果 ZNode 发生了变化，那么所有订阅的客户端都能够接收到相应的Watcher通知，并做出相应的处理。</p>
-<p>ZK的分布式协调/通知，是一种通用的分布式系统机器间的通信方式。</p>
+<h3 id="实现分布式协调-通知"><a href="#实现分布式协调-通知" class="headerlink" title="实现分布式协调/通知"></a>实现分布式协调/通知</h3><p>分布式协调其实是很经典的一个用法，比如说A系统发送请求到mq，B系统消费之后处理了，那么A如何知道B的处理进度？用zk就可以实现分布式系统之间的协调工作。</p>
+<p>A系统发送请求之后可以在zk上对某个节点的值注册一个监听器，一旦B系统处理完了就修改zk那个节点的值，根据监听通知机制A系统马上就可以收到通知，完美解决。</p>
 <h3 id="实现分布式锁"><a href="#实现分布式锁" class="headerlink" title="实现分布式锁"></a>实现分布式锁</h3><p>有两种实现：</p>
 <ol>
 <li>集群中所有机器都去竞争创建某个节点，创建成功的机器相当于获取了这个锁。</li>
 <li>所有机器都去某个父节点下创建子节点，序号最小的机器获取锁。</li>
 </ol>
+<p>详情可参考我的另一篇博客：<a href="https://lishaojie1993.gitee.io/2018/06/04/zk-lock" target="_blank" rel="noopener">基于zk实现分布式锁</a></p>
 <h3 id="实现分布式队列"><a href="#实现分布式队列" class="headerlink" title="实现分布式队列"></a>实现分布式队列</h3><ol>
 <li>同步队列：在指定目录下创建 watcher，当监控到子节点数目达到指定值后再开始使用，进行读取消费。</li>
 <li>FIFO队列：读取序列号最小的节点进行消费，例如实现生产者和消费者模型。<br>在此场景下，znode 节点值存储的可能就是消息本身。</li>
 </ol>
+<h3 id="实现HA高可用性"><a href="#实现HA高可用性" class="headerlink" title="实现HA高可用性"></a>实现HA高可用性</h3><p>高可用(High Availability)也是比较常见的，很多大数据系统都选择基于zk来开发高可用机制，就是一个重要进程一般都做主备两个，通过临时节点机制(创建节点的进程挂了节点会消失)，主进程挂掉后立马通过zk感知到切换到备用进程。</p>
 
             </div>
             <hr/>
@@ -976,26 +981,27 @@ cd zookeeper-3.4.12<span aria-hidden="true" class="line-numbers-rows"><span></sp
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2018/06/06/nginx/">
+                <a href="/2018/06/04/zk-lock/">
                     <div class="card-image">
                         
                         
-                        <img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/featureimages/25.jpg" class="responsive-img" alt="Nginx相关">
+                        <img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/featureimages/10.jpg" class="responsive-img" alt="基于zk实现分布式锁">
                         
-                        <span class="card-title">Nginx相关</span>
+                        <span class="card-title">基于zk实现分布式锁</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Nginx安装配置https://www.runoob.com/linux/nginx-install-setup.html
-正向代理：正向代理的对象是客户端    举例：访问Youtube挂VPN
-反向代理：反向代理的对象是服务器    
+                            分布式锁分布式锁的实现方式有很多种，zk是实现起来相对简单的。相比与redis分布式锁，zk有以下优势：
+
+redis分布式锁需要不断去尝试获取锁，比较耗性能。zk分布式锁获取不到锁注册个监听器即可。
+redis获取锁的客户端挂了，只能等待
                         
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2018-06-06
+                            <i class="far fa-clock fa-fw icon-date"></i>2018-06-04
                         </span>
                         <span class="publish-author">
                             
@@ -1016,8 +1022,8 @@ cd zookeeper-3.4.12<span aria-hidden="true" class="line-numbers-rows"><span></sp
                         <span class="chip bg-color">分布式</span>
                     </a>
                     
-                    <a href="/tags/nginx/">
-                        <span class="chip bg-color">nginx</span>
+                    <a href="/tags/zk分布式锁/">
+                        <span class="chip bg-color">zk分布式锁</span>
                     </a>
                     
                 </div>
@@ -1259,7 +1265,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">112.4k</span>&nbsp;字
+                class="white-color">114.9k</span>&nbsp;字
             
             
             

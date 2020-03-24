@@ -4,8 +4,11 @@
 
 <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="HashMap底层原理, 睡到自然醒">
-    <meta name="description" content="HashMap的底层原理HashMap是一个用于存储key-value键值对的集合，每一个键值对也叫做Entry。数组中的每一个Entry元素，又是一个链表的头节点。这些键值对（Entry）分散存储在一个数组当中，这个数组就是HashMap">
+    <meta name="keywords" content="基于zk实现分布式锁, 睡到自然醒">
+    <meta name="description" content="分布式锁分布式锁的实现方式有很多种，zk是实现起来相对简单的。相比与redis分布式锁，zk有以下优势：
+
+redis分布式锁需要不断去尝试获取锁，比较耗性能。zk分布式锁获取不到锁注册个监听器即可。
+redis获取锁的客户端挂了，只能等待">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -13,7 +16,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>HashMap底层原理 | 睡到自然醒</title>
+    <title>基于zk实现分布式锁 | 睡到自然醒</title>
     <link rel="icon" type="image/png" href="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/libs/awesome/css/all.css">
@@ -398,12 +401,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/featureimages/11.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/featureimages/10.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">HashMap底层原理</h1>
+                    <h1 class="description center-align post-title">基于zk实现分布式锁</h1>
                 </div>
             </div>
         </div>
@@ -520,12 +523,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/数据结构/">
-                                <span class="chip bg-color">数据结构</span>
+                            <a href="/tags/分布式/">
+                                <span class="chip bg-color">分布式</span>
                             </a>
                         
-                            <a href="/tags/HashMap/">
-                                <span class="chip bg-color">HashMap</span>
+                            <a href="/tags/zk分布式锁/">
+                                <span class="chip bg-color">zk分布式锁</span>
                             </a>
                         
                     </div>
@@ -536,8 +539,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/数据结构/" class="post-category">
-                                数据结构
+                            <a href="/categories/分布式/" class="post-category">
+                                分布式
                             </a>
                         
                     </div>
@@ -549,7 +552,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2019-04-18
+                    2018-06-04
                 </div>
                 
 
@@ -558,14 +561,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    997
+                    1.7k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    3 分
+                    5 分
                 </div>
                 
 
@@ -581,56 +584,68 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="HashMap的底层原理"><a href="#HashMap的底层原理" class="headerlink" title="HashMap的底层原理"></a>HashMap的底层原理</h2><p>HashMap是一个用于存储key-value键值对的集合，每一个键值对也叫做Entry。数组中的每一个Entry元素，又是一个链表的头节点。这些键值对（Entry）分散存储在一个数组当中，这个数组就是HashMap的主干。</p>
-<p>Hashmap不是线程安全的。在高并发环境下做插入操作，有可能出现环形链表。HashMap数组每一个元素的初始值都是Null，最常使用的两个方法是Put和Get。</p>
-<h3 id="Put方法的原理"><a href="#Put方法的原理" class="headerlink" title="Put方法的原理"></a>Put方法的原理</h3><p>比如调用 hashMap.put(“apple”, 0) ，插入一个Key为“apple”的元素。这时候我们需要利用一个哈希函数：<strong>index = Hash（“apple”）</strong>来确定Entry的插入位置（index），但是，因为HashMap的长度是有限的，当插入的Entry越来越多时，再完美的Hash函数也难免会出现index冲突的情况。<a id="more"></a></p>
-<p><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/006tNbRwgy1gayr9a1hu4j30ji06fq3g.jpg" alt></p>
-<p>这时我们可以通过<strong>链表</strong>来解决。需要注意的是，新来的Entry节点插入链表时，使用的是“头插法”，因为HashMap的发明者认为：<strong>后插入的Entry被查找的可能性更大</strong>。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/006tNbRwgy1gayr9i7blpj30ju06wjrw.jpg" alt></p>
-<h3 id="Get方法的原理"><a href="#Get方法的原理" class="headerlink" title="Get方法的原理"></a>Get方法的原理</h3><p>首先会把需要查询的key做一次Hash映射，得到对应的下标，由于刚才所说的Hash冲突，同一个位置有可能匹配到多个Entry，这时候就需要顺着对应链表的头节点，一个一个向下来查找。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/006tNbRwgy1gayreaylimj30jf07tt9n.jpg" alt></p>
-<h2 id="HashMap的特点"><a href="#HashMap的特点" class="headerlink" title="HashMap的特点"></a>HashMap的特点</h2><h3 id="HashMap的默认初始长度"><a href="#HashMap的默认初始长度" class="headerlink" title="HashMap的默认初始长度"></a>HashMap的默认初始长度</h3><p>HashMap的默认初始长度是16，并且每次自动扩展或是手动初始化时，长度必须是2的幂。</p>
-<h3 id="为什么这样设置？"><a href="#为什么这样设置？" class="headerlink" title="为什么这样设置？"></a>为什么这样设置？</h3><p>为了使Hash算法得到的index尽可能均匀分布。例如从Key映射到HashMap数组的对应位置时，会用到一个Hash函数：<strong>index = HashCode（Key） &amp; （Length - 1）</strong>，为了实现高效的Hash算法，采用位运算（与运算）</p>
-<h2 id="高并发下的HashMap"><a href="#高并发下的HashMap" class="headerlink" title="高并发下的HashMap"></a>高并发下的HashMap</h2><h3 id="Resize"><a href="#Resize" class="headerlink" title="Resize"></a>Resize</h3><p>HashMap的容量是有限的，当经过多次元素插入，使得HashMap达到一定饱和度时，key映射位置发生冲突的几率会逐渐提高。这时候，HashMap需要扩展它的长度，也就是进行<strong>Resize</strong>。</p>
-<h3 id="影响Resize的两个因素"><a href="#影响Resize的两个因素" class="headerlink" title="影响Resize的两个因素"></a>影响Resize的两个因素</h3><ol>
-<li><p>Capacity</p>
-<p>HashMap的当前长度。</p>
-</li>
-<li><p>LoadFactor</p>
-<p>HashMap负载因子，默认值为0.75f。</p>
-</li>
-</ol>
-<p>衡量HashMap是否需要进行Resize的条件如下：</p>
-<p><strong>HashMap.Size  &gt;= Capacity * LoadFactor</strong></p>
-<h3 id="Resize做了什么？"><a href="#Resize做了什么？" class="headerlink" title="Resize做了什么？"></a>Resize做了什么？</h3><ol>
-<li><p>扩容</p>
-<p>创建一个新的Entry空数组，长度是原数组的2倍。</p>
-</li>
-<li><p>Rehash</p>
-<p>遍历原Entry数组，把所有的Entry重新Hash到新数组。</p>
-</li>
-</ol>
-<p><strong>为什么要重新Hash呢？</strong></p>
-<p>因为长度扩大以后，Hash的规则也随之改变。（16=1111；32=11111）</p>
-<p><strong>ReHash的Java代码如下：</strong></p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">void</span> <span class="token function">transfer</span><span class="token punctuation">(</span>Entry<span class="token punctuation">[</span><span class="token punctuation">]</span> newTable<span class="token punctuation">,</span> <span class="token keyword">boolean</span> rehash<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword">int</span> newCapacity <span class="token operator">=</span> newTable<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
-    <span class="token keyword">for</span> <span class="token punctuation">(</span>Entry<span class="token operator">&lt;</span>K<span class="token punctuation">,</span>V<span class="token operator">></span> e <span class="token operator">:</span> table<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">while</span><span class="token punctuation">(</span>null <span class="token operator">!=</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            Entry<span class="token operator">&lt;</span>K<span class="token punctuation">,</span>V<span class="token operator">></span> next <span class="token operator">=</span> e<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
-            <span class="token keyword">if</span> <span class="token punctuation">(</span>rehash<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                e<span class="token punctuation">.</span>hash <span class="token operator">=</span> null <span class="token operator">==</span> e<span class="token punctuation">.</span>key <span class="token operator">?</span> <span class="token number">0</span> <span class="token operator">:</span> <span class="token function">hash</span><span class="token punctuation">(</span>e<span class="token punctuation">.</span>key<span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token punctuation">}</span>
-            <span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token function">indexFor</span><span class="token punctuation">(</span>e<span class="token punctuation">.</span>hash<span class="token punctuation">,</span> newCapacity<span class="token punctuation">)</span><span class="token punctuation">;</span>
-            e<span class="token punctuation">.</span>next <span class="token operator">=</span> newTable<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
-            newTable<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> e<span class="token punctuation">;</span>
-            e <span class="token operator">=</span> next<span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="为什么HashMap会出现死锁"><a href="#为什么HashMap会出现死锁" class="headerlink" title="为什么HashMap会出现死锁"></a>为什么HashMap会出现死锁</h3><p>在高并发情况下，如果HashMap正好达到临界点准备扩容，此时正好有两个线程在同时访问，在Rehash时链表可能会产生环形，当调用Get查找一个不存在的key，而这个key的Hash结果恰好位于环形链表处，这时程序将会进入死循环。</p>
-<h2 id="JDK1-8下的HashMap优化"><a href="#JDK1-8下的HashMap优化" class="headerlink" title="JDK1.8下的HashMap优化"></a>JDK1.8下的HashMap优化</h2><h3 id="引入红黑树"><a href="#引入红黑树" class="headerlink" title="引入红黑树"></a>引入红黑树</h3><p>我们知道，即使负载因子和Hash算法设计的再合理，也免不了会出现拉链过长的情况，一旦拉链过长则会严重影响HashMap的性能，所以JDK1.8版本引入了红黑树：当链表长度太长（默认超过8）时，链表就转为红黑树，利用红黑树快速增删改查的特点提高HashMap的性能。</p>
-<h3 id="Resize扩容优化"><a href="#Resize扩容优化" class="headerlink" title="Resize扩容优化"></a>Resize扩容优化</h3><p>我们在扩充HashMap的时候，不需要像JDK1.7的实现那样重新计算hash，只需要看看原来的hash值新增的那个bit是1还是0就好了，是0的话索引没变，是1的话索引变成“原索引+oldCap”。</p>
+                <h2 id="分布式锁"><a href="#分布式锁" class="headerlink" title="分布式锁"></a>分布式锁</h2><p>分布式锁的实现方式有很多种，zk是实现起来相对简单的。相比与redis分布式锁，zk有以下优势：</p>
+<ul>
+<li>redis分布式锁需要不断去尝试获取锁，比较耗性能。zk分布式锁获取不到锁注册个监听器即可。</li>
+<li>redis获取锁的客户端挂了，只能等待超时之后再释放锁，zk是基于临时节点，挂了znode就没了，自动释放。</li>
+</ul>
+<blockquote>
+<p>基于redis实现分布式锁可以参考我的另一篇博客：<a href="https://lishaojie1993.gitee.io/2019/10/22/redis/#toc-heading-50" target="_blank" rel="noopener">分布式缓存-Redis</a></p>
+</blockquote>
+<p>本篇我们详细介绍如何基于zk实现分布式锁。</p>
+<h3 id="独占锁"><a href="#独占锁" class="headerlink" title="独占锁"></a>独占锁</h3><p>独占锁又称排它锁，从字面意思上很容易理解他们的用途。即如果某个操作 O1 对访问资源 R1 的过程加锁，在操作 O1 结束对资源 R1 访问前，其他操作不允许访问资源 R1。我们先看张图：</p>
+<img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gd527kbsn8j30ma0c2jrs.jpg" alt="image-20200324154055904" style="zoom:50%;">
+
+<p>如上图，对于独占锁，我们可以将 lock 节点看做是资源 R1，操作 O1 访问资源 R1 看做创建 lock 节点，释放资源 R1 看做删除 lock 节点。这样我们就将独占锁的定义对应于具体的 zookeeper 节点结构，通过创建 lock 节点获取锁，删除节点释放锁。详细的过程如下：</p>
+<p>1、多个客户端竞争创建 lock 临时节点；</p>
+<p>2、其中某个客户端成功创建 lock 节点，其他客户端对 lock 节点设置 watcher；</p>
+<p>3、持有锁的客户端删除 lock 节点或该客户端崩溃，由 zookeeper 删除 lock 节点；</p>
+<p>4、其他客户端获得 lock 节点被删除的通知；</p>
+<p>5、重复上述4个步骤，直至无客户端在等待获取锁了。</p>
+<p><strong>独占锁的流程图如下：</strong></p>
+<img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gd52dt7lr5j30xq0mk77c.jpg" alt="image-20200324154713143" style="zoom: 50%;">
+
+<hr>
+<h3 id="读写锁"><a href="#读写锁" class="headerlink" title="读写锁"></a>读写锁</h3><p>说完独占锁的实现，下面来说说读写锁的实现。读写锁包含一个读锁和写锁，操作 O1 对资源 R1 加读锁，且获得了锁，其他操作可同时对资源 R1 设置读锁，进行共享读操作。</p>
+<p>如果操作 O1 对资源 R1 加写锁，且获得了锁，其他操作再对资源 R1 设置不同类型的锁都会被阻塞。总结来说，<strong>读锁具有共享性，而写锁具有排他性</strong>。那么在 zookeeper 中，我们可以用怎样的节点结构实现上面的操作呢？</p>
+<img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gd52hcudmsj30tc0i6myj.jpg" alt="image-20200324155037939" style="zoom:50%;">
+
+<p>在 zookeeper 中，由于读写锁和独占锁的节点结构不同，读写锁的客户端不用再去竞争创建 lock 节点。所以在一开始，所有的客户端都会创建自己的锁节点。如果不出意外，所有的锁节点都能被创建成功，此时锁节点结构如上图所示。之后，客户端从 zookeeper 端获取 /share_lock 下所有的子节点，并判断自己能否获取锁。如果客户端创建的是<strong>读锁</strong>节点，获取锁的条件（满足其中一个即可）</p>
+<blockquote>
+<p>1、自己创建的节点序号排在所有其他子节点前面；</p>
+<p>2、自己创建的节点前面无写锁节点。</p>
+</blockquote>
+<p>如果客户端创建的是写锁节点，由于写锁具有排他性。所以获取锁的条件要简单一些：</p>
+<blockquote>
+<p>只需确定自己创建的锁节点是否排在其他子节点前面即可。</p>
+</blockquote>
+<p>不同于独占锁，读写锁的实现稍微复杂一些。读写锁有两种实现方式，各有异同，接下来就来说说这两种实现方式。</p>
+<h4 id="读写锁的第一种实现"><a href="#读写锁的第一种实现" class="headerlink" title="读写锁的第一种实现"></a>读写锁的第一种实现</h4><p>第一种实现是对 /sharelock 节点设置 watcher，当 /sharelock 下的子节点被删除时，未获取锁的客户端收到 /share_lock 子节点变动的通知。在收到通知后，客户端重新判断自己创建的子节点是否可以获取锁，如果失败，再次等待通知。详细流程如下：</p>
+<p>1、所有客户端创建自己的锁节点；</p>
+<p>2、从 zookeeper 端获取 /sharelock 下所有的子节点，并对 /sharelock 节点设置 watcher；</p>
+<p>3、判断自己创建的锁节点是否可以获取锁，如果可以，持有锁。否则继续等待；</p>
+<p>4、持有锁的客户端删除自己的锁节点，其他客户端收到 /share_lock 子节点变动的通知；</p>
+<p>5、重复步骤2、3、4，直至无客户端在等待获取锁了。</p>
+<p><strong>第一种读写锁的流程图如下：</strong></p>
+<img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gd52movc4wj30ry0sqwhy.jpg" alt="image-20200324155545571" style="zoom:50%;">
+
+<p>上面获取读写锁流程并不复杂，但却存在性能问题。上图所示锁节点结构为例，第一个锁节点 host1-W-0000000001 被移除后，zookeeper 会将 /share_lock 子节点变动的通知分发给所有的客户端。</p>
+<p>但实际上，该子节点变动通知除了能影响 host2-R-0000000002 节点对应的客户端外，分发给其他客户端则是在做无用功，因为其他客户端即使获取了通知也无法获取锁。所以这里需要做一些优化，优化措施是让客户端只在自己关心的节点被删除时，再去获取锁。</p>
+<h4 id="读写锁的第二种实现"><a href="#读写锁的第二种实现" class="headerlink" title="读写锁的第二种实现"></a>读写锁的第二种实现</h4><p>在了解读写锁第一种实现的弊端后，我们针对这一实现进行优化。这里客户端不再对 /share_lock 节点进行监视，而只对自己关心的节点进行监视。比如host2-R-0000000002 对应的客户端 C2 只需监视 host1-W-0000000001 节点是否被删除，而 host3-W-0000000003 对应的客户端 C3 只需监视 host2-R-0000000002 节点是否被删除即可。</p>
+<p>这里总结一下，不同客户端关心的锁节点是不同的。如果客户端创建的是读锁节点，那么客户端只需找出比读锁节点序号小的最后一个的写锁节点，并设置 watcher 即可。而如果是写锁节点，则更简单，客户端仅需对该节点的上一个节点设置 watcher 即可。详细的流程如下：</p>
+<p>1、所有客户端创建自己的锁节点；</p>
+<p>2、从 zookeeper 端获取 /share_lock 下所有的子节点；</p>
+<p>3、判断自己创建的锁节点是否可以获取锁，如果可以，持有锁。否则对自己关心的锁节点设置 watcher；</p>
+<p>4、持有锁的客户端删除自己的锁节点，某个客户端收到该节点被删除的通知，并获取锁；</p>
+<p>5、重复步骤4，直至无客户端在等待获取锁了。</p>
+<p><strong>第二种读写锁的流程图如下：</strong></p>
+<img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gd52p5t1alj30qq0skdjb.jpg" alt="image-20200324155807757" style="zoom:50%;">
+
+<hr>
+<p>参考：</p>
+<p>《ZooKeeper 分布式过程协同技术详解》 </p>
+<p>《从Paxos到Zookeeper 分布式一致性原理与实践》</p>
+<p>《Java技术栈》</p>
 
             </div>
             <hr/>
@@ -656,7 +671,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://www.lishaojie.top/2019/04/18/HashMap/">https://www.lishaojie.top/2019/04/18/HashMap/</a>
+                    <a href="https://www.lishaojie.top/2018/06/04/zk-lock/">https://www.lishaojie.top/2018/06/04/zk-lock/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -694,12 +709,12 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/数据结构/">
-                                    <span class="chip bg-color">数据结构</span>
+                                <a href="/tags/分布式/">
+                                    <span class="chip bg-color">分布式</span>
                                 </a>
                             
-                                <a href="/tags/HashMap/">
-                                    <span class="chip bg-color">HashMap</span>
+                                <a href="/tags/zk分布式锁/">
+                                    <span class="chip bg-color">zk分布式锁</span>
                                 </a>
                             
                         </div>
@@ -873,7 +888,7 @@
         repo: 'lishaojie1993.github.io',
         owner: 'lishaojie1993',
         admin: "lishaojie1993",
-        id: '2019-04-18T21-54-59',
+        id: '2018-06-04T16-12-39',
         distractionFreeMode: false  // Facebook-like distraction free mode
     });
 
@@ -898,31 +913,35 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2019/04/26/film/">
+                <a href="/2018/06/06/nginx/">
                     <div class="card-image">
                         
                         
-                        <img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/featureimages/22.jpg" class="responsive-img" alt="影视作品推荐">
+                        <img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/featureimages/25.jpg" class="responsive-img" alt="Nginx相关">
                         
-                        <span class="card-title">影视作品推荐</span>
+                        <span class="card-title">Nginx相关</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            电影推荐《魔戒》三部曲在线观看：指环王1：魔戒再现｜指环王2：双塔奇兵｜指环王3：王者无敌
-百度网盘：魔戒1～3加长版——提取码：kq44
-剧情简介：年轻的哈比族人佛罗多巴金从叔叔巴伯那里得到了一只魔戒。佛罗多发现这只戒指的制造者是黑暗魔君
+                            Nginx安装配置https://www.runoob.com/linux/nginx-install-setup.html
+正向代理：正向代理的对象是客户端    举例：访问Youtube挂VPN
+反向代理：反向代理的对象是服务器    
                         
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2019-04-26
+                            <i class="far fa-clock fa-fw icon-date"></i>2018-06-06
                         </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            lishaojie-C
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/分布式/" class="post-category">
+                                    分布式
+                                </a>
+                            
                             
                         </span>
                     </div>
@@ -930,8 +949,12 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/film/">
-                        <span class="chip bg-color">film</span>
+                    <a href="/tags/分布式/">
+                        <span class="chip bg-color">分布式</span>
+                    </a>
+                    
+                    <a href="/tags/nginx/">
+                        <span class="chip bg-color">nginx</span>
                     </a>
                     
                 </div>
@@ -945,31 +968,33 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2019/03/19/ConcurrentHashMap/">
+                <a href="/2018/06/03/zookeeper/">
                     <div class="card-image">
                         
                         
-                        <img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/featureimages/26.jpg" class="responsive-img" alt="ConcurrentHashMap底层实现">
+                        <img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/featureimages/15.jpg" class="responsive-img" alt="分布式协调框架-zk">
                         
-                        <span class="card-title">ConcurrentHashMap底层实现</span>
+                        <span class="card-title">分布式协调框架-zk</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            SegmentSegment本身就相当于一个HashMap对象，同HashMap一样，Segment包含一个HashEntry数组，数组中的每一个HashEntry既是一个键值对，也是一个链表的头节点。像这样的Segment对象，在Conc
+                            zookeeper特点zookeeper是什么zookeeper 是一个开源的分布式协调服务，是分布式数据一致性的解决方案。
+
+Zookeeper提供一个多层级的节点命名空间（节点称为znode）。与文件系统不同的是，这些节点都可以设置关联
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2019-03-19
+                                <i class="far fa-clock fa-fw icon-date"></i>2018-06-03
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/数据结构/" class="post-category">
-                                    数据结构
+                            <a href="/categories/分布式/" class="post-category">
+                                    分布式
                                 </a>
                             
                             
@@ -979,16 +1004,12 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/数据结构/">
-                        <span class="chip bg-color">数据结构</span>
+                    <a href="/tags/分布式/">
+                        <span class="chip bg-color">分布式</span>
                     </a>
                     
-                    <a href="/tags/高并发/">
-                        <span class="chip bg-color">高并发</span>
-                    </a>
-                    
-                    <a href="/tags/ConcurrentHashMap/">
-                        <span class="chip bg-color">ConcurrentHashMap</span>
+                    <a href="/tags/zookeeper/">
+                        <span class="chip bg-color">zookeeper</span>
                     </a>
                     
                 </div>

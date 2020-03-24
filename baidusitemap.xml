@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://www.lishaojie.top/2018/06/04/zk-lock/</loc>
+    <lastmod>2020-03-24</lastmod>
+  </url>  <url>
+    <loc>https://www.lishaojie.top/2018/06/03/zookeeper/</loc>
+    <lastmod>2020-03-24</lastmod>
+  </url>  <url>
+    <loc>https://www.lishaojie.top/2019/10/22/redis/</loc>
+    <lastmod>2020-03-24</lastmod>
+  </url>  <url>
     <loc>https://www.lishaojie.top/2020/01/17/spring/</loc>
     <lastmod>2020-03-22</lastmod>
   </url>  <url>
@@ -49,13 +58,7 @@
     <loc>https://www.lishaojie.top/2019/05/13/book/</loc>
     <lastmod>2020-03-11</lastmod>
   </url>  <url>
-    <loc>https://www.lishaojie.top/2018/06/03/zookeeper/</loc>
-    <lastmod>2020-03-11</lastmod>
-  </url>  <url>
     <loc>https://www.lishaojie.top/2019/03/15/volatile/</loc>
-    <lastmod>2020-03-11</lastmod>
-  </url>  <url>
-    <loc>https://www.lishaojie.top/2019/10/22/redis/</loc>
     <lastmod>2020-03-11</lastmod>
   </url>  <url>
     <loc>https://www.lishaojie.top/2018/06/06/nginx/</loc>

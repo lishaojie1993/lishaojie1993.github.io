@@ -26,9 +26,9 @@
 
     <script src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/libs/jquery/jquery.min.js"></script>
     
+<link rel="alternate" href="/atom.xml" title="睡到自然醒" type="application/atom+xml">
 <link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
-<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"><link rel="alternate" href="/atom.xml" title="睡到自然醒" type="application/atom+xml">
-</head>
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
 
 
 <body>
@@ -558,14 +558,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    8.5k
+                    9.3k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    30 分
+                    32 分
                 </div>
                 
 
@@ -622,7 +622,6 @@
 <p>zrank board tom：返回3，意思是tom排名第3</p>
 </li>
 </ol>
-<hr>
 <h2 id="redis的过期策略有哪些"><a href="#redis的过期策略有哪些" class="headerlink" title="redis的过期策略有哪些"></a>redis的过期策略有哪些</h2><p><strong>定期删除+惰性删除</strong></p>
 <p>所谓<strong>定期删除</strong>，指的是redis默认每隔100ms就随机抽取一些过期时间的key，检测是否过期，如果过期就删除。注意：这里redis不是遍历所有过期的key（CPU负载太高），而是随机抽取。</p>
 <p>所谓<strong>惰性删除</strong>，指的是定期删除可能会导致很多过期的key到了时间也没被删除，所以在获取某个key的时候，redis会查一下这个key是否过期，如果过期了此时就会删除，不会返回结果。</p>
@@ -635,7 +634,6 @@
 <li>volatile-ttl：从<code>已设置过期时间的</code>数据集中挑选<code>将要过期的</code>数据淘汰。</li>
 <li>volatile-random：从已设置过期时间的数据集中任意选择数据淘汰。</li>
 </ol>
-<hr>
 <h2 id="怎么保证redis的高并发-amp-高可用？"><a href="#怎么保证redis的高并发-amp-高可用？" class="headerlink" title="怎么保证redis的高并发&amp;高可用？"></a>怎么保证redis的高并发&amp;高可用？</h2><p>redis高并发：采用<strong>主从架构</strong>，一主多从，一般来说，很多项目其实就足够了，单主用来写入数据，单机几万QPS，多从用来查询数据，多个从实例可以提供每秒上10万的QPS。如果redis高并发的同时还需要容纳大量的数据：几十G甚至几百G的数据，这样的话就需要采用redis集群了，还能提供每秒几十万的读写并发。</p>
 <p>redis高可用：如果做主从架构部署，其实加上<strong>哨兵</strong>就可以了，任何一个实例宕机，都会自动切换。</p>
 <h3 id="redis的主从复制"><a href="#redis的主从复制" class="headerlink" title="redis的主从复制"></a>redis的主从复制</h3><p>主从架构 -&gt; 读写分离 -&gt; 水平扩容支撑10+的<strong>读QPS</strong></p>
@@ -754,7 +752,6 @@
 <h4 id="configuration-epoch"><a href="#configuration-epoch" class="headerlink" title="configuration epoch"></a>configuration epoch</h4><p>哨兵进行切换之前，执行切换的那个哨兵从要切换到新的master那里得到一个configuration epoch，这就是一个version号，每次切换的version号都必须是唯一的。如果第一次master切换失败了，那么其他哨兵会等待failover-timeout时间，然后继续执行切换，此时会重新获得一个新的configuration epoch，作为新的version号。</p>
 <h4 id="configuration传播"><a href="#configuration传播" class="headerlink" title="configuration传播"></a>configuration传播</h4><p>哨兵完成切换之后，会在自己本地更新生成最新的master配置，然后同步给其他哨兵，通过pub/sub消息机制。</p>
 <p>这里version号就很重要了，因为各种消息都是通过一个channel去发布和监听的，所以一个哨兵完成一次新的切换之后，新的master配置是跟着新的version号的，其他的哨兵都是根据版本号的大小来更新自己的master配置。</p>
-<hr>
 <h2 id="异步复制和集群脑裂导致数据丢失"><a href="#异步复制和集群脑裂导致数据丢失" class="headerlink" title="异步复制和集群脑裂导致数据丢失"></a>异步复制和集群脑裂导致数据丢失</h2><p>场景一：异步复制导致的数据丢失</p>
 <p>client往redis master写入数据，master还没来得及复制给slave，此时，master宕机了，哨兵检测到master宕机后，从slave中投票选举出新的master，但是没来得及复制的数据就丢失了。</p>
 <p>场景二：集群脑裂导致的数据丢失</p>
@@ -766,7 +763,6 @@
 </ul>
 <p>配置说明：要求至少有一个slave，数据复制和同步的延迟不能超过10秒。也就是说一旦所有的slave数据的复制和同步都超过了10秒，这时master就不会再接收写请求了，可以把数据落差保持在可控范围内，减少数据损失。</p>
 <p>上述配置也适合脑裂，master发生脑裂以后，所有slave都不向旧的master发送数据，10秒之后旧master停止接收写请求，同样也可以减少脑裂带来的数据丢失。</p>
-<hr>
 <h2 id="分布式集群-redis-cluster"><a href="#分布式集群-redis-cluster" class="headerlink" title="分布式集群-redis cluster"></a>分布式集群-redis cluster</h2><ol>
 <li>自动将数据进行分片，每个master上放一部分数据。</li>
 <li>提供内置的高可用支持，部分master不可用时，还是可以继续工作的。</li>
@@ -812,7 +808,6 @@
 </li>
 </ol>
 <p>综上所述：redis cluster功能强大，直接集成了replication和sentinal的功能。</p>
-<hr>
 <h2 id="缓存雪崩、缓存穿透、缓存击穿"><a href="#缓存雪崩、缓存穿透、缓存击穿" class="headerlink" title="缓存雪崩、缓存穿透、缓存击穿"></a>缓存雪崩、缓存穿透、缓存击穿</h2><h3 id="缓存雪崩"><a href="#缓存雪崩" class="headerlink" title="缓存雪崩"></a>缓存雪崩</h3><p>定义：指在某一时间段，缓存集体失效。</p>
 <h4 id="造成缓存雪崩的原因"><a href="#造成缓存雪崩的原因" class="headerlink" title="造成缓存雪崩的原因"></a>造成缓存雪崩的原因</h4><ol>
 <li>比如双11零点抢购，大量商品被集中放入到缓存，假设缓存时效为一小时，那么到了凌晨1点的时候缓存就集体失效了，大量的请求会打在数据库上，对数据库来说，就会产生周期性的压力波峰，可能造成缓存雪崩。</li>
@@ -828,7 +823,6 @@
 <hr>
 <h3 id="缓存击穿"><a href="#缓存击穿" class="headerlink" title="缓存击穿"></a>缓存击穿</h3><p>定义：是指一个key非常热点，在不停的扛着大并发，大并发集中对这一个点进行访问，当这个key在失效的瞬间，持续的大并发就穿破缓存，直接请求数据库，就像在一个屏障上凿开了一个洞。</p>
 <h3 id="如何预防缓存击穿？"><a href="#如何预防缓存击穿？" class="headerlink" title="如何预防缓存击穿？"></a>如何预防缓存击穿？</h3><p>这种情况遇到的比较少，真有这种爆款key，设置成永不过期就可以了。</p>
-<hr>
 <h2 id="如何保证缓存与数据库的双写一致性"><a href="#如何保证缓存与数据库的双写一致性" class="headerlink" title="如何保证缓存与数据库的双写一致性"></a>如何保证缓存与数据库的双写一致性</h2><h3 id="先删缓存，再更新数据库"><a href="#先删缓存，再更新数据库" class="headerlink" title="先删缓存，再更新数据库"></a>先删缓存，再更新数据库</h3><p>最经典的缓存+数据库读写的模式：暂存模式（cache aside pattern）</p>
 <ol>
 <li>读的时候先读缓存，缓存没有的话就读数据库，然后把数据库的数据放到缓存，同时返回相应。</li>
@@ -857,9 +851,56 @@
 <p><strong>热点商品的路由问题</strong></p>
 <p>万一某个商品的读写请求特别高，全部打到相同的机器的相同队列里去了，可能造成某台机器的压力过大。</p>
 <p>因为只有在商品数据更新的时候才会清空缓存，然后才会导致读写并发，所以更新频率不是太高的话，这个问题影响不是很大，不过的缺可能某些机器的负载高一些。</p>
-<hr>
-<h2 id="如何保证redis并发竞争的数据一致性"><a href="#如何保证redis并发竞争的数据一致性" class="headerlink" title="如何保证redis并发竞争的数据一致性"></a>如何保证redis并发竞争的数据一致性</h2><p>客户端角度：为保证每个客户端间正常有序与Redis进行通信，对连接进行池化，同时对客户端读写Redis操作采用内部锁synchronized。</p>
-<p>服务器角度：采用分布式锁，确保同一时刻只能有一个系统实例在操作某个key，获得分布式锁以后，每次要写之前，先判断当前这个value的时间戳是否比缓存中的时间戳更新，如果更新，可以写入；否则，就不能用旧数据覆盖新数据。</p>
+<h2 id="如何保证redis并发竞争的数据一致性"><a href="#如何保证redis并发竞争的数据一致性" class="headerlink" title="如何保证redis并发竞争的数据一致性"></a>如何保证redis并发竞争的数据一致性</h2><ul>
+<li><p>客户端角度：为保证每个客户端间正常有序与Redis进行通信，对连接进行池化，同时对客户端读写Redis操作采用内部锁synchronized。</p>
+</li>
+<li><p>服务器角度：采用分布式锁，确保同一时刻只能有一个系统实例在操作某个key，获得分布式锁以后，每次要写之前，先判断当前这个value的时间戳是否比缓存中的时间戳更新，如果更新，可以写入；否则，就不能用旧数据覆盖新数据。</p>
+</li>
+</ul>
+<h2 id="基于Redis实现分布式锁"><a href="#基于Redis实现分布式锁" class="headerlink" title="基于Redis实现分布式锁"></a>基于Redis实现分布式锁</h2><h3 id="要点"><a href="#要点" class="headerlink" title="要点"></a>要点</h3><ul>
+<li><strong>互斥性</strong>：在任意时刻，只有一个客户端能持有锁。</li>
+<li><strong>不能死锁</strong>：可能会发生客户端在持有锁的期间崩溃而没有主动解锁，所以需要设置过期时间。</li>
+<li><strong>容错性</strong>：只要大部分的Redis节点正常运行，客户端就可以加锁和解锁。</li>
+</ul>
+<h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><p>可以直接通过 <code>set key value px milliseconds nx</code> 命令实现加锁， 通过Lua脚本实现解锁。</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">//获取锁（unique_value可以是UUID等）PX毫秒｜EX秒</span>
+SET resource_name unique_value NX PX <span class="token number">30000</span>
+
+<span class="token comment" spellcheck="true">//释放锁（lua脚本中，一定要比较value，防止误解锁）</span>
+<span class="token keyword">if</span> redis<span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span><span class="token string">"get"</span><span class="token punctuation">,</span>KEYS<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">==</span> ARGV<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> then
+    <span class="token keyword">return</span> redis<span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span><span class="token string">"del"</span><span class="token punctuation">,</span>KEYS<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token keyword">else</span>
+    <span class="token keyword">return</span> <span class="token number">0</span>
+end<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<blockquote>
+<p>代码解释</p>
+<ul>
+<li>set 命令要用 <code>set key value px milliseconds nx</code>，替代 <code>setnx + expire</code> 需要分两次执行命令的方式，保证了原子性；</li>
+<li>value 要具有唯一性，可以使用<code>UUID.randomUUID().toString()</code>方法生成，用来标识这把锁是属于哪个请求加的，在解锁的时候就可以有依据；</li>
+<li>释放锁时要验证 value 值，防止误解锁；</li>
+<li>通过 Lua 脚本来避免 Check And Set 模型的并发问题，因为在释放锁的时候因为涉及到多个Redis操作 （利用了eval命令执行Lua脚本的原子性）；</li>
+</ul>
+</blockquote>
+<h3 id="图解"><a href="#图解" class="headerlink" title="图解"></a>图解</h3><p><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/0082zybply1gbrd45hm50j31gy0lekjl.jpg" alt></p>
+<h3 id="加锁代码分析"><a href="#加锁代码分析" class="headerlink" title="加锁代码分析"></a>加锁代码分析</h3><p>首先，set加入了NX参数，可以保证如果已有key存在，则函数不会调用成功，也就是只有一个客户端能持有锁，满足互斥性。其次，由于我们对锁设置了过期时间，即使锁的持有者后续发生崩溃而没有解锁，锁也会因为到了过期时间而自动解锁（即key被删除），不会发生死锁。最后，因为我们将value赋值为requestId，用来标识这把锁是属于哪个请求加的，那么在客户端在解锁的时候就可以进行校验是否是同一个客户端。</p>
+<h3 id="解锁代码分析"><a href="#解锁代码分析" class="headerlink" title="解锁代码分析"></a>解锁代码分析</h3><p>将Lua代码传到jedis.eval()方法里，并使参数KEYS[1]赋值为lockKey，ARGV[1]赋值为requestId。在执行的时候，首先会获取锁对应的value值，检查是否与requestId相等，如果相等则解锁（删除key）。</p>
+<h3 id="存在的风险"><a href="#存在的风险" class="headerlink" title="存在的风险"></a>存在的风险</h3><ol>
+<li>基于单点redis存在单点故障。</li>
+<li>基于主从架构，如果master挂了，key还没同步到从节点，此时主从切换别人就会拿到锁。</li>
+<li>基于redis cluster架构的分布式锁方案-RedLock算法，是redis官方支持的分布式锁算法。</li>
+</ol>
+<p>详细可查看：</p>
+<blockquote>
+<p><a href="https://redis.io/topics/distlock" target="_blank" rel="noopener">https://redis.io/topics/distlock</a></p>
+</blockquote>
+<h2 id="分布式锁的对比"><a href="#分布式锁的对比" class="headerlink" title="分布式锁的对比"></a>分布式锁的对比</h2><ol>
+<li>redis分布式锁需要不断去尝试获取锁，比较耗性能。zk分布式锁获取不到锁注册个监听器即可。</li>
+<li>redis获取锁的客户端挂了，只能等待超时之后再释放锁，zk是基于临时节点，挂了znode就没了，自动释放。</li>
+<li>综上所述，推荐基于zk实现分布式锁，相对于redis更牢靠，且简单易用。</li>
+</ol>
+<blockquote>
+<p>想获取更多关于zookeeper的知识可以访问：<a href="https://lishaojie1993.gitee.io/2018/06/03/zookeeper" target="_blank" rel="noopener">https://lishaojie1993.gitee.io/2018/06/03/zookeeper</a></p>
+</blockquote>
 
             </div>
             <hr/>
@@ -1409,7 +1450,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">112.4k</span>&nbsp;字
+                class="white-color">114.9k</span>&nbsp;字
             
             
             
