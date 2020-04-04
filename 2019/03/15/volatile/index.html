@@ -564,14 +564,14 @@ volatile保证了变量在线程之间的可见性。可见性的保">
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.9k
+                    1.8k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    7 分
+                    6 分
                 </div>
                 
 
@@ -609,11 +609,10 @@ volatile保证了变量在线程之间的可见性。可见性的保">
 <h3 id="主内存（Main-Memory）"><a href="#主内存（Main-Memory）" class="headerlink" title="主内存（Main Memory）"></a>主内存（Main Memory）</h3><p>主内存可以简单理解为计算机当中的内存，但又不完全等同。主内存被所有的线程所共享，对于一个共享变量（比如静态变量，或是堆内存中的实例）来说，主内存当中存储了它的“本尊”。</p>
 <h3 id="工作内存（Working-Memory）"><a href="#工作内存（Working-Memory）" class="headerlink" title="工作内存（Working Memory）"></a>工作内存（Working Memory）</h3><p>工作内存可以简单理解为计算机当中的CPU高速缓存，但又不完全等同。每一个线程拥有自己的工作内存，对于一个共享变量来说，工作内存当中存储了它的“副本”。</p>
 <h3 id="为什么线程不直接操作主内存？"><a href="#为什么线程不直接操作主内存？" class="headerlink" title="为什么线程不直接操作主内存？"></a>为什么线程不直接操作主内存？</h3><p>直接操作主内存太慢了，工作内存类似于高速缓存，访问速度更快。</p>
-<h2 id="volatile的出现"><a href="#volatile的出现" class="headerlink" title="volatile的出现"></a>volatile的出现</h2><p>多线程的情况下，由于工作内存所更新的变量不会立即同步到主内存，为了防止产生错误的结果，可以使用同步锁来保证线程安全，但是对程序的性能影响太大，所以产生了volatile。</p>
-<h3 id="volatile的可见性"><a href="#volatile的可见性" class="headerlink" title="volatile的可见性"></a>volatile的可见性</h3><p>当一个线程修改了变量的值，新的值会立刻同步到主内存当中。而其他线程读取这个变量的时候，也会从主内存中拉取最新的变量值。为什么volatile关键字可以有这样的特性？这得益于java语言的<strong>先行发生原则</strong>（happens-before）。</p>
-<h4 id="happens-before"><a href="#happens-before" class="headerlink" title="happens-before"></a>happens-before</h4><p>在计算机科学中，先行发生原则是两个事件的结果之间的关系，如果一个事件发生在另一个事件之前，结果必须反映，即使这些事件实际上是乱序执行的（通常是优化程序流程）。</p>
+<h2 id="volatile的可见性"><a href="#volatile的可见性" class="headerlink" title="volatile的可见性"></a>volatile的可见性</h2><p>当一个线程修改了变量的值，新的值会立刻同步到主内存当中。而其他线程读取这个变量的时候，也会从主内存中拉取最新的变量值。为什么volatile关键字可以有这样的特性？这得益于java语言的<strong>先行发生原则</strong>（happens-before）。</p>
+<h3 id="happens-before"><a href="#happens-before" class="headerlink" title="happens-before"></a>happens-before</h3><p>在计算机科学中，先行发生原则是两个事件的结果之间的关系，如果一个事件发生在另一个事件之前，结果必须反映，即使这些事件实际上是乱序执行的（通常是优化程序流程）。</p>
 <p>这里所谓的事件，实际上就是各种指令操作，比如读操作、写操作、初始化操作、锁操作等等。先行发生原则作用于很多场景下，包括同步锁、线程启动、线程终止、volatile。</p>
-<h4 id="可见性demo"><a href="#可见性demo" class="headerlink" title="可见性demo"></a>可见性demo</h4><pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">class</span> <span class="token class-name">MyData</span> <span class="token punctuation">{</span>
+<h3 id="可见性demo"><a href="#可见性demo" class="headerlink" title="可见性demo"></a>可见性demo</h3><pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">class</span> <span class="token class-name">MyData</span> <span class="token punctuation">{</span>
     <span class="token keyword">volatile</span> <span class="token keyword">int</span> count <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
     <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">addTo60</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
         <span class="token keyword">this</span><span class="token punctuation">.</span>count <span class="token operator">=</span> <span class="token number">60</span><span class="token punctuation">;</span>
@@ -638,7 +637,7 @@ volatile保证了变量在线程之间的可见性。可见性的保">
         System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>Thread<span class="token punctuation">.</span><span class="token function">currentThread</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">+</span><span class="token string">" come in "</span><span class="token operator">+</span>myData<span class="token punctuation">.</span>count<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h4 id="不保证原子性demo"><a href="#不保证原子性demo" class="headerlink" title="不保证原子性demo"></a>不保证原子性demo</h4><pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">VolatileTest</span><span class="token punctuation">{</span>
+<h3 id="不保证原子性demo"><a href="#不保证原子性demo" class="headerlink" title="不保证原子性demo"></a>不保证原子性demo</h3><pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">VolatileTest</span><span class="token punctuation">{</span>
   <span class="token keyword">public</span> <span class="token keyword">volatile</span> <span class="token keyword">static</span> <span class="token keyword">int</span> count <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
   <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span><span class="token punctuation">{</span>
     <span class="token comment" spellcheck="true">//开启10个线程</span>
@@ -667,7 +666,7 @@ volatile保证了变量在线程之间的可见性。可见性的保">
     System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"count="</span><span class="token operator">+</span>count<span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span><span class="token comment" spellcheck="true">//例子中的实际值要小于1000.</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h4 id="volatile的适用范围"><a href="#volatile的适用范围" class="headerlink" title="volatile的适用范围"></a>volatile的适用范围</h4><ol start="2">
+<h3 id="volatile的适用范围"><a href="#volatile的适用范围" class="headerlink" title="volatile的适用范围"></a>volatile的适用范围</h3><ol start="2">
 <li><p><strong>运行结果并不依赖变量的当前值，或者能够确保只有单一的线程修改变量的值</strong>。</p>
 </li>
 <li><p><strong>变量不需要与其他的状态变量共同参与不变约束</strong>。</p>
@@ -683,11 +682,10 @@ end<span class="token operator">+=</span><span class="token number">3</span><spa
 <p>这种情况下，一旦在线程A的循环中执行了线程B，start有可能先更新成6，造成了一瞬间 start == end，从而跳出while循环的可能性。</p>
 </li>
 </ol>
-<hr>
-<h4 id="什么是指令重排？"><a href="#什么是指令重排？" class="headerlink" title="什么是指令重排？"></a>什么是指令重排？</h4><p>指令重排是指JVM在编译Java代码的时候，或者CPU在执行JVM字节码的时候，对现有的指令顺序进行重新排序。</p>
-<h4 id="指令重排的目的"><a href="#指令重排的目的" class="headerlink" title="指令重排的目的"></a>指令重排的目的</h4><p>为了在不改变程序执行结果的前提下，优化程序的运行效率。需要注意的是，这里所说的不改变执行结果，指的是不改变单线程下的程序执行结果。</p>
-<h3 id="volatile的内存屏障"><a href="#volatile的内存屏障" class="headerlink" title="volatile的内存屏障"></a>volatile的内存屏障</h3><h4 id="什么是内存屏障？"><a href="#什么是内存屏障？" class="headerlink" title="什么是内存屏障？"></a>什么是内存屏障？</h4><p>内存屏障也称为内存栅栏或栅栏指令，是一种屏障指令，它使CPU或编译器对屏障指令之前和之后发出的内存操作执行一个排序约束。 这通常意味着在屏障之前发布的操作被保证在屏障之后发布的操作之前执行。</p>
-<h4 id="内存屏障的-4-种类型"><a href="#内存屏障的-4-种类型" class="headerlink" title="内存屏障的 4 种类型"></a>内存屏障的 4 种类型</h4><p><strong>LoadLoad屏障</strong>：</p>
+<h2 id="什么是指令重排？"><a href="#什么是指令重排？" class="headerlink" title="什么是指令重排？"></a>什么是指令重排？</h2><p>指令重排是指JVM在编译Java代码的时候，或者CPU在执行JVM字节码的时候，对现有的指令顺序进行重新排序。</p>
+<h3 id="指令重排的目的"><a href="#指令重排的目的" class="headerlink" title="指令重排的目的"></a>指令重排的目的</h3><p>为了在不改变程序执行结果的前提下，优化程序的运行效率。需要注意的是，这里所说的不改变执行结果，指的是不改变单线程下的程序执行结果。</p>
+<h2 id="volatile的内存屏障"><a href="#volatile的内存屏障" class="headerlink" title="volatile的内存屏障"></a>volatile的内存屏障</h2><h3 id="什么是内存屏障？"><a href="#什么是内存屏障？" class="headerlink" title="什么是内存屏障？"></a>什么是内存屏障？</h3><p>内存屏障也称为内存栅栏或栅栏指令，是一种屏障指令，它使CPU或编译器对屏障指令之前和之后发出的内存操作执行一个排序约束。 这通常意味着在屏障之前发布的操作被保证在屏障之后发布的操作之前执行。</p>
+<h3 id="内存屏障的-4-种类型"><a href="#内存屏障的-4-种类型" class="headerlink" title="内存屏障的 4 种类型"></a>内存屏障的 4 种类型</h3><p><strong>LoadLoad屏障</strong>：</p>
 <p>抽象场景：Load1; LoadLoad; Load2</p>
 <p>Load1 和 Load2 代表两条读取指令。在Load2要读取的数据被访问前，保证Load1要读取的数据被读取完毕。</p>
 <p><strong>StoreStore屏障：</strong></p>
@@ -699,13 +697,13 @@ end<span class="token operator">+=</span><span class="token number">3</span><spa
 <p><strong>StoreLoad屏障：</strong></p>
 <p>抽象场景：Store1; StoreLoad; Load2</p>
 <p>在Load2读取操作执行前，保证Store1的写入对所有处理器可见。StoreLoad屏障的开销是四种屏障中最大的。</p>
-<h4 id="volatile如何防止指令重排"><a href="#volatile如何防止指令重排" class="headerlink" title="volatile如何防止指令重排"></a>volatile如何防止指令重排</h4><p>在一个变量被volatile修饰后，JVM会为我们做两件事：</p>
+<h3 id="volatile如何防止指令重排"><a href="#volatile如何防止指令重排" class="headerlink" title="volatile如何防止指令重排"></a>volatile如何防止指令重排</h3><p>在一个变量被volatile修饰后，JVM会为我们做两件事：</p>
 <ol>
 <li>在每个volatile写操作前插入<strong>StoreStore</strong>屏障，在写操作后插入<strong>StoreLoad</strong>屏障。</li>
 <li>在每个volatile读操作前插入<strong>LoadLoad</strong>屏障，在读操作后插入<strong>LoadStore</strong>屏障。</li>
 </ol>
 <p>从而成功阻止了指令重排序。</p>
-<h3 id="volatile在单例模式中的体现"><a href="#volatile在单例模式中的体现" class="headerlink" title="volatile在单例模式中的体现"></a>volatile在单例模式中的体现</h3><pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Singleton</span><span class="token punctuation">{</span>
+<h2 id="volatile在单例模式中的体现"><a href="#volatile在单例模式中的体现" class="headerlink" title="volatile在单例模式中的体现"></a>volatile在单例模式中的体现</h2><pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Singleton</span><span class="token punctuation">{</span>
     <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">volatile</span> Singleton instance<span class="token operator">=</span>null<span class="token punctuation">;</span>
     <span class="token comment" spellcheck="true">//私有化构造函数</span>
       <span class="token keyword">private</span> <span class="token function">Singleton</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token punctuation">}</span>
@@ -1070,12 +1068,8 @@ end<span class="token operator">+=</span><span class="token number">3</span><spa
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/System/" class="post-category">
-                                    System
-                                </a>
-                            
+                            <i class="fas fa-user fa-fw"></i>
+                            lishaojie-C
                             
                         </span>
                     </div>
@@ -1275,7 +1269,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">114.9k</span>&nbsp;字
+                class="white-color">122.6k</span>&nbsp;字
             
             
             
