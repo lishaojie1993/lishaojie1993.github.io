@@ -4,9 +4,9 @@
 
 <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="ReentrantLock源码-AQS, 睡到自然醒">
-    <meta name="description" content="ReentrantLock源码解析AQS（AbstractQueuedSynchronizer）private transient volatile Node head;//队首
-private transient volatile Nod">
+    <meta name="keywords" content="Java反射&amp;动态代理, 睡到自然醒">
+    <meta name="description" content="反射机制在运行状态中，对于任意一个类都能够知道这个类所有的属性和方法；并且对于任意一个对象，都能够调用它的任意一个方法；这种动态获取信息以及动态调用对象方法的功能称为 Java 语言的反射机制。
+应用场合在 Java 程序中许多对象在运行时">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -14,7 +14,7 @@ private transient volatile Nod">
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>ReentrantLock源码-AQS | 睡到自然醒</title>
+    <title>Java反射&amp;动态代理 | 睡到自然醒</title>
     <link rel="icon" type="image/png" href="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/libs/awesome/css/all.css">
@@ -399,12 +399,12 @@ private transient volatile Nod">
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/2.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/featureimages/9.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">ReentrantLock源码-AQS</h1>
+                    <h1 class="description center-align post-title">Java反射&amp;动态代理</h1>
                 </div>
             </div>
         </div>
@@ -521,12 +521,8 @@ private transient volatile Nod">
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/Lock/">
-                                <span class="chip bg-color">Lock</span>
-                            </a>
-                        
-                            <a href="/tags/ReentrantLock/">
-                                <span class="chip bg-color">ReentrantLock</span>
+                            <a href="/tags/Java/">
+                                <span class="chip bg-color">Java</span>
                             </a>
                         
                     </div>
@@ -541,7 +537,7 @@ private transient volatile Nod">
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-02-23
+                    2020-01-20
                 </div>
                 
 
@@ -550,14 +546,14 @@ private transient volatile Nod">
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.9k
+                    1.3k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    7 分
+                    5 分
                 </div>
                 
 
@@ -573,195 +569,153 @@ private transient volatile Nod">
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="ReentrantLock源码解析"><a href="#ReentrantLock源码解析" class="headerlink" title="ReentrantLock源码解析"></a>ReentrantLock源码解析</h2><h3 id="AQS（AbstractQueuedSynchronizer）"><a href="#AQS（AbstractQueuedSynchronizer）" class="headerlink" title="AQS（AbstractQueuedSynchronizer）"></a>AQS（AbstractQueuedSynchronizer）</h3><pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">private</span> <span class="token keyword">transient</span> <span class="token keyword">volatile</span> Node head<span class="token punctuation">;</span><span class="token comment" spellcheck="true">//队首</span>
-<span class="token keyword">private</span> <span class="token keyword">transient</span> <span class="token keyword">volatile</span> Node tail<span class="token punctuation">;</span><span class="token comment" spellcheck="true">//队尾</span>
-<span class="token keyword">private</span> <span class="token keyword">volatile</span> <span class="token keyword">int</span> state<span class="token punctuation">;</span><span class="token comment" spellcheck="true">//锁状态，加锁成功则为1，重入+1，解锁为0</span>
-<span class="token keyword">private</span> <span class="token keyword">transient</span> Thread exclusiveOwnerThread<span class="token punctuation">;</span><span class="token comment" spellcheck="true">//持有锁的线程</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="Node类的设计"><a href="#Node类的设计" class="headerlink" title="Node类的设计"></a>Node类的设计</h3><pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Node</span><span class="token punctuation">{</span>
-  <span class="token keyword">volatile</span> Node prev<span class="token punctuation">;</span>
-  <span class="token keyword">volatile</span> Node next<span class="token punctuation">;</span>
-  <span class="token keyword">volatile</span> Thread thread<span class="token punctuation">;</span>
-  <span class="token keyword">volatile</span> <span class="token keyword">int</span> waitStatus<span class="token punctuation">;</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="AQS队列示意图"><a href="#AQS队列示意图" class="headerlink" title="AQS队列示意图"></a>AQS队列示意图</h3><p><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gcp98gjlqoj30vk0iu42b.jpg" alt></p>
-<h3 id="ReentrantLock简单应用"><a href="#ReentrantLock简单应用" class="headerlink" title="ReentrantLock简单应用"></a>ReentrantLock简单应用</h3><pre class="line-numbers language-java"><code class="language-java">ReentrantLock reentrantLock <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ReentrantLock</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token keyword">new</span> <span class="token class-name">Thread</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> <span class="token punctuation">{</span>
-    reentrantLock<span class="token punctuation">.</span><span class="token function">lock</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//源码如下（有两种实现类）</span>
-<span class="token keyword">try</span> <span class="token punctuation">{</span>
-    <span class="token comment" spellcheck="true">//省略代码逻辑……</span>
-<span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">Exception</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span> <span class="token keyword">finally</span> <span class="token punctuation">{</span>
-    reentrantLock<span class="token punctuation">.</span><span class="token function">unlock</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <h3 id="反射机制"><a href="#反射机制" class="headerlink" title="反射机制"></a>反射机制</h3><p>在运行状态中，对于任意一个类都能够知道这个类所有的属性和方法；并且对于任意一个对象，都能够调用它的任意一个方法；这种动态获取信息以及动态调用对象方法的功能称为 Java 语言的反射机制。</p>
+<h3 id="应用场合"><a href="#应用场合" class="headerlink" title="应用场合"></a>应用场合</h3><p>在 Java 程序中许多对象在运行时都会出现两种类型：编译时类型和运行时类型。 </p>
+<p>编译时的类型由声明对象时使用的类型来决定，运行时的类型由实际赋值给对象的类型决定 。如：</p>
+<pre class="line-numbers language-java"><code class="language-java">Person p <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Student</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>其中编译时类型为 Person，运行时类型为 Student。</p>
+<h3 id="Java反射API"><a href="#Java反射API" class="headerlink" title="Java反射API"></a>Java反射API</h3><p>java.lang.Class 类：反射的核心类，可以获取类的属性，方法等信息。</p>
+<p>java.lang.reflect.Field 类：表示类的成员变量，可以用来获取和设置类之中的属性值。</p>
+<p>java.lang.reflect.Method 类：表示类的方法，它可以用来获取类中的方法信息或者执行方法。</p>
+<p>java.lang.reflect.Constructor 类：表示类的构造方法。</p>
+<h3 id="关于Class类的理解"><a href="#关于Class类的理解" class="headerlink" title="关于Class类的理解"></a>关于Class类的理解</h3><p>简单来说，Class的实例就对应着一个<strong>运行时类</strong>。加载到内存中的运行时类会缓存一定的时间，在此时间内，我们可以通过不同的方式来获取此运行时类。</p>
+<h3 id="获取Class实例的方式"><a href="#获取Class实例的方式" class="headerlink" title="获取Class实例的方式"></a>获取Class实例的方式</h3><ol>
+<li><p>调用某个对象的 getClass()方法</p>
+<pre class="line-numbers language-java"><code class="language-java">Person p<span class="token operator">=</span><span class="token keyword">new</span> <span class="token class-name">Person</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+Class <span class="token class-name">clazz</span><span class="token operator">=</span>p<span class="token punctuation">.</span><span class="token function">getClass</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</li>
+<li><p>调用某个类的 class 属性来获取该类对应的 Class 对象</p>
+<pre class="line-numbers language-java"><code class="language-java">Class <span class="token class-name">clazz</span><span class="token operator">=</span>Person<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+<li><p>使用 Class 类中的 forName()静态方法(最安全/性能最好)</p>
+<pre class="line-numbers language-java"><code class="language-java">Class <span class="token class-name">clazz</span><span class="token operator">=</span>Class<span class="token punctuation">.</span><span class="token function">forName</span><span class="token punctuation">(</span><span class="token string">"类的全路径"</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//(最常用)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+</ol>
+<p>当我们获得了想要操作的类的 Class 对象后，可以通过 Class 类中的方法获取并查看该类中的方法和属性。</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">//获取 Person 类的 Class 对象</span>
+Class <span class="token class-name">clazz</span><span class="token operator">=</span>Class<span class="token punctuation">.</span><span class="token function">forName</span><span class="token punctuation">(</span><span class="token string">"reflection.Person"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">//获取 Person 类的所有方法信息</span>
+Method<span class="token punctuation">[</span><span class="token punctuation">]</span> method<span class="token operator">=</span>clazz<span class="token punctuation">.</span><span class="token function">getDeclaredMethods</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">for</span><span class="token punctuation">(</span>Method m<span class="token operator">:</span>method<span class="token punctuation">)</span><span class="token punctuation">{</span>
+    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>m<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token string">"t1"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="公平锁｜非公平锁"><a href="#公平锁｜非公平锁" class="headerlink" title="公平锁｜非公平锁"></a>公平锁｜非公平锁</h3><pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">final</span> <span class="token keyword">void</span> <span class="token function">lock</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token function">acquire</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//加锁成功之后改变的值</span>
+<span class="token comment" spellcheck="true">//获取 Person 类的所有成员属性信息</span>
+Field<span class="token punctuation">[</span><span class="token punctuation">]</span> field<span class="token operator">=</span>clazz<span class="token punctuation">.</span><span class="token function">getDeclaredFields</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">for</span><span class="token punctuation">(</span>Field f<span class="token operator">:</span>field<span class="token punctuation">)</span><span class="token punctuation">{</span>
+    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>f<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
+<span class="token comment" spellcheck="true">//获取 Person 类的所有构造方法信息</span>
+Constructor<span class="token punctuation">[</span><span class="token punctuation">]</span> constructor<span class="token operator">=</span>clazz<span class="token punctuation">.</span><span class="token function">getDeclaredConstructors</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">for</span><span class="token punctuation">(</span>Constructor c<span class="token operator">:</span>constructor<span class="token punctuation">)</span><span class="token punctuation">{</span>
+    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>c<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="创建对象的方式"><a href="#创建对象的方式" class="headerlink" title="创建对象的方式"></a>创建对象的方式</h3><p>方式一：new + 构造器</p>
+<p>方式二：Xxx、Xxxs、XxxFactory、XxxBuilder</p>
+<p>方式三：通过反射</p>
+<h3 id="反射创建对象"><a href="#反射创建对象" class="headerlink" title="反射创建对象"></a>反射创建对象</h3><ol>
+<li><p><strong>调用Class对象的newInstance()</strong></p>
+<p>使用 Class 对象的 newInstance()方法来创建该 Class 对象对应类的实例，但是这种方法要求该 Class 对象对应的类有默认的空构造器。</p>
+</li>
+<li><p><strong>调用Constructor对象的newInstance()</strong></p>
+<p>先使用 Class 对象获取指定的 Constructor 对象，再调用 Constructor 对象的 newInstance()方法来创建 Class 对象对应类的实例，通过这种方法可以选定构造方法创建实例。</p>
+</li>
+</ol>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">//获取 Person 类的 Class 对象</span>
+Class <span class="token class-name">clazz</span><span class="token operator">=</span>Class<span class="token punctuation">.</span><span class="token function">forName</span><span class="token punctuation">(</span><span class="token string">"reflection.Person"</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//最常用的反射方式</span>
 
-<span class="token keyword">final</span> <span class="token keyword">void</span> <span class="token function">lock</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">compareAndSetState</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-        <span class="token function">setExclusiveOwnerThread</span><span class="token punctuation">(</span>Thread<span class="token punctuation">.</span><span class="token function">currentThread</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">else</span>
-        <span class="token function">acquire</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span> <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<blockquote>
-<p>公平锁的上锁必须判断自己需不需要排队；而非公平锁是直接进行CAS修改计数器看能不能加锁成功；如果加锁不成功则乖乖排队(调用acquire)；所以不管公平还是不公平；只要进到了AQS队列当中那么就会排队。</p>
-</blockquote>
-<h2 id="acquire-方法源码分析"><a href="#acquire-方法源码分析" class="headerlink" title="acquire()方法源码分析"></a>acquire()方法源码分析</h2><pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">final</span> <span class="token keyword">void</span> <span class="token function">acquire</span><span class="token punctuation">(</span><span class="token keyword">int</span> arg<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token function">tryAcquire</span><span class="token punctuation">(</span>arg<span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token comment" spellcheck="true">//①</span>
-        <span class="token function">acquireQueued</span><span class="token punctuation">(</span><span class="token function">addWaiter</span><span class="token punctuation">(</span>Node<span class="token punctuation">.</span>EXCLUSIVE<span class="token punctuation">)</span><span class="token punctuation">,</span> arg<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token comment" spellcheck="true">//②③</span>
-        <span class="token function">selfInterrupt</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">//调用Class对象的newInstance()</span>
+Person p<span class="token operator">=</span><span class="token punctuation">(</span>Person<span class="token punctuation">)</span> clazz<span class="token punctuation">.</span><span class="token function">newInstance</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">//调用Class对象的show()方法</span>
+Method method <span class="token operator">=</span> clazz<span class="token punctuation">.</span><span class="token function">getDeclareMethod</span><span class="token punctuation">(</span><span class="token string">"show"</span><span class="token punctuation">,</span>String<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//参数2指定获取方法的形参列表</span>
+method<span class="token punctuation">.</span><span class="token function">setAccessiable</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//保证当前方法是可访问的</span>
+method<span class="token punctuation">.</span><span class="token function">invoke</span><span class="token punctuation">(</span>p<span class="token punctuation">,</span><span class="token string">"CH"</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//给方法赋值的实参</span>
+
+<span class="token comment" spellcheck="true">//获取Constructor对象</span>
+Constructor c<span class="token operator">=</span>clazz<span class="token punctuation">.</span><span class="token function">getDeclaredConstructor</span><span class="token punctuation">(</span>String<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">,</span>String<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">,</span><span class="token keyword">int</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">//调用Constructor对象的newInstance()</span>
+Person p1<span class="token operator">=</span><span class="token punctuation">(</span>Person<span class="token punctuation">)</span> c<span class="token punctuation">.</span><span class="token function">newInstance</span><span class="token punctuation">(</span><span class="token string">"李四"</span><span class="token punctuation">,</span><span class="token string">"男"</span><span class="token punctuation">,</span><span class="token number">20</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="反射的应用-动态代理"><a href="#反射的应用-动态代理" class="headerlink" title="反射的应用-动态代理"></a>反射的应用-动态代理</h3><pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">import</span> java<span class="token punctuation">.</span>lang<span class="token punctuation">.</span>reflect<span class="token punctuation">.</span>InvocationHandler<span class="token punctuation">;</span>
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>lang<span class="token punctuation">.</span>reflect<span class="token punctuation">.</span>Method<span class="token punctuation">;</span>
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>lang<span class="token punctuation">.</span>reflect<span class="token punctuation">.</span>Proxy<span class="token punctuation">;</span>
+
+<span class="token keyword">interface</span> <span class="token class-name">Avenger</span> <span class="token punctuation">{</span>
+    String <span class="token function">getName</span><span class="token punctuation">(</span>String name<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">void</span> <span class="token function">useWeapon</span><span class="token punctuation">(</span>String weapon<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
-<span class="token comment" spellcheck="true">//①tryAcquire()：尝试加锁，如果加锁失败就会调用acquireQueued()去排队，加锁成功就不会。</span>
-<span class="token comment" spellcheck="true">//②addWaiter()：判断队列是否需要初始化，并把当前线程节点放入阻塞队列。</span>
-<span class="token comment" spellcheck="true">//③acquireQueued()：当前线程如果排在第一位会请求获取锁，否则入队睡眠阻塞，后续线程修改睡眠状态，等待被唤醒。</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="①tryAcquire"><a href="#①tryAcquire" class="headerlink" title="①tryAcquire()"></a>①tryAcquire()</h3><pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">protected</span> <span class="token keyword">final</span> <span class="token keyword">boolean</span> <span class="token function">tryAcquire</span><span class="token punctuation">(</span><span class="token keyword">int</span> acquires<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword">final</span> Thread current <span class="token operator">=</span> Thread<span class="token punctuation">.</span><span class="token function">currentThread</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//获取当前线程</span>
-    <span class="token keyword">int</span> c <span class="token operator">=</span> <span class="token function">getState</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//获取lock对象的状态c=0自由态，如果被上锁则为1，大于1是重入</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span>c <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token function">hasQueuedPredecessors</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span><span class="token comment" spellcheck="true">//这里涉及到的情况比较多，下面详细讨论</span>
-            <span class="token function">compareAndSetState</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> acquires<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token function">setExclusiveOwnerThread</span><span class="token punctuation">(</span>current<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//设置持有锁的线程是自己</span>
-            <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
+<span class="token keyword">class</span> <span class="token class-name">IronMan</span> <span class="token keyword">implements</span> <span class="token class-name">Avenger</span> <span class="token punctuation">{</span>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> String <span class="token function">getName</span><span class="token punctuation">(</span>String name<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"I'm IronMan! Avenger Leader"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token string">"我是 "</span> <span class="token operator">+</span> name<span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
-    <span class="token comment" spellcheck="true">//如果C不等于0，判断当前线程是否为拥有锁的线程，如果不是则直接返回false，加锁失败。</span>
-    <span class="token comment" spellcheck="true">//如果是拥有锁的线程，则状态+1代表重入次数+1，返回true加锁成功。</span>
-    <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>current <span class="token operator">==</span> <span class="token function">getExclusiveOwnerThread</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">int</span> nextc <span class="token operator">=</span> c <span class="token operator">+</span> acquires<span class="token punctuation">;</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>nextc <span class="token operator">&lt;</span> <span class="token number">0</span><span class="token punctuation">)</span>
-            <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">Error</span><span class="token punctuation">(</span><span class="token string">"Maximum lock count exceeded"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token function">setState</span><span class="token punctuation">(</span>nextc<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">useWeapon</span><span class="token punctuation">(</span>String weapon<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"我使用 "</span> <span class="token operator">+</span> weapon<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
-    <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h4 id="hasQueuedPredecessors"><a href="#hasQueuedPredecessors" class="headerlink" title="hasQueuedPredecessors()"></a>hasQueuedPredecessors()</h4><pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">final</span> <span class="token keyword">boolean</span> <span class="token function">hasQueuedPredecessors</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    Node t <span class="token operator">=</span> tail<span class="token punctuation">;</span>
-    Node h <span class="token operator">=</span> head<span class="token punctuation">;</span>
-    Node s<span class="token punctuation">;</span>
-    <span class="token keyword">return</span> h <span class="token operator">!=</span> t <span class="token operator">&amp;&amp;</span> <span class="token comment" spellcheck="true">//这句代码涉及到的情况比较多，下面详细解释</span>
-        <span class="token punctuation">(</span><span class="token punctuation">(</span>s <span class="token operator">=</span> h<span class="token punctuation">.</span>next<span class="token punctuation">)</span> <span class="token operator">==</span> null <span class="token operator">||</span> s<span class="token punctuation">.</span>thread <span class="token operator">!=</span> Thread<span class="token punctuation">.</span><span class="token function">currentThread</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<blockquote>
-<p>第一种情况：队列没有初始化，head和taill都为null，所以h!=t不成立，后面短路不执行，直接返回false。<br>而又因为前面取反：if (!hasQueuedPredecessors()…)，所以不需要排队，直接去CAS，改变计数器上锁。</p>
-</blockquote>
-<blockquote>
-<p>第二种情况：队列已经初始化了，但是有且只有一个数据，即h==t且s==null，表达式后面不执行，同上返回false不排队。什么时候会出现这种情况：当排队的队尾拿到锁的时候，此时队列中有且只有一个节点，它会把自己设置为h。因为这个线程已经拿到锁了，它不参与排队，所以需要设置为头节点。</p>
-</blockquote>
-<blockquote>
-<p>第三种情况：队列已经初始化了，有大于1的多个节点，h!=t成立，s=null不成立，所以还要运行 s.thread != Thread.currentThread()，这里又分为两种情况：</p>
-<ol>
-<li><p>s.thread != Thread.currentThread()为true，即排队的第一个线程不是当前线程，表达式整体返回true，需要排队。</p>
-</li>
-<li><p>s.thread != Thread.currentThread()为false，即排队的第一个线程就是当前线程，表达式整体返回false，不需要排队。</p>
-<p>不需要排队则调用 compareAndSetState(0, acquires) 去改变计数器尝试上锁，这里还分为两种情况：</p>
-<ol>
-<li>第一种情况是加锁成功，即持有锁的线程释放了锁，继续执行setExclusiveOwnerThread(current)，返回true。</li>
-<li>第二种情况是加锁失败，即持有锁的线程还没有释放锁，直接返回false。</li>
-</ol>
-</li>
-</ol>
-</blockquote>
-<h3 id="②addWaiter"><a href="#②addWaiter" class="headerlink" title="②addWaiter()"></a>②addWaiter()</h3><pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">private</span> Node <span class="token function">addWaiter</span><span class="token punctuation">(</span>Node mode<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token comment" spellcheck="true">//因为AQS队列中的元素为Node，所以把当前线程封装为一个Node对象</span>
-    Node node <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Node</span><span class="token punctuation">(</span>Thread<span class="token punctuation">.</span><span class="token function">currentThread</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> mode<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    Node pred <span class="token operator">=</span> tail<span class="token punctuation">;</span><span class="token comment" spellcheck="true">//把队尾赋值给临时节点pred</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span>pred <span class="token operator">!=</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token comment" spellcheck="true">//队列不为空的流程很简单，直接修改指针把节点放入队列</span>
-        node<span class="token punctuation">.</span>prev <span class="token operator">=</span> pred<span class="token punctuation">;</span><span class="token comment" spellcheck="true">//当前线程节点指向原来的队尾节点</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">compareAndSetTail</span><span class="token punctuation">(</span>pred<span class="token punctuation">,</span> node<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token comment" spellcheck="true">//赋值操作，即队尾⇨当前节点</span>
-            pred<span class="token punctuation">.</span>next <span class="token operator">=</span> node<span class="token punctuation">;</span><span class="token comment" spellcheck="true">//原来队尾节点的指针指向当前节点</span>
-            <span class="token keyword">return</span> node<span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">class</span> <span class="token class-name">SpiderMan</span> <span class="token keyword">implements</span> <span class="token class-name">Avenger</span> <span class="token punctuation">{</span>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> String <span class="token function">getName</span><span class="token punctuation">(</span>String name<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"I'm SpiderMan! Avenger lovely"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token string">"我是 "</span> <span class="token operator">+</span> name<span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
-    <span class="token function">enq</span><span class="token punctuation">(</span>node<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//队列为空，初始化队列并进行入队操作</span>
-    <span class="token keyword">return</span> node<span class="token punctuation">;</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h4 id="enq"><a href="#enq" class="headerlink" title="enq()"></a>enq()</h4><pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">private</span> Node <span class="token function">enq</span><span class="token punctuation">(</span><span class="token keyword">final</span> Node node<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token comment" spellcheck="true">//死循环    </span>
-    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token punctuation">;</span><span class="token punctuation">;</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        Node t <span class="token operator">=</span> tail<span class="token punctuation">;</span><span class="token comment" spellcheck="true">//队尾赋值给临时节点t</span>
-        <span class="token comment" spellcheck="true">//第一次循环（初始化队列）</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>t <span class="token operator">==</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token comment" spellcheck="true">//队列为空，需要初始化队列</span>
-            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">compareAndSetHead</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Node</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token comment" spellcheck="true">//实例化一个属性都为空的Node对象</span>
-                tail <span class="token operator">=</span> head<span class="token punctuation">;</span><span class="token comment" spellcheck="true">//队列中只有一个对象，头尾都指向它</span>
-        <span class="token comment" spellcheck="true">//第二次循环（当前线程节点入队）</span>
-        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
-            node<span class="token punctuation">.</span>prev <span class="token operator">=</span> t<span class="token punctuation">;</span><span class="token comment" spellcheck="true">//⑴</span>
-            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">compareAndSetTail</span><span class="token punctuation">(</span>t<span class="token punctuation">,</span> node<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token comment" spellcheck="true">//⑵</span>
-                t<span class="token punctuation">.</span>next <span class="token operator">=</span> node<span class="token punctuation">;</span><span class="token comment" spellcheck="true">//⑶</span>
-                <span class="token keyword">return</span> t<span class="token punctuation">;</span><span class="token comment" spellcheck="true">//上面123代表的是维护链表，即当前线程节点的入队操作</span>
-            <span class="token punctuation">}</span>
-        <span class="token punctuation">}</span>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">useWeapon</span><span class="token punctuation">(</span>String weapon<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"我使用 "</span> <span class="token operator">+</span> weapon<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="③acquireQueued"><a href="#③acquireQueued" class="headerlink" title="③acquireQueued()"></a>③acquireQueued()</h3><pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">final</span> <span class="token keyword">boolean</span> <span class="token function">acquireQueued</span><span class="token punctuation">(</span><span class="token keyword">final</span> Node node<span class="token punctuation">,</span> <span class="token keyword">int</span> arg<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword">boolean</span> failed <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
-    <span class="token keyword">try</span> <span class="token punctuation">{</span>
-        <span class="token keyword">boolean</span> interrupted <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
-        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token punctuation">;</span><span class="token punctuation">;</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">final</span> Node p <span class="token operator">=</span> node<span class="token punctuation">.</span><span class="token function">predecessor</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//把当前节点的上一个节点赋值给P</span>
-            <span class="token comment" spellcheck="true">//如果当前节点的前置节点是头节点，那么它会尝试去获取锁--自旋（第一个排队的）</span>
-            <span class="token keyword">if</span> <span class="token punctuation">(</span>p <span class="token operator">==</span> head <span class="token operator">&amp;&amp;</span> <span class="token function">tryAcquire</span><span class="token punctuation">(</span>arg<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token comment" spellcheck="true">//意图是尽量不睡眠，多询问一次</span>
-                <span class="token function">setHead</span><span class="token punctuation">(</span>node<span class="token punctuation">)</span><span class="token punctuation">;</span>
-                p<span class="token punctuation">.</span>next <span class="token operator">=</span> null<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// help GC</span>
-                failed <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
-                <span class="token keyword">return</span> interrupted<span class="token punctuation">;</span>
-            <span class="token punctuation">}</span>
-            <span class="token comment" spellcheck="true">//自旋获取锁失败后是否需要睡眠</span>
-            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">shouldParkAfterFailedAcquire</span><span class="token punctuation">(</span>p<span class="token punctuation">,</span> node<span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span><span class="token comment" spellcheck="true">//给上一个节点修改状态</span>
-                <span class="token function">parkAndCheckInterrupt</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token comment" spellcheck="true">//②当前线程调用park()阻塞</span>
-                interrupted <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span> <span class="token keyword">finally</span> <span class="token punctuation">{</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>failed<span class="token punctuation">)</span>
-            <span class="token function">cancelAcquire</span><span class="token punctuation">(</span>node<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token comment" spellcheck="true">//代理工厂</span>
+<span class="token keyword">class</span> <span class="token class-name">ProxyFactory</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">//调用此方法,根据传入的被代理类对象创建并返回一个代理类对象</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> Object <span class="token function">getProxyInstance</span><span class="token punctuation">(</span>Object obj<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token comment" spellcheck="true">//obj参数是被代理类的对象</span>
+        MyInvocationHandler handler <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">MyInvocationHandler</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        handler<span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span>obj<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//将被代理对象传给 MyInvocationHandler</span>
+        <span class="token comment" spellcheck="true">//返回动态创建出的代理对象</span>
+        <span class="token keyword">return</span> Proxy<span class="token punctuation">.</span><span class="token function">newProxyInstance</span><span class="token punctuation">(</span>obj<span class="token punctuation">.</span><span class="token function">getClass</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getClassLoader</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                obj<span class="token punctuation">.</span><span class="token function">getClass</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getInterfaces</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> handler<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h4 id="shouldParkAfterFailedAcquire"><a href="#shouldParkAfterFailedAcquire" class="headerlink" title="shouldParkAfterFailedAcquire()"></a>shouldParkAfterFailedAcquire()</h4><pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">boolean</span> <span class="token function">shouldParkAfterFailedAcquire</span><span class="token punctuation">(</span>Node pred<span class="token punctuation">,</span> Node node<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword">int</span> ws <span class="token operator">=</span> pred<span class="token punctuation">.</span>waitStatus<span class="token punctuation">;</span><span class="token comment" spellcheck="true">//获取前置线程节点的状态</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span>ws <span class="token operator">==</span> Node<span class="token punctuation">.</span>SIGNAL<span class="token punctuation">)</span><span class="token comment" spellcheck="true">//判断前置线程的状态是否为-1（已睡）</span>
-        <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//跳出方法后运行parkAndCheckInterrupt()当前线程睡眠</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span>ws <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">do</span> <span class="token punctuation">{</span>
-            node<span class="token punctuation">.</span>prev <span class="token operator">=</span> pred <span class="token operator">=</span> pred<span class="token punctuation">.</span>prev<span class="token punctuation">;</span>
-        <span class="token punctuation">}</span> <span class="token keyword">while</span> <span class="token punctuation">(</span>pred<span class="token punctuation">.</span>waitStatus <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        pred<span class="token punctuation">.</span>next <span class="token operator">=</span> node<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span><span class="token comment" spellcheck="true">//把前置节点的状态修改为-1，证明前置线程已睡</span>
-        <span class="token function">compareAndSetWaitStatus</span><span class="token punctuation">(</span>pred<span class="token punctuation">,</span> ws<span class="token punctuation">,</span> Node<span class="token punctuation">.</span>SIGNAL<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">class</span> <span class="token class-name">MyInvocationHandler</span> <span class="token keyword">implements</span> <span class="token class-name">InvocationHandler</span> <span class="token punctuation">{</span>
+    <span class="token keyword">private</span> Object obj<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//声明并获取被代理对象</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">bind</span><span class="token punctuation">(</span>Object obj<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>obj <span class="token operator">=</span> obj<span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
-    <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//跳出方法后短路，再次自旋</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="synchronized和lock的区别"><a href="#synchronized和lock的区别" class="headerlink" title="synchronized和lock的区别"></a>synchronized和lock的区别</h3><ol>
-<li><p>原始构成</p>
-<p><code>synchronized</code>是关键字，属于<strong>JVM层面</strong>。底层是通过<code>monitor</code>对象来完成，<code>wait/notify</code>方法也依赖<code>moniter</code>对象并且只有在同步块或者同步方法中才能使用<code>wait/notity</code>等方法。monitorenter｜<strong>monitorexit｜monitorexit 正常退出和异常退出</strong>，不会死锁。</p>
-<p><strong>lock</strong>是具体的类<code>java.util.concurrent.locks.lock</code>属于<strong>API层面</strong>。</p>
-</li>
-<li><p>使用方法</p>
-<p><code>synchronized</code><strong>不需要</strong>用户去手动释放锁，当synchronized代码执行完后系统会自动让线程释放对锁的占用。</p>
-<p><code>ReentrantLock</code><strong>需要</strong>用户去手动释放锁，如果没有主动释放锁就有可能导致死锁。需要<code>lock()</code>和<code>unlock()</code>配合<code>try/finally</code>来完成。</p>
-</li>
-<li><p>等待是否可中断</p>
-<p><code>synchronized</code>不可中断，除非抛出异常或者正常运行完成。</p>
-<p><code>ReentrantLock</code>可中断，相比synchronized更加灵活，有两种方式可以中断：</p>
-<ul>
-<li><p>设置超时方法<code>tryLock(long timeout,TimeUnit unit)</code></p>
-</li>
-<li><p><code>lockInterRuptibly()</code>放代码块中，调用<code>interrupt()</code>方法可中断。</p>
-</li>
-</ul>
-</li>
-<li><p>加锁是否公平</p>
-<p><code>synchronized</code>是非公平锁。</p>
-<p><code>ReentrantLock</code>两者都可以，默认非公平锁。构造方法可以传入boolean值，<strong>true</strong>为公平锁，<strong>false</strong>为非公平锁。</p>
-</li>
-<li><p>是否可绑定多个条件-<code>Condition</code></p>
-<p><code>synchronized</code>不可以，要么随机唤醒一个线程，要么全部唤醒。</p>
-<p><code>ReentrantLock</code>可以实现分组唤醒，达到精确唤醒。</p>
-</li>
-</ol>
-<p>扩展：jdk1.6以前，如果线程是交替执行的话，Synchronized会调用OS函数，影响性能。ReentrantLock的交替执行是在jdk级别解决的，性能很快。如果是竞争执行的话会进入队列调用park()方法。1.8以后区别很小，ReentrantLock的API更丰富一些。</p>
+    <span class="token comment" spellcheck="true">//当我们通过DynamicProxyTest类的代理对象调用其方法时,就会自动调用invoke()方法.</span>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> Object <span class="token function">invoke</span><span class="token punctuation">(</span>Object proxy<span class="token punctuation">,</span> Method method<span class="token punctuation">,</span> Object<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token keyword">throws</span> Throwable <span class="token punctuation">{</span>
+        Object returnValue <span class="token operator">=</span> method<span class="token punctuation">.</span><span class="token function">invoke</span><span class="token punctuation">(</span>obj<span class="token punctuation">,</span> args<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//使用被代理对象进行方法回调</span>
+        <span class="token keyword">return</span> returnValue<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">DynamicProxyTest</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">//没有显式的定义代理类,而是根据传入的被代理对象来动态的创建代理类,体现了反射的动态性</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">//创建被代理对象</span>
+        IronMan ironMan <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">IronMan</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">//通过反射创建代理对象</span>
+        Avenger proxyInstance1 <span class="token operator">=</span> <span class="token punctuation">(</span>Avenger<span class="token punctuation">)</span> ProxyFactory<span class="token punctuation">.</span><span class="token function">getProxyInstance</span><span class="token punctuation">(</span>ironMan<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">//使用代理对象调用被代理对象的方法</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>proxyInstance1<span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token string">"斯塔克"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        proxyInstance1<span class="token punctuation">.</span><span class="token function">useWeapon</span><span class="token punctuation">(</span><span class="token string">"激光武器"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        SpiderMan spiderMan <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">SpiderMan</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        Avenger proxyInstance2 <span class="token operator">=</span> <span class="token punctuation">(</span>Avenger<span class="token punctuation">)</span> ProxyFactory<span class="token punctuation">.</span><span class="token function">getProxyInstance</span><span class="token punctuation">(</span>spiderMan<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>proxyInstance2<span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token string">"皮特儿"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        proxyInstance2<span class="token punctuation">.</span><span class="token function">useWeapon</span><span class="token punctuation">(</span><span class="token string">"蜘蛛网"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="基于动态代理的AOP"><a href="#基于动态代理的AOP" class="headerlink" title="基于动态代理的AOP"></a>基于动态代理的AOP</h3><pre class="line-numbers language-java"><code class="language-java">    <span class="token comment" spellcheck="true">//在MyInvocationHandler中的invoke()方法前后添加如下代码</span>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> Object <span class="token function">invoke</span><span class="token punctuation">(</span>Object proxy<span class="token punctuation">,</span> Method method<span class="token punctuation">,</span> Object<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token keyword">throws</span> Throwable <span class="token punctuation">{</span>
+        Utils utils <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Utils</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        utils<span class="token punctuation">.</span><span class="token function">getMethod</span><span class="token punctuation">(</span>method<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//回调方法之前获取方法信息</span>
+        Object returnValue <span class="token operator">=</span> method<span class="token punctuation">.</span><span class="token function">invoke</span><span class="token punctuation">(</span>obj<span class="token punctuation">,</span> args<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//使用被代理对象进行方法回调</span>
+        utils<span class="token punctuation">.</span><span class="token function">getLog</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//回调方法之后追加日志输出</span>
+        <span class="token keyword">return</span> returnValue<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
             </div>
             <hr/>
@@ -787,7 +741,7 @@ private transient volatile Nod">
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://www.lishaojie.top/2020/02/23/AQS/">https://www.lishaojie.top/2020/02/23/AQS/</a>
+                    <a href="https://www.lishaojie.top/2020/01/20/proxy/">https://www.lishaojie.top/2020/01/20/proxy/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -825,12 +779,8 @@ private transient volatile Nod">
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/Lock/">
-                                    <span class="chip bg-color">Lock</span>
-                                </a>
-                            
-                                <a href="/tags/ReentrantLock/">
-                                    <span class="chip bg-color">ReentrantLock</span>
+                                <a href="/tags/Java/">
+                                    <span class="chip bg-color">Java</span>
                                 </a>
                             
                         </div>
@@ -1004,7 +954,7 @@ private transient volatile Nod">
         repo: 'lishaojie1993.github.io',
         owner: 'lishaojie1993',
         admin: "lishaojie1993",
-        id: '2020-02-23T23-26-00',
+        id: '2020-01-20T16-09-49',
         distractionFreeMode: false  // Facebook-like distraction free mode
     });
 
@@ -1029,23 +979,27 @@ private transient volatile Nod">
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/02/29/lock/">
+                <a href="/2020/01/20/github/">
                     <div class="card-image">
                         
-                        <img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/featureimages/8.jpg" class="responsive-img" alt="Java锁-Sync&Lock">
+                        <img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/featureimages/5.jpg" class="responsive-img" alt="GitHub骚操作">
                         
-                        <span class="card-title">Java锁-Sync&Lock</span>
+                        <span class="card-title">GitHub骚操作</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            乐观锁｜悲观锁乐观锁乐观锁是一种乐观思想，即认为读多写少，遇到并发写的可能性低，每次去拿数据的时候都认为别人不会修改，所以不会上锁，但是在更新的时候会判断一下在此期间别人有没有去更新这个数据，采取在写时先读出当前版本号，然后加锁操作（比较跟
+                            in:限制搜索范围公式：xxx in:name｜description｜readme
+
+xxx in:name 项目名包含xxx的
+xxx in:description 项目描述包含xxx的
+xxx in:readme 项目的readme文
                         
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-02-29
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-01-20
                         </span>
                         <span class="publish-author">
                             
@@ -1058,12 +1012,8 @@ private transient volatile Nod">
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/高并发/">
-                        <span class="chip bg-color">高并发</span>
-                    </a>
-                    
-                    <a href="/tags/lock/">
-                        <span class="chip bg-color">lock</span>
+                    <a href="/tags/GitHub/">
+                        <span class="chip bg-color">GitHub</span>
                     </a>
                     
                 </div>
@@ -1077,26 +1027,23 @@ private transient volatile Nod">
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/02/21/SpinLock/">
+                <a href="/2020/01/19/java-basic/">
                     <div class="card-image">
                         
-                        <img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/featureimages/13.jpg" class="responsive-img" alt="自旋锁-SpinLock">
+                        <img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/featureimages/16.jpg" class="responsive-img" alt="Java核心知识">
                         
-                        <span class="card-title">自旋锁-SpinLock</span>
+                        <span class="card-title">Java核心知识</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            自旋锁-SpinLock指的是尝试获取锁的线程不会立即阻塞，而是采用循环的方式去尝试获取锁。
-自旋实现同步volatile int status = 0;//标识，锁是否被线程占用
-void lock(){
-  while(!compare
+                            Java异常如果某个方法不能按照正常的途径完成任务，就可以通过另一种路径退出方法。在这种情况下会抛出一个封装了错误信息的对象。此时，这个方法会立刻退出同时不返回任何值。另外，调用这个方法的其他代码也无法继续执行，异常处理机制会将代码执行交给
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-02-21
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-01-19
                             </span>
                         <span class="publish-author">
                             
@@ -1109,12 +1056,8 @@ void lock(){
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Lock/">
-                        <span class="chip bg-color">Lock</span>
-                    </a>
-                    
-                    <a href="/tags/SpinLock/">
-                        <span class="chip bg-color">SpinLock</span>
+                    <a href="/tags/Java/">
+                        <span class="chip bg-color">Java</span>
                     </a>
                     
                 </div>

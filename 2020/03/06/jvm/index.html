@@ -551,14 +551,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    4.1k
+                    4.6k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    15 分
+                    16 分
                 </div>
                 
 
@@ -829,10 +829,10 @@ Java HotSpot<span class="token punctuation">(</span>TM<span class="token punctua
 <p>-Xms128m -Xmx4096 -Xss1024k -XX:MetaspaceSize=512m -XX:+PrintCommandLineFlags -XX:+PrintGCDetails -XX:+UseG1GC</p>
 <hr>
 <h3 id="生产服务器变慢怎么办"><a href="#生产服务器变慢怎么办" class="headerlink" title="生产服务器变慢怎么办"></a>生产服务器变慢怎么办</h3><blockquote>
-<p>整机：top</p>
-<p>CPU：vmstat -n 2 3</p>
-<p>内存：free -m</p>
-<p>硬盘：df -h</p>
+<p>整机：<strong>top</strong> 先查看一下整机性能，主要看cpu mem id(idle):空闲率，还有load average，也可以使用uptime(低配版查看性能)</p>
+<p>CPU：<strong>vmstat -n 2 3</strong></p>
+<p>内存：free | free -g | free -m <strong>(推荐使用free -m)</strong>查看内存的使用和空闲情况，单位是MB</p>
+<p>硬盘：<strong>df -h</strong> (disk free)</p>
 <p>磁盘IO：iostat -xdk 2 3</p>
 <p>网络IO：ifstat</p>
 </blockquote>
@@ -844,12 +844,30 @@ Java HotSpot<span class="token punctuation">(</span>TM<span class="token punctua
 </ul>
 </li>
 <li><p>CPU：<code>vmstat -n 2 3</code></p>
-<p><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/0082zybpgy1gcb49fonjej3148064gne.jpg" alt><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/0082zybpgy1gcb4dp2a9kj31b10e7n9w.jpg" alt></p>
+<p><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/0082zybpgy1gcb49fonjej3148064gne.jpg" alt></p>
+<blockquote>
+<p>一般vmstat工具的使用是通过两个数字参数来完成的，第一个参数是采样的时间间隔数单位是秒，第二个参数是采样的次数。查看参数主要看两方面，一前一后，前面看procs，后面看cpu。</p>
+<p>procs</p>
 <ul>
-<li><strong>id</strong>：处于空闲的CPU百分比；</li>
-<li><strong>wa</strong>：系统等待IO的CPU时间百分比；</li>
-<li><strong>st</strong>：来自于一个虚拟机偷取的CPU时间的百分比。</li>
+<li>r：运行和等待CPU时间片的进程数，原则上1核的CPU的运行队列不要超过2，整个系统的运行队列不能超过总核数的2倍，<br>否则代表系统压力过大</li>
+<li>b：等待资源的进程数，比如正在等待磁盘I/O、网络I/O等。</li>
 </ul>
+<p>cpu</p>
+<ul>
+<li><p><strong>us</strong>：用户进程消耗CPU时间百分比，us值高，用户进程消耗CPU时间多，如果长期大于50%，优化程序；</p>
+</li>
+<li><p><strong>sy</strong>：内核进程消耗的CPU时间百分比；</p>
+</li>
+<li><p><strong>us + sy</strong> 参考值为80%， 如果us + sy大于80%， 说明可能存在CPU不足。</p>
+</li>
+<li><p>id：处于空闲的CPU百分比；越高越好。</p>
+</li>
+<li><p>wa：系统等待IO的CPU时间百分比；</p>
+</li>
+<li><p>st：来自于一个虚拟机偷取的CPU时间的百分比。</p>
+</li>
+</ul>
+</blockquote>
 </li>
 <li><p>内存：<code>free -m</code><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/0082zybpgy1gcb849y0dcj314u0c442f.jpg" alt></p>
 <p>查看额外：pidstat -p 进程号 -r 采样间隔秒数<img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/0082zybpgy1gcb86vzxduj30sw070tc6.jpg" alt></p>
@@ -857,9 +875,25 @@ Java HotSpot<span class="token punctuation">(</span>TM<span class="token punctua
 <li><p>硬盘：<code>df -h</code><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gcb93btg9wj30y00d27o5.jpg" alt></p>
 </li>
 <li><p>磁盘IO：<code>iostat -xdk 2 3</code></p>
-<p><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gcbap9iegoj31po0ke4iz.jpg" alt><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gcbalqfgp2j317c0cz7fs.jpg" alt><strong>查看额外：pidstat -d 采样间隔秒数 -p 进程号</strong> <img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gcbau03v5mj314e0awdpt.jpg" alt></p>
+<p><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gcbap9iegoj31po0ke4iz.jpg" alt></p>
+<blockquote>
+<p><strong>磁盘块设备分布</strong></p>
+<ul>
+<li>rkB/s 每秒读取数据量kB；</li>
+<li>wkB/s 每秒写入数据量kB；</li>
+<li>svctm I/O 请求的平均服务时间，单位毫秒；</li>
+<li>await I/O 请求的平均等待时间，单位毫秒；值越小，性能越好；</li>
+<li>util 一秒中有百分几的时间用于I/O操作。接近100%时，表示磁盘带宽跑满，需要优化程序或者增加磁盘；</li>
+<li>rkB/s、wkB/s根据系统应用不同会有不同的值，但有规律遵循：长期、超大数据读写，肯定不正常，需要优化程序读取。svctm的值与await的值很接近，表示几乎没有I/O等待，磁盘性能好，如果await的值远高于svctm的值，则表示I/O队列等待太长，需要优化程序或更换更快磁盘。</li>
+</ul>
+</blockquote>
+<p><strong>查看额外：pidstat -d 采样间隔秒数 -p 进程号</strong> </p>
+<p><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gcbau03v5mj314e0awdpt.jpg" alt></p>
 </li>
-<li><p>网络IO：<code>ifstat</code><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gcbb07rl5uj312s09wgq6.jpg" alt></p>
+</ul>
+<ul>
+<li><p>网络IO：<code>ifstat</code></p>
+<p><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gcbb07rl5uj312s09wgq6.jpg" alt></p>
 </li>
 </ul>
 <h3 id="生产环境CPU占用过高怎么办"><a href="#生产环境CPU占用过高怎么办" class="headerlink" title="生产环境CPU占用过高怎么办"></a>生产环境CPU占用过高怎么办</h3><ol>
@@ -1418,7 +1452,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">122.6k</span>&nbsp;字
+                class="white-color">124.6k</span>&nbsp;字
             
             
             

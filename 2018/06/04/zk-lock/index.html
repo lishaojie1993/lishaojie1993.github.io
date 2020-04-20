@@ -5,10 +5,9 @@
 <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
     <meta name="keywords" content="基于zk实现分布式锁, 睡到自然醒">
-    <meta name="description" content="分布式锁分布式锁的实现方式有很多种，zk是实现起来相对简单的。相比与redis分布式锁，zk有以下优势：
-
-redis分布式锁需要不断去尝试获取锁，比较耗性能。zk分布式锁获取不到锁注册个监听器即可。
-redis获取锁的客户端挂了，只能等待">
+    <meta name="description" content="分布式锁对于单进程的并发场景，我们可以使用synchronized关键字和Reentrantlock类等。
+对于分布式场景，我们可以使用分布式锁。
+分布式锁的实现方式有很多种，zk是实现起来相对简单的。相比与redis分布式锁，zk有以下优">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -561,14 +560,14 @@ redis获取锁的客户端挂了，只能等待">
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.6k
+                    2.3k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    5 分
+                    8 分
                 </div>
                 
 
@@ -584,11 +583,15 @@ redis获取锁的客户端挂了，只能等待">
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="分布式锁"><a href="#分布式锁" class="headerlink" title="分布式锁"></a>分布式锁</h2><p>分布式锁的实现方式有很多种，zk是实现起来相对简单的。相比与redis分布式锁，zk有以下优势：</p>
+                <h2 id="分布式锁"><a href="#分布式锁" class="headerlink" title="分布式锁"></a>分布式锁</h2><p>对于单进程的并发场景，我们可以使用synchronized关键字和Reentrantlock类等。</p>
+<p>对于分布式场景，我们可以使用分布式锁。</p>
+<p>分布式锁的实现方式有很多种，zk是实现起来相对简单的。相比与redis分布式锁，zk有以下优势：</p>
 <ul>
 <li>redis分布式锁需要不断去尝试获取锁，比较耗性能。zk分布式锁获取不到锁注册个监听器即可。</li>
 <li>redis获取锁的客户端挂了，只能等待超时之后再释放锁，zk是基于临时节点，挂了znode就没了，自动释放。</li>
 </ul>
+<h3 id="分布式锁的实现"><a href="#分布式锁的实现" class="headerlink" title="分布式锁的实现"></a>分布式锁的实现</h3><h4 id="创建锁"><a href="#创建锁" class="headerlink" title="创建锁"></a>创建锁</h4><p>多个jvm服务器之间，同时在zookeeper上创建相同的一个<strong>临时节点</strong>，因为临时节点路径是保证唯一，<br>只要谁能够创建节点成功，谁就能够获取到锁，<br>没有创建成功节点，只能注册个监听器监听这个锁并进行等待，当释放锁的时候，采用事件通知给其它客户端重新获取锁的资源。这时候客户端使用事件监听，如果该临时节点被删除的话，重新进入获取锁的步骤。</p>
+<h4 id="释放锁"><a href="#释放锁" class="headerlink" title="释放锁"></a>释放锁</h4><p>Zookeeper使用直接关闭临时节点session会话连接，因为临时节点生命周期与session会话绑定在一块，<br>如果session会话连接关闭的话，该临时节点也会被删除。这时候客户端使用事件监听，如果该临时节点被删除的话，重新进入到获取锁的步骤。</p>
 <h3 id="独占锁"><a href="#独占锁" class="headerlink" title="独占锁"></a>独占锁</h3><p>独占锁又称排它锁，从字面意思上很容易理解他们的用途。即如果某个操作 O1 对访问资源 R1 的过程加锁，在操作 O1 结束对资源 R1 访问前，其他操作不允许访问资源 R1。我们先看张图：</p>
 <img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gd527kbsn8j30ma0c2jrs.jpg" alt="图1-独占锁示意图" style="zoom:50%;">
 
@@ -640,6 +643,25 @@ redis获取锁的客户端挂了，只能等待">
 <p>《ZooKeeper 分布式过程协同技术详解》 </p>
 <p>《从Paxos到Zookeeper 分布式一致性原理与实践》</p>
 <p>《Java技术栈》</p>
+<h2 id="模板设计模式"><a href="#模板设计模式" class="headerlink" title="模板设计模式"></a>模板设计模式</h2><p>在模板模式(Template Pattern)设计模式中，<br>用一个抽象类公开定义了执行它的方法的方式/模板。</p>
+<p>它的子类可以按需要重写方法实现，但调用将以抽象类中定义的方式进行。</p>
+<p>意图：定义一个操作中的算法的骨架，而将一些步 骤延迟到子类中。模板方法使得子类可以不改变一个算法的结构即可重定义该算法的某些特定步骤。</p>
+<p>主要解决：一些方法通用，却在每一个子类都重新写了这一方法。</p>
+<p>何时使用：有一些通用的方法。</p>
+<p>如何解决：将这些通用算法抽象出来。</p>
+<p>关键代码：在抽象父类中实现通用方法，其它步骤下放到子类中实现。</p>
+<p>应用实例：</p>
+<p>1、西游记里面菩萨定好的81难，这就是-个顶层的逻辑骨架。</p>
+<p>2、spring 中对Hibernate的支持，将一-些已经定好的方法封装起来， 比如开启事务、获取Session、关闭Session等，程序员不重复写那些已经规范好的代码，直接丢- . 个实体就可以保存。</p>
+<p>优点：</p>
+<p>1、封装不变部分，扩展可变部分。</p>
+<p>2、提取公共代码，便于维护。</p>
+<p>3、行为由父类控制，子类实现。</p>
+<p>缺点：</p>
+<p>每一个不同的实现都需要一个子类来实现，导致类的个数增加，使得系统更加庞大。</p>
+<p>使用场景：</p>
+<p>1、有多个子类共有的方法，且逻辑相同。</p>
+<p>2、重要的、复杂的方法，可以考虑作为模板方法。</p>
 
             </div>
             <hr/>
@@ -1190,7 +1212,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">122.6k</span>&nbsp;字
+                class="white-color">124.6k</span>&nbsp;字
             
             
             
