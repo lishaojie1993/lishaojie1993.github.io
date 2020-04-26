@@ -5,10 +5,10 @@
 <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
     <meta name="keywords" content="链表“逆序”算法, 睡到自然醒">
-    <meta name="description" content="逆序本质链表逆序的本质就是把每一个节点原本指向下一个节点的next指针倒转过来，指向它的前置节点。
+    <meta name="description" content="链表逆序算法逆序本质链表逆序的本质就是把每一个节点原本指向下一个节点的next指针倒转过来，指向它的前置节点。
 实现步骤
 从链表头部开始，建立三个临时节点的引用，分别为p1，p2，p3。它们分别指向头节点、第二个节点和第三个节点。
-以p2节点为视角，把">
+以p2节">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -561,7 +561,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    488
+                    532
                 </div>
                 
 
@@ -584,8 +584,8 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="逆序本质"><a href="#逆序本质" class="headerlink" title="逆序本质"></a>逆序本质</h2><p>链表逆序的本质就是把每一个节点原本指向下一个节点的next指针倒转过来，指向它的前置节点。</p>
-<h2 id="实现步骤"><a href="#实现步骤" class="headerlink" title="实现步骤"></a>实现步骤</h2><ol>
+                <h2 id="链表逆序算法"><a href="#链表逆序算法" class="headerlink" title="链表逆序算法"></a>链表逆序算法</h2><h3 id="逆序本质"><a href="#逆序本质" class="headerlink" title="逆序本质"></a>逆序本质</h3><p>链表逆序的本质就是把每一个节点原本指向下一个节点的next指针倒转过来，指向它的前置节点。</p>
+<h3 id="实现步骤"><a href="#实现步骤" class="headerlink" title="实现步骤"></a>实现步骤</h3><ol>
 <li>从链表头部开始，建立三个临时节点的引用，分别为p1，p2，p3。它们分别指向头节点、第二个节点和第三个节点。</li>
 <li>以p2节点为视角，把p2节点原本指向p3的next指针倒转，指向p1。</li>
 <li>三个临时节点的引用分别向后移动一格位置。</li>
@@ -594,7 +594,7 @@
 <li>继续这样迭代下去，直到p2是空为止。</li>
 <li>最后把head节点的next指向null，成为逆序链表的尾节点，并且把p1赋值给head，成为头节点。<a id="more"></a></li>
 </ol>
-<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">private</span> <span class="token keyword">static</span> Node head<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//这里head是静态成员，其实也可以作为方法参数传入</span>
+<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">private</span> <span class="token keyword">static</span> Node head<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//这里head是静态成员，其实也可以作为方法参数传入</span>
 <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">reverseLinkedList</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
   <span class="token keyword">if</span><span class="token punctuation">(</span>head<span class="token operator">==</span>null <span class="token operator">||</span> head<span class="token punctuation">.</span>next<span class="token operator">==</span>null<span class="token punctuation">)</span><span class="token punctuation">{</span>
     <span class="token keyword">return</span><span class="token punctuation">;</span>
@@ -650,6 +650,15 @@
     temp <span class="token operator">=</span> temp<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="判定字符是否唯一"><a href="#判定字符是否唯一" class="headerlink" title="判定字符是否唯一"></a>判定字符是否唯一</h2><pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">isUnique</span><span class="token punctuation">(</span>String astr<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        Set set <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HashSet</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span>astr<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            set<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>astr<span class="token punctuation">.</span><span class="token function">charAt</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> set<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">==</span> astr<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
             </div>
             <hr/>
@@ -665,7 +674,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://www.lishaojie.top" rel="external nofollow noreferrer">lishaojie-C</a>
+                    <a href="https://lishaojie1993.gitee.io" rel="external nofollow noreferrer">睡到自然醒</a>
                 </span>
             </div>
             <div class="reprint__type">
@@ -675,7 +684,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://www.lishaojie.top/2019/09/18/LinkedList-Reverse/">https://www.lishaojie.top/2019/09/18/LinkedList-Reverse/</a>
+                    <a href="https://lishaojie1993.gitee.io/2019/09/18/LinkedList-Reverse/">https://lishaojie1993.gitee.io/2019/09/18/LinkedList-Reverse/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -688,7 +697,7 @@
                     本博客所有文章除特別声明外，均采用
                     <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
                     许可协议。转载请注明来源
-                    <a href="https://www.lishaojie.top" target="_blank">lishaojie-C</a>
+                    <a href="https://lishaojie1993.gitee.io" target="_blank">睡到自然醒</a>
                     !
                 </span>
             </div>
@@ -1056,7 +1065,7 @@
         var url = document.location.href;
         newdiv.innerHTML += '<br />'
             + '来源: 睡到自然醒<br />'
-            + '文章作者: lishaojie-C<br />'
+            + '文章作者: 睡到自然醒<br />'
             + '文章链接: <a href="' + url + '">' + url + '</a><br />'
             + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
 
@@ -1195,13 +1204,13 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             <span id="year">2020</span>
-            <a href="https://www.lishaojie.top" target="_blank">lishaojie-C</a>
-            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            <a href="https://lishaojie1993.gitee.io" target="_blank">睡到自然醒</a>
+            |&nbsp;版权所有&nbsp;<a href="https://mp.weixin.qq.com/s/27TYoAD1FKGZMPrn3EaFtQ" target="_blank">李少杰</a>
             <!--|&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>-->
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">124.6k</span>&nbsp;字
+                class="white-color">139.6k</span>&nbsp;字
             
             
             

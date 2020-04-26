@@ -573,10 +573,10 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <h2 id="乐观锁｜悲观锁"><a href="#乐观锁｜悲观锁" class="headerlink" title="乐观锁｜悲观锁"></a>乐观锁｜悲观锁</h2><h3 id="乐观锁"><a href="#乐观锁" class="headerlink" title="乐观锁"></a>乐观锁</h3><p>乐观锁是一种乐观思想，即认为读多写少，遇到并发写的可能性低，每次去拿数据的时候都认为别人不会修改，所以不会上锁，但是在更新的时候会判断一下在此期间别人有没有去更新这个数据，采取在写时先读出当前版本号，然后加锁操作（比较跟上一次的版本号，如果一样则更新），如果失败则要重复读-比较-写的操作。</p>
-<p>java 中的乐观锁基本都是通过 CAS 操作实现的，CAS 是一种更新的原子操作，比较当前值跟传入值是否一样，一样则更新，否则失败。详情可参考我的另一篇博客：<a href="https://lishaojie1993.gitee.io/2019/02/28/CAS/" target="_blank" rel="noopener">CAS算法原理</a></p>
+<p>java 中的乐观锁基本都是通过 CAS 操作实现的，CAS 是一种更新的原子操作，比较当前值跟传入值是否一样，一样则更新，否则失败。详情可参考我的另一篇博客：<a href="https://lishaojie1993.gitee.io/2019/02/28/CAS/">CAS算法原理</a></p>
 <h3 id="悲观锁"><a href="#悲观锁" class="headerlink" title="悲观锁"></a>悲观锁</h3><p>悲观锁是就是悲观思想，即认为写多，遇到并发写的可能性高，每次去拿数据的时候都认为别人会修改，所以每次在读写数据的时候都会上锁，这样别人想读写这个数据就会 block 直到拿到锁。java 中的悲观锁就是 Synchronized，AQS 框架下的锁则是先尝试 cas 乐观锁去获取锁，获取不到，才会转换为悲观锁，如 ReentrantLock。</p>
 <h2 id="自旋锁-SpinLock"><a href="#自旋锁-SpinLock" class="headerlink" title="自旋锁-SpinLock"></a>自旋锁-SpinLock</h2><p>自旋锁原理非常简单， 如果持有锁的线程能在很短时间内释放锁资源，那么那些等待竞争锁的线程就不需要做内核态和用户态之间的切换（进入阻塞挂起状态等待被唤醒），它们只需要等一等（自旋），等持有锁的线程释放锁后即可立即获取锁，这样就避免用户线程和内核的切换的消耗。<a id="more"></a></p>
-<p>详情可参考我的另一篇博客：<a href="https://lishaojie1993.gitee.io/2020/02/21/SpinLock/" target="_blank" rel="noopener">自旋锁-SpinLock</a></p>
+<p>详情可参考我的另一篇博客：<a href="https://lishaojie1993.gitee.io/2020/02/21/SpinLock/">自旋锁-SpinLock</a></p>
 <h2 id="可重入锁-递归锁"><a href="#可重入锁-递归锁" class="headerlink" title="可重入锁(递归锁)"></a>可重入锁(递归锁)</h2><p>指的是同一线程外层函数获得锁之后，内层递归函数仍然能获取该锁的代码，在同一个线程外层方法获取锁的时候，在进入内层方法会自动获取锁。也就是说，<strong>线程可以进入任何一个它已经拥有的锁所同步着的代码块</strong>。</p>
 <p><strong>ReentrantLock</strong>和<strong>Synchronized</strong>都是可重入锁，可重入锁的最大作用在于避免死锁。</p>
 <ul>
@@ -597,7 +597,7 @@
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 </ul>
-<p>详情可参考我的另一篇博客：<a href="https://lishaojie1993.gitee.io/2020/02/23/AQS/" target="_blank" rel="noopener">ReentrantLock源码解析-AQS</a></p>
+<p>详情可参考我的另一篇博客：<a href="https://lishaojie1993.gitee.io/2020/02/23/AQS/">ReentrantLock源码解析-AQS</a></p>
 <h2 id="公平锁｜非公平锁"><a href="#公平锁｜非公平锁" class="headerlink" title="公平锁｜非公平锁"></a>公平锁｜非公平锁</h2><p><strong>公平锁</strong>：是指多个线程按照申请锁的顺序来获取锁，性能下降，但是顺序得到保障，讲究先来后到。</p>
 <p><strong>非公平锁</strong>：是指多个线程获取锁的顺序并不是按照申请锁的顺序，先抢先得，抢不到再排队。</p>
 <pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">//可重入锁的空构造方法默认使用ReentrantLock(false)</span>
@@ -700,7 +700,7 @@
 <p>轻量级锁是为了在线程交替执行同步块时提高性能，而偏向锁则是在只有一个线程执行同步块时进一步提高性能。</p>
 </blockquote>
 <h2 id="分段锁"><a href="#分段锁" class="headerlink" title="分段锁"></a>分段锁</h2><p>分段锁并非一种实际的锁，而是一种思想。ConcurrentHashMap 是学习分段锁的最好实践。</p>
-<p>详情可参考我的另一篇博客：<a href="https://lishaojie1993.gitee.io/2019/03/19/ConcurrentHashMap/" target="_blank" rel="noopener">ConcurrentHashMap底层实现</a></p>
+<p>详情可参考我的另一篇博客：<a href="https://lishaojie1993.gitee.io/2019/03/19/ConcurrentHashMap/">ConcurrentHashMap底层实现</a></p>
 <h2 id="锁优化"><a href="#锁优化" class="headerlink" title="锁优化"></a>锁优化</h2><h3 id="减少锁持有时间"><a href="#减少锁持有时间" class="headerlink" title="减少锁持有时间"></a>减少锁持有时间</h3><p>只用在有线程安全要求的程序上加锁。</p>
 <h3 id="减小锁粒度"><a href="#减小锁粒度" class="headerlink" title="减小锁粒度"></a>减小锁粒度</h3><p>将大对象（这个对象可能会被很多线程访问），拆成小对象，大大增加并行度，降低锁竞争。</p>
 <p>降低了锁的竞争， 偏向锁， 轻量级锁成功率才会提高。 最最典型的减小锁粒度的案例就是ConcurrentHashMap。</p>
@@ -762,7 +762,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://www.lishaojie.top" rel="external nofollow noreferrer">lishaojie-C</a>
+                    <a href="https://lishaojie1993.gitee.io" rel="external nofollow noreferrer">睡到自然醒</a>
                 </span>
             </div>
             <div class="reprint__type">
@@ -772,7 +772,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://www.lishaojie.top/2020/02/29/lock/">https://www.lishaojie.top/2020/02/29/lock/</a>
+                    <a href="https://lishaojie1993.gitee.io/2020/02/29/lock/">https://lishaojie1993.gitee.io/2020/02/29/lock/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -785,7 +785,7 @@
                     本博客所有文章除特別声明外，均采用
                     <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
                     许可协议。转载请注明来源
-                    <a href="https://www.lishaojie.top" target="_blank">lishaojie-C</a>
+                    <a href="https://lishaojie1993.gitee.io" target="_blank">睡到自然醒</a>
                     !
                 </span>
             </div>
@@ -1014,31 +1014,33 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/03/02/OOM/">
+                <a href="/2020/03/01/idea-hotkey/">
                     <div class="card-image">
                         
-                        <img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/featureimages/26.jpg" class="responsive-img" alt="内存溢出-OOM">
                         
-                        <span class="card-title">内存溢出-OOM</span>
+                        <img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/featureimages/21.jpg" class="responsive-img" alt="IDEA快捷键（Mac版）">
+                        
+                        <span class="card-title">IDEA快捷键（Mac版）</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            OOM架构
-java.lang.StackOverflowError此错误为栈内存溢出，出现原因是深度的方法调用。
-public class StackOverflowDemo {
-    public static void main(S
+                            最常使用Ctrl + O：快捷覆写方法
+Ctrl+Enter：Generate界面，快速生成Get，Set方法
+Shift+Enter：换到下一行
+Command+R：字符替换
+Command+Shift+R：可以在整个工程或着某个目录下面
                         
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-03-02
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-03-01
                         </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
-                            lishaojie-C
+                            睡到自然醒
                             
                         </span>
                     </div>
@@ -1046,12 +1048,8 @@ public class StackOverflowDemo {
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/JVM/">
-                        <span class="chip bg-color">JVM</span>
-                    </a>
-                    
-                    <a href="/tags/OOM/">
-                        <span class="chip bg-color">OOM</span>
+                    <a href="/tags/hotkey/">
+                        <span class="chip bg-color">hotkey</span>
                     </a>
                     
                 </div>
@@ -1087,7 +1085,7 @@ private transient volatile Nod
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
-                            lishaojie-C
+                            睡到自然醒
                             
                         </span>
                     </div>
@@ -1142,7 +1140,7 @@ private transient volatile Nod
         var url = document.location.href;
         newdiv.innerHTML += '<br />'
             + '来源: 睡到自然醒<br />'
-            + '文章作者: lishaojie-C<br />'
+            + '文章作者: 睡到自然醒<br />'
             + '文章链接: <a href="' + url + '">' + url + '</a><br />'
             + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
 
@@ -1281,13 +1279,13 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             <span id="year">2020</span>
-            <a href="https://www.lishaojie.top" target="_blank">lishaojie-C</a>
-            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            <a href="https://lishaojie1993.gitee.io" target="_blank">睡到自然醒</a>
+            |&nbsp;版权所有&nbsp;<a href="https://mp.weixin.qq.com/s/27TYoAD1FKGZMPrn3EaFtQ" target="_blank">李少杰</a>
             <!--|&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>-->
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">124.6k</span>&nbsp;字
+                class="white-color">139.6k</span>&nbsp;字
             
             
             

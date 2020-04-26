@@ -726,7 +726,7 @@
 </li>
 </ul>
 <h3 id="内存溢出-out-of-memory"><a href="#内存溢出-out-of-memory" class="headerlink" title="内存溢出-out of memory"></a>内存溢出-out of memory</h3><p>是指程序在申请内存时，没有足够的内存空间供其使用，出现 OutOfMemory。</p>
-<p>OOM详情可参考我的另一篇博客：<a href="https://lishaojie1993.gitee.io/2020/03/02/OOM/" target="_blank" rel="noopener">内存溢出-OOM</a></p>
+<p>OOM详情可参考我的另一篇博客：<a href="https://lishaojie1993.gitee.io/2020/03/02/OOM/">内存溢出-OOM</a></p>
 <h4 id="内存溢出的解决方案"><a href="#内存溢出的解决方案" class="headerlink" title="内存溢出的解决方案"></a>内存溢出的解决方案</h4><ol>
 <li><p>修改JVM启动参数，直接增加内存。(-Xms，-Xmx参数一定不要忘记加。)</p>
 </li>
@@ -758,7 +758,7 @@
 </blockquote>
 <p>从用户使用程序的角度来看，内存泄漏本身不会产生什么危害，作为一般的用户，根本感觉不到内存泄漏的存在。<br>真正有危害的是内存泄漏的堆积，这会最终消耗尽系统所有的内存。从这个角度来说，一次性内存泄漏并没有什么危<br>害，因为它不会堆积，而隐式内存泄漏危害性则非常大，因为较之于常发性和偶发性内存泄漏它更难被检测到。</p>
 <h3 id="各个版本内存区域的变化"><a href="#各个版本内存区域的变化" class="headerlink" title="各个版本内存区域的变化"></a>各个版本内存区域的变化</h3><p>在Java7之前，HotSpot虚拟机中将GC分代收集扩展到了方法区，使用永久代来实现了方法区。这个区域的内存回收目标主要是针对常量池的回收和对类型的卸载。但是在之后的HotSpot虚拟机实现中，逐渐开始将方法区从永久代移除。Java7中已经将运行时常量池从永久代移除，在Java 堆（Heap）中开辟了一块区域存放运行时常量池。而在Java8中，已经彻底没有了永久代，将方法区直接放在一个与堆不相连的本地内存区域，这个区域被叫做元空间。</p>
-<h2 id="3、JVM垃圾收集算法与收集器"><a href="#3、JVM垃圾收集算法与收集器" class="headerlink" title="3、JVM垃圾收集算法与收集器"></a>3、JVM垃圾收集算法与收集器</h2><p>垃圾收集算法与收集器涉及到的内容比较多，详情可参考我的另一篇博客：<a href="https://lishaojie1993.gitee.io/2020/03/04/GC/" target="_blank" rel="noopener">垃圾回收-GC</a></p>
+<h2 id="3、JVM垃圾收集算法与收集器"><a href="#3、JVM垃圾收集算法与收集器" class="headerlink" title="3、JVM垃圾收集算法与收集器"></a>3、JVM垃圾收集算法与收集器</h2><p>垃圾收集算法与收集器涉及到的内容比较多，详情可参考我的另一篇博客：<a href="https://lishaojie1993.gitee.io/2020/03/04/GC/">垃圾回收-GC</a></p>
 <h2 id="4、JVM生产问题的排查与解决"><a href="#4、JVM生产问题的排查与解决" class="headerlink" title="4、JVM生产问题的排查与解决"></a>4、JVM生产问题的排查与解决</h2><h3 id="JVM的参数类型"><a href="#JVM的参数类型" class="headerlink" title="JVM的参数类型"></a>JVM的参数类型</h3><h4 id="标配参数"><a href="#标配参数" class="headerlink" title="标配参数"></a>标配参数</h4><ul>
 <li>-version</li>
 <li>-help</li>
@@ -928,7 +928,7 @@ Java HotSpot<span class="token punctuation">(</span>TM<span class="token punctua
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://www.lishaojie.top" rel="external nofollow noreferrer">lishaojie-C</a>
+                    <a href="https://lishaojie1993.gitee.io" rel="external nofollow noreferrer">睡到自然醒</a>
                 </span>
             </div>
             <div class="reprint__type">
@@ -938,7 +938,7 @@ Java HotSpot<span class="token punctuation">(</span>TM<span class="token punctua
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://www.lishaojie.top/2020/03/06/jvm/">https://www.lishaojie.top/2020/03/06/jvm/</a>
+                    <a href="https://lishaojie1993.gitee.io/2020/03/06/jvm/">https://lishaojie1993.gitee.io/2020/03/06/jvm/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -951,7 +951,7 @@ Java HotSpot<span class="token punctuation">(</span>TM<span class="token punctua
                     本博客所有文章除特別声明外，均采用
                     <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
                     许可协议。转载请注明来源
-                    <a href="https://www.lishaojie.top" target="_blank">lishaojie-C</a>
+                    <a href="https://lishaojie1993.gitee.io" target="_blank">睡到自然醒</a>
                     !
                 </span>
             </div>
@@ -1172,49 +1172,46 @@ Java HotSpot<span class="token punctuation">(</span>TM<span class="token punctua
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/03/06/jvm/">
+                <a href="/2020/04/20/springcloud/">
                     <div class="card-image">
                         
-                        <img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/featureimages/6.jpg" class="responsive-img" alt="JVM底层原理与性能优化">
                         
-                        <span class="card-title">JVM底层原理与性能优化</span>
+                        <img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/featureimages/0.jpg" class="responsive-img" alt="微服务-SpringCloud">
+                        
+                        <span class="card-title">微服务-SpringCloud</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            1、JVM内存结构JVM由哪些部分组成？
-类加载器（ClassLoader）
-运行时数据区（Runtime Data Area）
-执行引擎（Execution Engine）
-本地库接口（Native Interface）
-
-各组成部分的用
+                            微服务架构微服务架构是一种架构模式，它提倡将单一应用程序划分成一组小的服务，服务之间互相协调、互相配合，为用户提供最终价值。每个服务运行在其独立的进程中，服务与服务间采用轻量级的通信机制互相协作(通常是基于HTTP协议的 RESTful A
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-03-06
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-04-20
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
-                            lishaojie-C
+                            睡到自然醒
                             
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/JVM/">
-                        <span class="chip bg-color">JVM</span>
+                    <a href="/tags/微服务/">
+                        <span class="chip bg-color">微服务</span>
+                    </a>
+                    
+                    <a href="/tags/SpringCloud/">
+                        <span class="chip bg-color">SpringCloud</span>
                     </a>
                     
                 </div>
@@ -1252,7 +1249,7 @@ Java HotSpot<span class="token punctuation">(</span>TM<span class="token punctua
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
-                            lishaojie-C
+                            睡到自然醒
                             
                         </span>
                     </div>
@@ -1307,7 +1304,7 @@ Java HotSpot<span class="token punctuation">(</span>TM<span class="token punctua
         var url = document.location.href;
         newdiv.innerHTML += '<br />'
             + '来源: 睡到自然醒<br />'
-            + '文章作者: lishaojie-C<br />'
+            + '文章作者: 睡到自然醒<br />'
             + '文章链接: <a href="' + url + '">' + url + '</a><br />'
             + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
 
@@ -1446,13 +1443,13 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             <span id="year">2020</span>
-            <a href="https://www.lishaojie.top" target="_blank">lishaojie-C</a>
-            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            <a href="https://lishaojie1993.gitee.io" target="_blank">睡到自然醒</a>
+            |&nbsp;版权所有&nbsp;<a href="https://mp.weixin.qq.com/s/27TYoAD1FKGZMPrn3EaFtQ" target="_blank">李少杰</a>
             <!--|&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>-->
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">124.6k</span>&nbsp;字
+                class="white-color">139.6k</span>&nbsp;字
             
             
             

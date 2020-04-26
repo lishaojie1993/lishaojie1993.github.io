@@ -589,11 +589,11 @@ Iterato">
 <li>LinkedHashSet：继承于 HashSet，并且其内部是通过 LinkedHashMap 来实现的。使用双向链表记录插入顺序。</li>
 </ol>
 <h3 id="Queue"><a href="#Queue" class="headerlink" title="Queue"></a>Queue</h3><p>在两端出入的list，所以也可以使用数组或链表来实现。</p>
-<p>想了解阻塞队列相关请参考：<a href="https://lishaojie1993.gitee.io/2020/02/16/BlockingQueue/" target="_blank" rel="noopener">阻塞队列-BlockingQueue</a></p>
+<p>想了解阻塞队列相关请参考：<a href="https://lishaojie1993.gitee.io/2020/02/16/BlockingQueue/">阻塞队列-BlockingQueue</a></p>
 <h2 id="Map"><a href="#Map" class="headerlink" title="Map"></a>Map</h2><h3 id="HashMap-数组-链表-红黑树"><a href="#HashMap-数组-链表-红黑树" class="headerlink" title="HashMap (数组+链表+红黑树)"></a>HashMap (数组+链表+红黑树)</h3><p>键不可重复，值可重复，底层哈希表，<strong>线程不安全，允许一个key为null，value也可以为null。</strong></p>
-<p>详情可参考：<a href="https://lishaojie1993.gitee.io/2019/04/18/HashMap/" target="_blank" rel="noopener">HashMap的底层实现原理</a></p>
+<p>详情可参考：<a href="https://lishaojie1993.gitee.io/2019/04/18/HashMap/">HashMap的底层实现原理</a></p>
 <h3 id="ConcurrentHashMap-Segment-继承-ReentrantLock-加锁"><a href="#ConcurrentHashMap-Segment-继承-ReentrantLock-加锁" class="headerlink" title="ConcurrentHashMap(Segment 继承 ReentrantLock 加锁)"></a>ConcurrentHashMap(<strong>Segment</strong> 继承 <strong>ReentrantLock</strong> 加锁)</h3><p>简单理解就是，ConcurrentHashMap 是一个 Segment 数组，Segment 通过继承 ReentrantLock 来进行加锁，所以每次需要加锁的操作锁住的是一个 segment，这样只要保证每 个 Segment 是线程安全的，也就实现了全局的线程安全。</p>
-<p>详情可参考：<a href="https://lishaojie1993.gitee.io/2019/03/19/ConcurrentHashMap/" target="_blank" rel="noopener">ConcurrentHashMap底层实现</a></p>
+<p>详情可参考：<a href="https://lishaojie1993.gitee.io/2019/03/19/ConcurrentHashMap/">ConcurrentHashMap底层实现</a></p>
 <h3 id="HashTable-线程安全"><a href="#HashTable-线程安全" class="headerlink" title="HashTable (线程安全)"></a>HashTable (线程安全)</h3><p>键不可重复，值可重复，底层哈希表，<strong>线程安全，key、value都不允许为null。</strong></p>
 <h3 id="TreeMap-可排序"><a href="#TreeMap-可排序" class="headerlink" title="TreeMap (可排序)"></a>TreeMap (可排序)</h3><p>键不可重复，值可重复，底层二叉树。</p>
 <h3 id="LinkHashMap-记录插入顺序"><a href="#LinkHashMap-记录插入顺序" class="headerlink" title="LinkHashMap (记录插入顺序)"></a>LinkHashMap (记录插入顺序)</h3><p>LinkedHashMap 是 HashMap 的一个子类，保存了记录的插入顺序。</p>
@@ -702,7 +702,7 @@ Iterato">
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://www.lishaojie.top" rel="external nofollow noreferrer">lishaojie-C</a>
+                    <a href="https://lishaojie1993.gitee.io" rel="external nofollow noreferrer">睡到自然醒</a>
                 </span>
             </div>
             <div class="reprint__type">
@@ -712,7 +712,7 @@ Iterato">
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://www.lishaojie.top/2019/06/29/list-set-map/">https://www.lishaojie.top/2019/06/29/list-set-map/</a>
+                    <a href="https://lishaojie1993.gitee.io/2019/06/29/list-set-map/">https://lishaojie1993.gitee.io/2019/06/29/list-set-map/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -725,7 +725,7 @@ Iterato">
                     本博客所有文章除特別声明外，均采用
                     <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
                     许可协议。转载请注明来源
-                    <a href="https://www.lishaojie.top" target="_blank">lishaojie-C</a>
+                    <a href="https://lishaojie1993.gitee.io" target="_blank">睡到自然醒</a>
                     !
                 </span>
             </div>
@@ -975,7 +975,7 @@ Iterato">
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
-                            lishaojie-C
+                            睡到自然醒
                             
                         </span>
                     </div>
@@ -1084,7 +1084,7 @@ Git 的特点分布式相比于集中式
         var url = document.location.href;
         newdiv.innerHTML += '<br />'
             + '来源: 睡到自然醒<br />'
-            + '文章作者: lishaojie-C<br />'
+            + '文章作者: 睡到自然醒<br />'
             + '文章链接: <a href="' + url + '">' + url + '</a><br />'
             + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
 
@@ -1223,13 +1223,13 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             <span id="year">2020</span>
-            <a href="https://www.lishaojie.top" target="_blank">lishaojie-C</a>
-            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            <a href="https://lishaojie1993.gitee.io" target="_blank">睡到自然醒</a>
+            |&nbsp;版权所有&nbsp;<a href="https://mp.weixin.qq.com/s/27TYoAD1FKGZMPrn3EaFtQ" target="_blank">李少杰</a>
             <!--|&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>-->
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">124.6k</span>&nbsp;字
+                class="white-color">139.6k</span>&nbsp;字
             
             
             
