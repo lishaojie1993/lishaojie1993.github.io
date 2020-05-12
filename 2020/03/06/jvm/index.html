@@ -596,17 +596,12 @@
 <li><p>连接：</p>
 <ul>
 <li>验证：确保类加载的正确性。（可能有的class文件是通过其他方式编译出来的）</li>
-</ul>
-</li>
-</ol>
-<ul>
 <li>准备：为类的<strong>静态变量</strong>分配内存，将其初始化为<strong>默认值</strong> 。（int为0，boolean为false）</li>
-</ul>
-<ul>
 <li>解析：把类中的符号引用转化为直接引用。（比如把方法名改为方法的内存地址）</li>
 </ul>
-<ol start="3">
-<li>初始化：为类的静态变量赋予正确的初始值。（程序编写的值是真正的初始值）</li>
+</li>
+<li><p>初始化：为类的静态变量赋予正确的初始值。（程序编写的值是真正的初始值）</p>
+</li>
 </ol>
 <p><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/0082zybpgy1gcb1tmkh5oj30hl05j3zc.jpg" alt></p>
 <h4 id="类加载器的双亲委派模型"><a href="#类加载器的双亲委派模型" class="headerlink" title="类加载器的双亲委派模型"></a>类加载器的双亲委派模型</h4><ol>
@@ -615,8 +610,7 @@
 </li>
 <li><p><strong>双亲委派模型的工作过程？</strong></p>
 <ul>
-<li><p>当前 ClassLoader 首先从自己已经加载的类中查询是否此类已经加载，如果已经加载则直接返回原来已经加载的类。</p>
-<p>每个类加载器都有自己的加载缓存，当一个类被加载了以后就会放入缓存，等下次加载的时候就可以直接返回了。</p>
+<li><p>当前 ClassLoader 首先从自己已经加载的类中查询是否此类已经加载，如果已经加载则直接返回原来已经加载的类。每个类加载器都有自己的加载缓存，当一个类被加载了以后就会放入缓存，等下次加载的时候就可以直接返回了。</p>
 </li>
 <li><p>当前 ClassLoader 的缓存中没有找到被加载的类的时候，委托父类加载器去加载，父类加载器采用同样的策略，首先查看自己的缓存，然后委托父类的父类去加载，一直到 bootstrap ClassLoader.</p>
 </li>
@@ -721,8 +715,7 @@
 <li><p><strong>OutOfMemoryError</strong>： 若Java虚拟机栈的内存大小允许动态扩展，且当线程请求栈时内存用完了，无法再动态扩展了，此时抛出OutOfMemoryError异常。</p>
 </li>
 <li><p><strong>StackOverFlowError和OutOfMemoryError的异同？</strong> </p>
-<p>StackOverFlowError表示当前线程申请的栈超过了事先定好的栈的最大深度，但内存空间可能还有很多。 </p>
-<p>而OutOfMemoryError是指当线程申请栈时发现栈已经满了，而且内存也全都用光了。 </p>
+<p>StackOverFlowError表示当前线程申请的栈超过了事先定好的栈的最大深度，但内存空间可能还有很多。 而OutOfMemoryError是指当线程申请栈时发现栈已经满了，而且内存也全都用光了。 </p>
 </li>
 </ul>
 <h3 id="内存溢出-out-of-memory"><a href="#内存溢出-out-of-memory" class="headerlink" title="内存溢出-out of memory"></a>内存溢出-out of memory</h3><p>是指程序在申请内存时，没有足够的内存空间供其使用，出现 OutOfMemory。</p>
@@ -756,7 +749,7 @@
 <li>隐式内存泄漏：程序在运行过程中不停的分配内存，但是直到结束的时候才释放内存。</li>
 </ul>
 </blockquote>
-<p>从用户使用程序的角度来看，内存泄漏本身不会产生什么危害，作为一般的用户，根本感觉不到内存泄漏的存在。<br>真正有危害的是内存泄漏的堆积，这会最终消耗尽系统所有的内存。从这个角度来说，一次性内存泄漏并没有什么危<br>害，因为它不会堆积，而隐式内存泄漏危害性则非常大，因为较之于常发性和偶发性内存泄漏它更难被检测到。</p>
+<p>从用户使用程序的角度来看，内存泄漏本身不会产生什么危害，作为一般的用户，根本感觉不到内存泄漏的存在。<br>真正有危害的是内存泄漏的堆积，这会最终消耗尽系统所有的内存。从这个角度来说，一次性内存泄漏并没有什么危害，因为它不会堆积，而隐式内存泄漏危害性则非常大，因为较之于常发性和偶发性内存泄漏它更难被检测到。</p>
 <h3 id="各个版本内存区域的变化"><a href="#各个版本内存区域的变化" class="headerlink" title="各个版本内存区域的变化"></a>各个版本内存区域的变化</h3><p>在Java7之前，HotSpot虚拟机中将GC分代收集扩展到了方法区，使用永久代来实现了方法区。这个区域的内存回收目标主要是针对常量池的回收和对类型的卸载。但是在之后的HotSpot虚拟机实现中，逐渐开始将方法区从永久代移除。Java7中已经将运行时常量池从永久代移除，在Java 堆（Heap）中开辟了一块区域存放运行时常量池。而在Java8中，已经彻底没有了永久代，将方法区直接放在一个与堆不相连的本地内存区域，这个区域被叫做元空间。</p>
 <h2 id="3、JVM垃圾收集算法与收集器"><a href="#3、JVM垃圾收集算法与收集器" class="headerlink" title="3、JVM垃圾收集算法与收集器"></a>3、JVM垃圾收集算法与收集器</h2><p>垃圾收集算法与收集器涉及到的内容比较多，详情可参考我的另一篇博客：<a href="https://lishaojie1993.gitee.io/2020/03/04/GC/">垃圾回收-GC</a></p>
 <h2 id="4、JVM生产问题的排查与解决"><a href="#4、JVM生产问题的排查与解决" class="headerlink" title="4、JVM生产问题的排查与解决"></a>4、JVM生产问题的排查与解决</h2><h3 id="JVM的参数类型"><a href="#JVM的参数类型" class="headerlink" title="JVM的参数类型"></a>JVM的参数类型</h3><h4 id="标配参数"><a href="#标配参数" class="headerlink" title="标配参数"></a>标配参数</h4><ul>
@@ -1413,28 +1406,33 @@ Java HotSpot<span class="token punctuation">(</span>TM<span class="token punctua
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/04/20/springcloud/">
+                <a href="/2020/03/08/prototype/">
                     <div class="card-image">
                         
-                        <img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/featureimages/30.jpg" class="responsive-img" alt="微服务-SpringCloud">
+                        <img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/featureimages/16.jpg" class="responsive-img" alt="原型模式-Prototype Pattern">
                         
-                        <span class="card-title">微服务-SpringCloud</span>
+                        <span class="card-title">原型模式-Prototype Pattern</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            微服务架构微服务架构是一种架构模式，它提倡将单一应用程序划分成一组小的服务，服务之间互相协调、互相配合，为用户提供最终价值。每个服务运行在其独立的进程中，服务与服务间采用轻量级的通信机制互相协作(通常是基于HTTP协议的 RESTful A
+                            传统方式传统方式复制对象Sheep sheep = new Sheep("Marry",1,"白色");
+Sheep sheep2 = new Sheep(sheep.getName(),sheep.getAge(),sheep.getCo
                         
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-04-20
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-03-08
                         </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            睡到自然醒
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/设计模式/" class="post-category">
+                                    设计模式
+                                </a>
+                            
                             
                         </span>
                     </div>
@@ -1442,12 +1440,12 @@ Java HotSpot<span class="token punctuation">(</span>TM<span class="token punctua
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/微服务/">
-                        <span class="chip bg-color">微服务</span>
+                    <a href="/tags/设计模式/">
+                        <span class="chip bg-color">设计模式</span>
                     </a>
                     
-                    <a href="/tags/SpringCloud/">
-                        <span class="chip bg-color">SpringCloud</span>
+                    <a href="/tags/prototype/">
+                        <span class="chip bg-color">prototype</span>
                     </a>
                     
                 </div>
@@ -1685,7 +1683,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">139.6k</span>&nbsp;字
+                class="white-color">159k</span>&nbsp;字
             
             
             

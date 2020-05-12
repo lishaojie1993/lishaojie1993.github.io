@@ -4,10 +4,11 @@
 
 <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="工厂模式的特点、适用场景、注意事项以及常见问题, 睡到自然醒">
-    <meta name="description" content="定义工厂模式是 Java中最常用的设计模式之一。这种类型的设计模式属于创建型模式，它提供了一种创建对象的最佳方式。
-工厂模式主要是为创建对象提供过渡接口，以便将创建对象的具体过程屏蔽隔离起来，达到提高灵活性的目的。
-工厂模式根据抽象程度分为">
+    <meta name="keywords" content="适配器模式-Adapter Pattern, 睡到自然醒">
+    <meta name="description" content="适配器模式适配器模式(Adapter Pattern)属于结构型模式。
+将一个类的接口转换成另一种接口，让原本接口不兼容的类可以兼容。其别名为包装器(Wrapper)。
+主要分为三类：类适配器模式、对象适配器模式、接口适配器模式。
+工作原理">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -15,7 +16,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>工厂模式的特点、适用场景、注意事项以及常见问题 | 睡到自然醒</title>
+    <title>适配器模式-Adapter Pattern | 睡到自然醒</title>
     <link rel="icon" type="image/png" href="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/libs/awesome/css/all.css">
@@ -400,12 +401,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/23.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/featureimages/1.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">工厂模式的特点、适用场景、注意事项以及常见问题</h1>
+                    <h1 class="description center-align post-title">适配器模式-Adapter Pattern</h1>
                 </div>
             </div>
         </div>
@@ -526,8 +527,8 @@
                                 <span class="chip bg-color">设计模式</span>
                             </a>
                         
-                            <a href="/tags/factory/">
-                                <span class="chip bg-color">factory</span>
+                            <a href="/tags/adapter/">
+                                <span class="chip bg-color">adapter</span>
                             </a>
                         
                     </div>
@@ -551,7 +552,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2018-11-10
+                    2019-12-15
                 </div>
                 
 
@@ -560,14 +561,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.3k
+                    1.4k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    4 分
+                    5 分
                 </div>
                 
 
@@ -583,85 +584,166 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>工厂模式是 Java中最常用的设计模式之一。这种类型的设计模式属于创建型模式，它提供了一种创建对象的最佳方式。</p>
-<p>工厂模式主要是为创建对象提供过渡接口，以便将创建对象的具体过程屏蔽隔离起来，达到提高灵活性的目的。</p>
-<h2 id="工厂模式根据抽象程度分为三种"><a href="#工厂模式根据抽象程度分为三种" class="headerlink" title="工厂模式根据抽象程度分为三种"></a>工厂模式根据抽象程度分为三种</h2><ul>
-<li>简单工厂模式（也叫静态工厂模式）</li>
-<li>工厂方法模式（也叫多形性工厂）</li>
-<li>抽象工厂模式（也叫工具箱）<a id="more"></a></li>
+                <h2 id="适配器模式"><a href="#适配器模式" class="headerlink" title="适配器模式"></a>适配器模式</h2><p><strong>适配器模式(Adapter Pattern)属于结构型模式</strong>。</p>
+<p>将一个类的接口转换成另一种接口，让原本接口不兼容的类可以兼容。其别名为包装器(Wrapper)。</p>
+<p><strong>主要分为三类：类适配器模式、对象适配器模式、接口适配器模式。</strong></p>
+<h3 id="工作原理"><a href="#工作原理" class="headerlink" title="工作原理"></a>工作原理</h3><ol>
+<li>从用户的角度看不到被适配者，是解耦的。</li>
+<li>用户调用适配器转化出来的目标接口方法，适配器再调用被适配者的相关接口方法。</li>
+<li>用户收到反馈结果，感觉只是和目标接口交互，如下图所示：</li>
+</ol>
+<img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/007S8ZIlgy1gejscyl6sej30y607adky.jpg" style="zoom:50%;">
+
+<h2 id="适配器模式种类"><a href="#适配器模式种类" class="headerlink" title="适配器模式种类"></a>适配器模式种类</h2><h3 id="类适配器模式"><a href="#类适配器模式" class="headerlink" title="类适配器模式"></a>类适配器模式</h3><p>Adapter类通过继承 src 类，实现 dst 类接口，完成 src-&gt;dst 的适配。</p>
+<img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/007S8ZIlgy1gejsp89oxxj30ze0bqaft.jpg" style="zoom:50%;">
+
+<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">//被适配类</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Voltage220V</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">//输出220V的电压</span>
+    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">output220V</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">int</span> src <span class="token operator">=</span> <span class="token number">220</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"电压="</span> <span class="token operator">+</span> src <span class="token operator">+</span> <span class="token string">"伏"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> src<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">//目标接口</span>
+<span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">IVoltage5V</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">output5V</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">//适配器类</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">VoltageAdapter</span> <span class="token keyword">extends</span> <span class="token class-name">Voltage220V</span> <span class="token keyword">implements</span> <span class="token class-name">IVoltage5V</span> <span class="token punctuation">{</span>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">output5V</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">//获取到22QV电压</span>
+        <span class="token keyword">int</span> srcV <span class="token operator">=</span> <span class="token function">output220V</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> dstV <span class="token operator">=</span> srcV <span class="token operator">/</span> <span class="token number">44</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//转成5V使用</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"适配器转换成功!输出电压为"</span> <span class="token operator">+</span> dstV <span class="token operator">+</span> <span class="token string">"伏"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> dstV<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Phone</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">//充电</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">charging</span><span class="token punctuation">(</span>IVoltage5V iVoltage5V<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>iVoltage5V<span class="token punctuation">.</span><span class="token function">output5V</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">5</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"电压为5V,可以充电~~"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>iVoltage5V<span class="token punctuation">.</span><span class="token function">output5V</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">></span> <span class="token number">5</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"电压大于5V,不能充电~~"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Client</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"===类适配器模式==="</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        Phone phone <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Phone</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        phone<span class="token punctuation">.</span><span class="token function">charging</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">VoltageAdapter</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span class="token comment" spellcheck="true">//输出结果：</span>
+<span class="token comment" spellcheck="true">//===类适配器模式===</span>
+<span class="token comment" spellcheck="true">//电压=220伏</span>
+<span class="token comment" spellcheck="true">//适配器转换成功!输出电压为5伏</span>
+<span class="token comment" spellcheck="true">//电压为5V,可以充电~~</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="类适配器的注意事项"><a href="#类适配器的注意事项" class="headerlink" title="类适配器的注意事项"></a>类适配器的注意事项</h4><ol>
+<li>Java是单继承机制，所以类适配器需要继承 src 类这一点算是一个缺点，因为这要求 dst 必须是接口，有一定局限性。</li>
+<li>src 类的方法在 Adapter 中<strong>都</strong>会暴露出来，也增加了使用的成本。</li>
+<li>由于其继承了 src 类，所以它可以根据需求重写 src 类的方法，使得Adapter的灵活性增强了。</li>
+</ol>
+<h3 id="对象适配器模式"><a href="#对象适配器模式" class="headerlink" title="对象适配器模式"></a>对象适配器模式</h3><ol>
+<li><p>基本思路和类的适配器模式相同，只是将Adapter类作修改，<strong>不是继承src类，而是持有src类的实例</strong>，以解决兼容性的问题。</p>
+<p>即：持有 src 类，实现 dst 类接口，完成 src-&gt;dst 的适配。</p>
+</li>
+<li><p>根据“合成复用原则”，在系统中<strong>尽量使用关联关系来替代继承关系</strong>。</p>
+</li>
+<li><p><strong>对象适配器模式是适配器模式常用的一种。</strong></p>
+</li>
+</ol>
+<img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/007S8ZIlgy1gejt94q6vej315c0eoguf.jpg" style="zoom:50%;">
+
+<p><strong>在类适配器模式的基础上需要改进的代码</strong></p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">//适配器类</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">VoltageAdapter</span> <span class="token keyword">implements</span> <span class="token class-name">IVoltage5V</span> <span class="token punctuation">{</span>
+    <span class="token keyword">private</span> Voltage220V voltage220V<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//关联关系-聚合</span>
+    <span class="token comment" spellcheck="true">//通过构造器，传入一个 Voltage220V 实例</span>
+    <span class="token keyword">public</span> <span class="token function">VoltageAdapter</span><span class="token punctuation">(</span>Voltage220V voltage220V<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>voltage220V <span class="token operator">=</span> voltage220V<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">output5V</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">int</span> dstV <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>null <span class="token operator">!=</span> voltage220V<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">int</span> srcV <span class="token operator">=</span> voltage220V<span class="token punctuation">.</span><span class="token function">output220V</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//获取220V电压</span>
+            dstV <span class="token operator">=</span> srcV <span class="token operator">/</span> <span class="token number">44</span><span class="token punctuation">;</span>
+            System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"适配器转换成功!输出电压为5伏"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> dstV<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span class="token comment" spellcheck="true">//客户端</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Client</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"===对象适配器模式==="</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        Phone phone <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Phone</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        phone<span class="token punctuation">.</span><span class="token function">charging</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">VoltageAdapter</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Voltage220V</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="对象适配器的注意事项"><a href="#对象适配器的注意事项" class="headerlink" title="对象适配器的注意事项"></a>对象适配器的注意事项</h4><ol>
+<li>对象适配器和类适配器其实算是同一种思想，只不过实现方式不同。</li>
+<li>根据合成复用原则，使用<strong>聚合替代继承</strong>，所以它解决了类适配器必须继承src的局限性问题，也不再要求dst必须是接口。</li>
+<li>使用成本更低，更灵活。</li>
+</ol>
+<h3 id="接口适配器模式"><a href="#接口适配器模式" class="headerlink" title="接口适配器模式"></a>接口适配器模式</h3><ol>
+<li>一些书籍称把接口适配器模式(Default Adapter Pattern)称为缺省适配器模式。</li>
+<li><strong>当不需要全部实现接口提供的方法时，可先设计一个抽象类实现接口</strong>，并为该接口中每个方法提供一个<strong>默认实现(空方法)</strong>，那么该抽象类的<strong>子类可有选择地覆盖父类的某些方法</strong>来实现需求。</li>
+<li>适用于一个接口不想使用其所有的方法的情况。</li>
+</ol>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">InterfaceDemo</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">method1</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">method2</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">method3</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">method4</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">public</span> <span class="token keyword">abstract</span> <span class="token keyword">class</span> <span class="token class-name">AbsAdapter</span> <span class="token keyword">implements</span> <span class="token class-name">InterfaceDemo</span> <span class="token punctuation">{</span>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">method1</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token punctuation">}</span>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">method2</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token punctuation">}</span>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">method3</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token punctuation">}</span>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">method4</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Client</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">//匿名内部类</span>
+        AbsAdapter absAdapter <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">AbsAdapter</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token annotation punctuation">@Override</span>
+            <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">method1</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"调用了method1方法"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span><span class="token punctuation">;</span>
+        absAdapter<span class="token punctuation">.</span><span class="token function">method1</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="适配器模式的应用"><a href="#适配器模式的应用" class="headerlink" title="适配器模式的应用"></a>适配器模式的应用</h2><h3 id="适配器在SpringMVC中的应用"><a href="#适配器在SpringMVC中的应用" class="headerlink" title="适配器在SpringMVC中的应用"></a>适配器在SpringMVC中的应用</h3><p>SpringMVC中的<strong>HandlerAdapter</strong>就使用了适配器模式。</p>
+<p><strong>为什么使用HandlerAdapter？</strong></p>
+<p>由于处理器的类型不同，有多重实现方式，那么调用方式就不是确定的，如果需要直接调用Controller方法，需要调用的时候就得不断是使用 if else 来进行判断是哪一种类然后执行。那么如果后面要扩展Controller，就得修改原来的代码，这样违背了OCP原则。</p>
+<p><strong>如何使用适配器？</strong></p>
+<ul>
+<li>Spring定义了一个适配接口，使得每一种Controller有一种对应的适配器实现类。</li>
+<li>适配器代替controller执行相应的方法扩展Controller时，只需要增加一个适配器类就完成了SpringMVC的扩展了。</li>
 </ul>
-<h3 id="简单工厂模式"><a href="#简单工厂模式" class="headerlink" title="简单工厂模式"></a>简单工厂模式</h3><p>实质是由一个工厂类根据传入的参数，动态决定应该创建哪一个产品类（这些产品类继承自一个父类或接口）的实例。简单工厂模式的创建目标，所有创建的对象都是充当这个角色的某个具体类的实例。</p>
-<h3 id="工厂方法模式"><a href="#工厂方法模式" class="headerlink" title="工厂方法模式"></a>工厂方法模式</h3><p>工厂方法是粒度很小的设计模式，因为模式的表现只是一个抽象的方法。 提前定义用于创建对象的接口，让子类决定实例化具体的某一个类，即在工厂和产品中间增加接口，工厂不再负责产品的创建，由接口针对不同条件返回具体的类实例，由具体类实例去实现。</p>
-<h3 id="抽象工厂模式"><a href="#抽象工厂模式" class="headerlink" title="抽象工厂模式"></a>抽象工厂模式</h3><p>当有多个抽象角色时使用的一种工厂模式。抽象工厂模式可以向客户端提供一个接口，使客户端在不必指定产品的具体的情况下，创建多个产品对象。它有多个抽象产品类，每个抽象产品类可以派生出多个具体产品类，一个抽象工厂类，可以派生出多个具体工厂类，每个具体工厂类可以创建多个具体产品类的实例。</p>
-<p><strong>工厂方法模式应该在实际中用的较多，我们以工厂方法模式举例（例子来源百度，帮助理解）</strong></p>
-<p>抽象的产品类：定义car 交通工具类</p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">Car</span> <span class="token punctuation">{</span>    
-    <span class="token keyword">void</span> <span class="token function">gotowork</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<p>定义实际的产品类，总共定义两个，bike 和bus 分别表示不同的交通工具类</p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Bike</span> <span class="token keyword">implements</span> <span class="token class-name">Car</span> <span class="token punctuation">{</span>
-    <span class="token annotation punctuation">@Override</span>
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">gotowork</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"骑自行车去上班！"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
+<img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/007S8ZIlgy1gejy5xd5y8j313u0iwai7.jpg" style="zoom:50%;">
 
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Bus</span> <span class="token keyword">implements</span> <span class="token class-name">Car</span> <span class="token punctuation">{</span>
-    <span class="token annotation punctuation">@Override</span>
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">gotowork</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"坐公交车去上班！"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>定义抽象的工厂接口</p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">ICarFactory</span> <span class="token punctuation">{</span>
-    Car <span class="token function">getCar</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<p>具体的工厂子类，分别为每个具体的产品类创建不同的工厂子类</p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">BikeFactory</span> <span class="token keyword">implements</span> <span class="token class-name">ICarFactory</span> <span class="token punctuation">{</span>
-    <span class="token annotation punctuation">@Override</span>
-    <span class="token keyword">public</span> Car <span class="token function">getCar</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Bike</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-
-
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">BusFactory</span> <span class="token keyword">implements</span> <span class="token class-name">ICarFactory</span> <span class="token punctuation">{</span>    
-<span class="token annotation punctuation">@Override</span>
-    <span class="token keyword">public</span> Car <span class="token function">getCar</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>        
-        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Bus</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>简单的测试类，来验证不同的工厂能够产生不同的产品对象</p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">TestFactory</span> <span class="token punctuation">{</span>
-    <span class="token annotation punctuation">@Test</span>
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">test</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        ICarFactory factory <span class="token operator">=</span> null<span class="token punctuation">;</span>
-        <span class="token comment" spellcheck="true">// bike</span>
-        factory <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">BikeFactory</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        Car bike <span class="token operator">=</span> factory<span class="token punctuation">.</span><span class="token function">getCar</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        bike<span class="token punctuation">.</span><span class="token function">gotowork</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-        <span class="token comment" spellcheck="true">// bus</span>
-        factory <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">BusFactory</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        Car bus <span class="token operator">=</span> factory<span class="token punctuation">.</span><span class="token function">getCar</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        bus<span class="token punctuation">.</span><span class="token function">gotowork</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="工厂模式的优点"><a href="#工厂模式的优点" class="headerlink" title="工厂模式的优点"></a>工厂模式的优点</h2><p>1、一个调用者想创建一个对象，只要知道其名称就可以了，降低了耦合度。</p>
-<p>2、扩展性高，如果想增加一个产品，只要扩展一个工厂类就可以。使得代码结构更加清晰。</p>
-<p>3、屏蔽产品的具体实现，调用者只关心产品的接口。</p>
-<h2 id="工厂模式的缺点"><a href="#工厂模式的缺点" class="headerlink" title="工厂模式的缺点"></a>工厂模式的缺点</h2><p>每次增加一个产品时，都需要增加一个具体类和对象实现工厂（这里可以使用反射机制来避免），使得系统中类的个数成倍增加，在一定程度上增加了系统的复杂度，同时也增加了系统具体类的依赖。所以对于简单对象来说，使用工厂模式反而增加了复杂度。</p>
-<h2 id="工厂模式的适用场景"><a href="#工厂模式的适用场景" class="headerlink" title="工厂模式的适用场景"></a>工厂模式的适用场景</h2><p>1， 一个对象拥有很多子类。</p>
-<p>2， 创建某个对象时需要进行许多额外的操作。</p>
-<p>3， 系统后期需要经常扩展，它把对象实例化的任务交由实现类完成，扩展性好。</p>
-<h2 id="关于工厂模式的一些常见问题"><a href="#关于工厂模式的一些常见问题" class="headerlink" title="关于工厂模式的一些常见问题"></a>关于工厂模式的一些常见问题</h2><p>利用父类的向下转型（使用父类类型的引用指向子类的对象）是可以达到类似于工厂模式的效果的，那为什么还要用工厂模式呢？</p>
-<p>把指向子类对象的父类引用赋给子类引用叫做向下转型，如：</p>
-<pre class="line-numbers language-java"><code class="language-java">Class <span class="token class-name">Student</span> <span class="token keyword">extends</span> <span class="token class-name">Person</span>     
-Person s <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Student</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>    
-s <span class="token operator">=</span> <span class="token punctuation">(</span>Student<span class="token punctuation">)</span>person <span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<p>使用向下转型在客户端实例化子类的时候，严重依赖具体的子类的名字。当我们需要更改子类的构造方法的时候，比如增加一个参数，或者更改了子类的类名，所有的new出来的子类都需要跟着更改。</p>
-<p>但如果我们使用工厂模式，我们仅仅需要在工厂中修改一下new的代码，其余项目中用到此实例的都会跟着改，而不需要我们手动去操作。</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>无论是简单工厂模式、工厂模式还是抽象工厂模式，它们本质上都是将不变的部分提取出来，将可变的部分留作接口，以达到最大程度上的复用。究竟用哪种设计模式更适合，这要根据具体的业务需求来决定。</p>
+<h3 id="适配器模式的注意事项"><a href="#适配器模式的注意事项" class="headerlink" title="适配器模式的注意事项"></a>适配器模式的注意事项</h3><ol>
+<li>三种命名方式是根据 src 是以怎样的形式给到 Adapter (在Adapter里的形式)来命名的。<ul>
+<li>类适配器：以类的方式给到，在Adapter里， 就是将 src 当做类，<strong>继承</strong></li>
+<li>对象适配器：以对象的方式给到，在Adapter里，将 src 作为一个对象，<strong>持有</strong></li>
+<li>接口适配器：以接口的方式给到，在Adapter里， 将 src 作为一个接口，<strong>实现</strong></li>
+</ul>
+</li>
+<li>Adapter模式最大的作用还是将原本不兼容的接口融合在一起工作。</li>
+<li>实际开发中，实现起来不拘泥于这三种经典形式。</li>
+</ol>
 
             </div>
             <hr/>
@@ -687,7 +769,7 @@ s <span class="token operator">=</span> <span class="token punctuation">(</span>
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://lishaojie1993.gitee.io/2018/11/10/factory/">https://lishaojie1993.gitee.io/2018/11/10/factory/</a>
+                    <a href="https://lishaojie1993.gitee.io/2019/12/15/adapter/">https://lishaojie1993.gitee.io/2019/12/15/adapter/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -729,8 +811,8 @@ s <span class="token operator">=</span> <span class="token punctuation">(</span>
                                     <span class="chip bg-color">设计模式</span>
                                 </a>
                             
-                                <a href="/tags/factory/">
-                                    <span class="chip bg-color">factory</span>
+                                <a href="/tags/adapter/">
+                                    <span class="chip bg-color">adapter</span>
                                 </a>
                             
                         </div>
@@ -1166,31 +1248,39 @@ s <span class="token operator">=</span> <span class="token punctuation">(</span>
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2019/02/28/CAS/">
+                <a href="/2019/12/17/builder/">
                     <div class="card-image">
                         
                         
-                        <img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/featureimages/25.jpg" class="responsive-img" alt="CAS算法原理">
+                        <img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/featureimages/0.jpg" class="responsive-img" alt="建造者模式-Builder Pattern">
                         
-                        <span class="card-title">CAS算法原理</span>
+                        <span class="card-title">建造者模式-Builder Pattern</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            什么是CAS？CAS的全称是Compare and Swap，比较并交换，它是一条CPU并发原语。
-它的功能是判断内存中某个位置的值是否为预期值，如果是则改为新的值，这个过程是原子的。
-CAS并发原语体现在Java中就是sun.misc.U
+                            传统方式传统方式盖房子
+
+public abstract class AbstractHouse {
+    //打地基
+    public abstract void buildBasic();
+    //砌墙
+    public 
                         
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2019-02-28
+                            <i class="far fa-clock fa-fw icon-date"></i>2019-12-17
                         </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            睡到自然醒
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/设计模式/" class="post-category">
+                                    设计模式
+                                </a>
+                            
                             
                         </span>
                     </div>
@@ -1198,12 +1288,12 @@ CAS并发原语体现在Java中就是sun.misc.U
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/算法/">
-                        <span class="chip bg-color">算法</span>
+                    <a href="/tags/设计模式/">
+                        <span class="chip bg-color">设计模式</span>
                     </a>
                     
-                    <a href="/tags/CAS/">
-                        <span class="chip bg-color">CAS</span>
+                    <a href="/tags/builder/">
+                        <span class="chip bg-color">builder</span>
                     </a>
                     
                 </div>
@@ -1217,33 +1307,32 @@ CAS并发原语体现在Java中就是sun.misc.U
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2018/06/06/nginx/">
+                <a href="/2019/12/04/state/">
                     <div class="card-image">
                         
                         
-                        <img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/featureimages/18.jpg" class="responsive-img" alt="Nginx相关">
+                        <img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/featureimages/8.jpg" class="responsive-img" alt="状态模式-State Pattern">
                         
-                        <span class="card-title">Nginx相关</span>
+                        <span class="card-title">状态模式-State Pattern</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Nginx安装配置https://www.runoob.com/linux/nginx-install-setup.html
-正向代理：正向代理的对象是客户端    举例：访问Youtube挂VPN
-反向代理：反向代理的对象是服务器    
+                            状态模式状态模式(State Pattern)：它主要用来解决对象在多种状态转换时，需要对外输出不同的行为的问题。状态和行为是一一对应的，状态之间可以相互转换当一个对象的内在状态改变时，允许改变其行为，这个对象看起来像是改变了其类。
+状态模
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2018-06-06
+                                <i class="far fa-clock fa-fw icon-date"></i>2019-12-04
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/分布式/" class="post-category">
-                                    分布式
+                            <a href="/categories/设计模式/" class="post-category">
+                                    设计模式
                                 </a>
                             
                             
@@ -1253,12 +1342,12 @@ CAS并发原语体现在Java中就是sun.misc.U
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/分布式/">
-                        <span class="chip bg-color">分布式</span>
+                    <a href="/tags/设计模式/">
+                        <span class="chip bg-color">设计模式</span>
                     </a>
                     
-                    <a href="/tags/nginx/">
-                        <span class="chip bg-color">nginx</span>
+                    <a href="/tags/state/">
+                        <span class="chip bg-color">state</span>
                     </a>
                     
                 </div>
@@ -1445,7 +1534,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">139.6k</span>&nbsp;字
+                class="white-color">159k</span>&nbsp;字
             
             
             
