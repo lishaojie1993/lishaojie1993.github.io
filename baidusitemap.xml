@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://lishaojie1993.gitee.io/2020/03/04/GC/</loc>
+    <lastmod>2020-05-12</lastmod>
+  </url>  <url>
     <loc>https://lishaojie1993.gitee.io/2019/09/16/Sort/</loc>
+    <lastmod>2020-05-12</lastmod>
+  </url>  <url>
+    <loc>https://lishaojie1993.gitee.io/2020/03/01/idea-hotkey/</loc>
     <lastmod>2020-05-12</lastmod>
   </url>  <url>
     <loc>https://lishaojie1993.gitee.io/2019/11/03/encryption/</loc>
@@ -12,9 +18,6 @@
   </url>  <url>
     <loc>https://lishaojie1993.gitee.io/2020/02/11/lombok/</loc>
     <lastmod>2020-04-25</lastmod>
-  </url>  <url>
-    <loc>https://lishaojie1993.gitee.io/2020/03/01/idea-hotkey/</loc>
-    <lastmod>2020-04-23</lastmod>
   </url>  <url>
     <loc>https://lishaojie1993.gitee.io/2019/09/18/LinkedList-Reverse/</loc>
     <lastmod>2020-04-21</lastmod>
@@ -80,9 +83,6 @@
     <lastmod>2020-03-20</lastmod>
   </url>  <url>
     <loc>https://lishaojie1993.gitee.io/2020/02/21/SpinLock/</loc>
-    <lastmod>2020-03-20</lastmod>
-  </url>  <url>
-    <loc>https://lishaojie1993.gitee.io/2020/03/04/GC/</loc>
     <lastmod>2020-03-20</lastmod>
   </url>  <url>
     <loc>https://lishaojie1993.gitee.io/2020/03/02/OOM/</loc>
