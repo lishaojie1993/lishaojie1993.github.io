@@ -604,7 +604,7 @@
 <p>水平分表就是把一个表里的数据分配到多个表里去，但是每个库的表结构一样，只不过每个库表存放的数据是不同的，所有库表的数据加起来就是全部数据。水平拆分的意义就是将数据均匀的放到更多的库里，然后用更多的库来抗更高的并发，还可以通过多个库的容量来扩容。</p>
 </li>
 </ul>
-<p><img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/0082zybply1gbtin7sm0xj31tc0quhdv.jpg" alt></p>
+<p><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/0082zybply1gbtin7sm0xj31tc0quhdv.jpg" alt></p>
 <h3 id="数据分库"><a href="#数据分库" class="headerlink" title="数据分库"></a>数据分库</h3><p>每个物理数据库支持数据都是有限的，每一次的数据库请求都会产生一次数据库链接，当一个库无法支持更多访问的时候，我们会把原来的单个数据库分成多个，帮助分担压力。</p>
 <ul>
 <li>根据业务不同分库，这种情况都会把主营业务和其他功能分开。例如可以分为订单数据库，核算数据库，评论数据库。</li>
@@ -612,7 +612,7 @@
 <li>根据访问数据的地域/时间范围进行分库。</li>
 </ul>
 <p><strong>range和hash的优缺点</strong></p>
-<p><img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/0082zybply1gbtiwjec6pj30yw09418a.jpg" alt></p>
+<p><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/0082zybply1gbtiwjec6pj30yw09418a.jpg" alt></p>
 <p><strong>分库分表会遇到哪些问题</strong></p>
 <ul>
 <li><p>ID：主键不可以使用 UUID，性能太差，如果是文件名啥的可以用，不依赖数据库直接在系统中生成，即UUID.randomUUID().toString.replace(“-“,””)，UUID 实现起来比较方便，但是占用的空间比较大；可以用数据库自增ID，即通过一张表来存放生成的 Sequence，不过效率都不算高。Sequence 表的方式节省了空间，但是单表性能瓶颈，且所有的 ID 都依赖于单表。这里推荐使用snowflake算法。</p>
@@ -652,18 +652,18 @@
 <h2 id="有哪些分库分表的中间件？"><a href="#有哪些分库分表的中间件？" class="headerlink" title="有哪些分库分表的中间件？"></a>有哪些分库分表的中间件？</h2><p><strong>sharding-jdbc 和 mycat</strong>。</p>
 <p>sharding-jdbc是基于client层的，优点在于不用部署，运维成本低，不需要代理层的二次转发请求，性能很高。缺点是如果遇到升级啥的需要各个系统都重新升级再发布。</p>
 <p>mycat是基于proxy层的，优点在于各个项目是透明的，直接访问中间件就可以了，升级维护啥的自己在中间件那里搞就行了。缺点是需要部署，自己维护一套中间件，运维成本高。</p>
-<h2 id="不同的中间件有什么优缺点？"><a href="#不同的中间件有什么优缺点？" class="headerlink" title="不同的中间件有什么优缺点？"></a>不同的中间件有什么优缺点？</h2><p><img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/0082zybply1gbthfnw403j30yk070k3g.jpg" alt></p>
+<h2 id="不同的中间件有什么优缺点？"><a href="#不同的中间件有什么优缺点？" class="headerlink" title="不同的中间件有什么优缺点？"></a>不同的中间件有什么优缺点？</h2><p><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/0082zybply1gbthfnw403j30yk070k3g.jpg" alt></p>
 <hr>
 <h2 id="如何把单库单表的系统迁移到分库分表？"><a href="#如何把单库单表的系统迁移到分库分表？" class="headerlink" title="如何把单库单表的系统迁移到分库分表？"></a>如何把单库单表的系统迁移到分库分表？</h2><h3 id="停机迁移"><a href="#停机迁移" class="headerlink" title="停机迁移"></a>停机迁移</h3><p>发布公告，凌晨0点～2点维护系统，暂停使用。</p>
 <p>数据迁移，修改配置，验证测试。</p>
-<p><img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/0082zybply1gbtrd56mz7j31400k84qp.jpg" alt></p>
+<p><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/0082zybply1gbtrd56mz7j31400k84qp.jpg" alt></p>
 <h3 id="不停机双写迁移"><a href="#不停机双写迁移" class="headerlink" title="不停机双写迁移"></a>不停机双写迁移</h3><p>通过修改配置实现在系统写入单库单表的同时，也将数据发送到mycat，往分库分表中写入数据。</p>
 <p>此时还会启动一个后台数据迁移临时工具来将历史数据同步到分库分表中，将历史数据写入分库分表前，先查询分库分表中是否存在，如果不存在，直接写入，如果存在，则通过查询比较两个数据的时间戳，将更新的数据保留在分库分表中。</p>
-<p><img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/0082zybply1gbtrsa3jy3j31300n64qp.jpg" alt></p>
+<p><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/0082zybply1gbtrsa3jy3j31300n64qp.jpg" alt></p>
 <hr>
 <h2 id="分库分表以后ID主键如何处理？"><a href="#分库分表以后ID主键如何处理？" class="headerlink" title="分库分表以后ID主键如何处理？"></a>分库分表以后ID主键如何处理？</h2><p>推荐使用Snowflake算法，这是 Twitter 开源的分布式 ID 生成算法，结果是一个 long 型的 ID。</p>
 <p>其核心思想是：生成一个64位的long型ID，其中第一位是符号位0，后面使用 41bit 作为毫秒数，10bit 作为机器的 ID(5 个 bit 是数据中心(机房)，5 个 bit 的机器 ID)，12bit 作为毫秒内的流水号(意味着每个节点在每毫秒可以产生 4096 个 ID)。</p>
-<p><img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/0082zybply1gbushxzxnlj30go05bdg1.jpg" alt></p>
+<p><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/0082zybply1gbushxzxnlj30go05bdg1.jpg" alt></p>
 <hr>
 <h2 id="简述如何实现mysql的读写分离？"><a href="#简述如何实现mysql的读写分离？" class="headerlink" title="简述如何实现mysql的读写分离？"></a>简述如何实现mysql的读写分离？</h2><p>其实很简单，就是基于主从复制架构，搞一个主库，挂多个从库，我们单单只是写主库，主库会自动把数据同步到从库上去，从库只负责读，借此来分担数据库读压力。</p>
 <h2 id="mysql主从复制的原理？"><a href="#mysql主从复制的原理？" class="headerlink" title="mysql主从复制的原理？"></a>mysql主从复制的原理？</h2><ol>
@@ -672,7 +672,7 @@
 <li>接着从库中有一个SQL线程会从relay日志中读取binlog日志，然后执行其中的内容，使主从数据保持一致。</li>
 </ol>
 <p><strong>需要注意的问题（数据延迟和数据丢失）</strong></p>
-<p><img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/0082zybply1gbvrsjdv6wj316c0dcwvw.jpg" alt></p>
+<p><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/0082zybply1gbvrsjdv6wj316c0dcwvw.jpg" alt></p>
 <ol>
 <li>从库同步主库的过程是串行化的，也就是说主库上并行的操作在从库上会串行执行。</li>
 <li>由于从库拷贝主库日志以及串行执行的特点，在高并发的场景下，从库的数据同步会有延迟。</li>

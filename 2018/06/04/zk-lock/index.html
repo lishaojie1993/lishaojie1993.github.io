@@ -593,7 +593,7 @@
 <h3 id="分布式锁的实现"><a href="#分布式锁的实现" class="headerlink" title="分布式锁的实现"></a>分布式锁的实现</h3><h4 id="创建锁"><a href="#创建锁" class="headerlink" title="创建锁"></a>创建锁</h4><p>多个jvm服务器之间，同时在zookeeper上创建相同的一个<strong>临时节点</strong>，因为临时节点路径是保证唯一，<br>只要谁能够创建节点成功，谁就能够获取到锁，<br>没有创建成功节点，只能注册个监听器监听这个锁并进行等待，当释放锁的时候，采用事件通知给其它客户端重新获取锁的资源。这时候客户端使用事件监听，如果该临时节点被删除的话，重新进入获取锁的步骤。</p>
 <h4 id="释放锁"><a href="#释放锁" class="headerlink" title="释放锁"></a>释放锁</h4><p>Zookeeper使用直接关闭临时节点session会话连接，因为临时节点生命周期与session会话绑定在一块，<br>如果session会话连接关闭的话，该临时节点也会被删除。这时候客户端使用事件监听，如果该临时节点被删除的话，重新进入到获取锁的步骤。</p>
 <h3 id="独占锁"><a href="#独占锁" class="headerlink" title="独占锁"></a>独占锁</h3><p>独占锁又称排它锁，从字面意思上很容易理解他们的用途。即如果某个操作 O1 对访问资源 R1 的过程加锁，在操作 O1 结束对资源 R1 访问前，其他操作不允许访问资源 R1。我们先看张图：</p>
-<img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gd527kbsn8j30ma0c2jrs.jpg" alt="图1-独占锁示意图" style="zoom:50%;">
+<img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gd527kbsn8j30ma0c2jrs.jpg" alt="图1-独占锁示意图" style="zoom:50%;">
 
 <p>如上图，对于独占锁，我们可以将 lock 节点看做是资源 R1，操作 O1 访问资源 R1 看做创建 lock 节点，释放资源 R1 看做删除 lock 节点。这样我们就将独占锁的定义对应于具体的 zookeeper 节点结构，通过创建 lock 节点获取锁，删除节点释放锁。详细的过程如下：</p>
 <p>1、多个客户端竞争创建 lock 临时节点；</p>
@@ -602,12 +602,12 @@
 <p>4、其他客户端获得 lock 节点被删除的通知；</p>
 <p>5、重复上述4个步骤，直至无客户端在等待获取锁了。</p>
 <p><strong>独占锁的流程图如下：</strong></p>
-<img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gd52dt7lr5j30xq0mk77c.jpg" alt="图2-独占锁流程图" style="zoom: 50%;">
+<img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gd52dt7lr5j30xq0mk77c.jpg" alt="图2-独占锁流程图" style="zoom: 50%;">
 
 <hr>
 <h3 id="读写锁"><a href="#读写锁" class="headerlink" title="读写锁"></a>读写锁</h3><p>说完独占锁的实现，下面来说说读写锁的实现。读写锁包含一个读锁和写锁，操作 O1 对资源 R1 加读锁，且获得了锁，其他操作可同时对资源 R1 设置读锁，进行共享读操作。</p>
 <p>如果操作 O1 对资源 R1 加写锁，且获得了锁，其他操作再对资源 R1 设置不同类型的锁都会被阻塞。总结来说，<strong>读锁具有共享性，而写锁具有排他性</strong>。那么在 zookeeper 中，我们可以用怎样的节点结构实现上面的操作呢？</p>
-<img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gd52hcudmsj30tc0i6myj.jpg" alt="图3-读写锁示意图" style="zoom:50%;">
+<img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gd52hcudmsj30tc0i6myj.jpg" alt="图3-读写锁示意图" style="zoom:50%;">
 
 <p>在 zookeeper 中，由于读写锁和独占锁的节点结构不同，读写锁的客户端不用再去竞争创建 lock 节点。所以在一开始，所有的客户端都会创建自己的锁节点。如果不出意外，所有的锁节点都能被创建成功，此时锁节点结构如上图所示。之后，客户端从 zookeeper 端获取 /share_lock 下所有的子节点，并判断自己能否获取锁。如果客户端创建的是<strong>读锁</strong>节点，获取锁的条件（满足其中一个即可）</p>
 <blockquote>
@@ -625,7 +625,7 @@
 <p>3、判断自己创建的锁节点是否可以获取锁，如果可以，持有锁。否则继续等待；</p>
 <p>4、持有锁的客户端删除自己的锁节点，其他客户端收到 /share_lock 子节点变动的通知；</p>
 <p>5、重复步骤2、3、4，直至无客户端在等待获取锁了。</p>
-<img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gd52movc4wj30ry0sqwhy.jpg" alt="图4-读写锁的第一种实现" style="zoom:50%;">
+<img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gd52movc4wj30ry0sqwhy.jpg" alt="图4-读写锁的第一种实现" style="zoom:50%;">
 
 <p>上面获取读写锁流程并不复杂，但却存在性能问题。以图3所示锁节点结构为例，第一个锁节点 host1-W-0000000001 被移除后，zookeeper 会将 /share_lock 子节点变动的通知分发给所有的客户端。</p>
 <p>但实际上，该子节点变动通知除了能影响 host2-R-0000000002 节点对应的客户端外，分发给其他客户端则是在做无用功，因为其他客户端即使获取了通知也无法获取锁。所以这里需要做一些优化，优化措施是让客户端只在自己关心的节点被删除时，再去获取锁。</p>
@@ -636,7 +636,7 @@
 <p>3、判断自己创建的锁节点是否可以获取锁，如果可以，持有锁。否则对自己关心的锁节点设置 watcher；</p>
 <p>4、持有锁的客户端删除自己的锁节点，某个客户端收到该节点被删除的通知，并获取锁；</p>
 <p>5、重复步骤4，直至无客户端在等待获取锁了。</p>
-<img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gd52p5t1alj30qq0skdjb.jpg" alt="图5-读写锁的第二种实现" style="zoom:50%;">
+<img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gd52p5t1alj30qq0skdjb.jpg" alt="图5-读写锁的第二种实现" style="zoom:50%;">
 
 <hr>
 <p>参考：</p>

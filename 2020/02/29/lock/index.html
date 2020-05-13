@@ -708,7 +708,7 @@
 <h3 id="锁粗化"><a href="#锁粗化" class="headerlink" title="锁粗化"></a>锁粗化</h3><p>通常情况下，为了保证多线程间的有效并发，会要求每个线程持有锁的时间尽量短，即在使用完公共资源后，应该立即释放锁。但是，凡事都有一个度， 如果对同一个锁不停的进行请求、同步和释放，其本身也会消耗系统宝贵的资源，反而不利于性能的优化。</p>
 <h3 id="锁消除"><a href="#锁消除" class="headerlink" title="锁消除"></a>锁消除</h3><p>锁消除是在编译器级别的事情。在即时编译器时，如果发现不可能被共享的对象，则可以消除这些对象的锁操作，多数是因为程序员编码不规范引起。</p>
 <h2 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h2><p>死锁是指两个或两个以上的进程在执行过程中，因争夺资源而造成的一种互相等待的现象，若无外力干涉它们都将无法推进下去。如果系统资源充足，进程的资源请求都能够得到满足，死锁出现的可能性就很低，否则就会因争夺有限的资源而陷入死锁。</p>
-<img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gci5y7k0boj30q60ce7cy.jpg" style="zoom:50%;">
+<img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gci5y7k0boj30q60ce7cy.jpg" style="zoom:50%;">
 
 <h3 id="死锁产生的原因"><a href="#死锁产生的原因" class="headerlink" title="死锁产生的原因"></a>死锁产生的原因</h3><ol>
 <li>系统资源不足</li>
@@ -744,9 +744,9 @@
         <span class="token keyword">new</span> <span class="token class-name">Thread</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">HoldLockThread</span><span class="token punctuation">(</span>lockB<span class="token punctuation">,</span> lockA<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">"t2"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="如何排查死锁"><a href="#如何排查死锁" class="headerlink" title="如何排查死锁"></a>如何排查死锁</h3><h4 id="jps命令定位进程号"><a href="#jps命令定位进程号" class="headerlink" title="jps命令定位进程号"></a>jps命令定位进程号</h4><p><img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gci6pdzjljj30jo05wtbm.jpg" alt></p>
+<h3 id="如何排查死锁"><a href="#如何排查死锁" class="headerlink" title="如何排查死锁"></a>如何排查死锁</h3><h4 id="jps命令定位进程号"><a href="#jps命令定位进程号" class="headerlink" title="jps命令定位进程号"></a>jps命令定位进程号</h4><p><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gci6pdzjljj30jo05wtbm.jpg" alt></p>
 <h4 id="jstack找到死锁查看"><a href="#jstack找到死锁查看" class="headerlink" title="jstack找到死锁查看"></a>jstack找到死锁查看</h4><p> <strong>jstack 23576</strong></p>
-<p><img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gci6qzpnwcj30ug0eetjr.jpg" alt></p>
+<p><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gci6qzpnwcj30ug0eetjr.jpg" alt></p>
 
             </div>
             <hr/>

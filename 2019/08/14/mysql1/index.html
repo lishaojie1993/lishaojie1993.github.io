@@ -683,34 +683,34 @@
 </ul>
 <h2 id="索引优化"><a href="#索引优化" class="headerlink" title="索引优化"></a>索引优化</h2><h3 id="索引分析"><a href="#索引分析" class="headerlink" title="索引分析"></a>索引分析</h3><h4 id="单表查询优化"><a href="#单表查询优化" class="headerlink" title="单表查询优化"></a>单表查询优化</h4><p>比如查询category_id为1且comments&gt;1的情况下，views最多的category_id。</p>
 <pre class="line-numbers language-mysql"><code class="language-mysql">select id,author_id from artical where category_id =1 and comments >1 order by views desc limit 1;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p><img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gddzq7a5lwj318603swf0.jpg" alt="单表没有使用索引"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gddzq7a5lwj318603swf0.jpg" alt="单表没有使用索引"></p>
 <p>存在问题：没有使用索引，扫描全表，文件排序。</p>
 <pre class="line-numbers language-mysql"><code class="language-mysql">create index idx_article_ccv on article(category_id,comments,views); #新建三个字段的索引<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p><img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gddzsgtkckj31do03sdgf.jpg" alt="单表给三个字段加索引"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gddzsgtkckj31do03sdgf.jpg" alt="单表给三个字段加索引"></p>
 <p>再次查询：索引被使用到，type是range，仍然存在文件排序，<strong>因为范围查询以后的索引会导致失效</strong>。</p>
 <pre class="line-numbers language-mysql"><code class="language-mysql">drop index idx_article_ccv on article; #删除索引
 create index idx_article_cv on article(category_id,views); #新建两个字段的索引<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p><img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gddztulo3rj316m03qq3g.jpg" alt="单表给两个字段加索引"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gddztulo3rj316m03qq3g.jpg" alt="单表给两个字段加索引"></p>
 <p>再次查询：索引被使用到，type是ref，索引字段是const常量，没有产生文件排序，调优完成。</p>
 <p>结论：SQL中包含范围查询，可以跳过范围查询的字段添加索引。</p>
 <h4 id="两表查询优化"><a href="#两表查询优化" class="headerlink" title="两表查询优化"></a>两表查询优化</h4><pre class="line-numbers language-mysql"><code class="language-mysql">#左表是驱动表，显示全部数据，右侧可能有null，如果使用inner join则只显示两表中card能对应上的数据
 select * from class left join book on class.card = book.card; <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p><img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gde0lt4sjyj318q05q0tl.jpg" alt="两表没有使用索引"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gde0lt4sjyj318q05q0tl.jpg" alt="两表没有使用索引"></p>
 <p>存在问题：type都是ALL，扫描全表，没有索引，rows检索40行</p>
 <pre class="line-numbers language-mysql"><code class="language-mysql">alter table class add index idx_class_card; #给SQL中左侧class表的card字段添加索引<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p><img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gde1205epbj31c805q3zy.jpg" alt="给左表字段加索引"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gde1205epbj31c805q3zy.jpg" alt="给左表字段加索引"></p>
 <p>左表加索引后的执行计划：type有index，但是检索行数没变。</p>
 <pre class="line-numbers language-mysql"><code class="language-mysql">drop index idx_class_card on class; #删除索引
 alter table book add index idx_book_card; #给SQL中右侧book表的card字段添加索引<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p><img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gde0fzghz6j31i805uq4g.jpg" alt="给右表字段加索引"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gde0fzghz6j31i805uq4g.jpg" alt="给右表字段加索引"></p>
 <p>右表加索引后的执行计划：type有ref，比index更好，检索行数减少。</p>
 <p>结论：<strong>左连接的索引加右表，右连接加左表</strong>。因为左连接的左表数据肯定都有，主要检索右表的数据。如果数据库中某些字段已经存在索引，编写查询SQL的时候尽量把有索引的字段放在右表或者使用right join。</p>
 <h4 id="三表查询优化"><a href="#三表查询优化" class="headerlink" title="三表查询优化"></a>三表查询优化</h4><pre class="line-numbers language-mysql"><code class="language-mysql">select * from class left join book on class.card=book.card left join phone on book.card=phone.card;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p><img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gde1dnbfcwj318q06uq43.jpg" alt="三表没有使用索引"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gde1dnbfcwj318q06uq43.jpg" alt="三表没有使用索引"></p>
 <p>存在问题：type都是ALL，全部全表扫描，没有使用索引，检索行是60行。</p>
 <pre class="line-numbers language-mysql"><code class="language-mysql">alter table book add index idx_book_card; #给book表的card字段添加索引
 alter table phone add index idx_phone_card; #给phone表的card字段添加索引<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p><img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gde1ij37nhj31i806utb5.jpg" alt="给book表和phone表的card添加索引"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gde1ij37nhj31i806utb5.jpg" alt="给book表和phone表的card添加索引"></p>
 <p>添加两个索引后的执行计划：type有两个ref，检索行数rows也大大减少，效果不错！</p>
 <p>结论：索引最好设置在需要经常查询的字段中。</p>
 <h4 id="Join优化总结"><a href="#Join优化总结" class="headerlink" title="Join优化总结"></a>Join优化总结</h4><ul>
@@ -719,7 +719,7 @@ alter table phone add index idx_phone_card; #给phone表的card字段添加索�
 <li>保证Join语句中被驱动表上Join条件字段已经被索引。</li>
 <li>当无法保证被驱动表的Join条件字段被索引且内存资源充足的前提下，不要太吝惜JoinBuffer的设置；</li>
 </ul>
-<h4 id="问题补充"><a href="#问题补充" class="headerlink" title="问题补充"></a>问题补充</h4><p><img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gdeb3a9pjsj31ks0godm4.jpg" alt="like在索引上的用法"></p>
+<h4 id="问题补充"><a href="#问题补充" class="headerlink" title="问题补充"></a>问题补充</h4><p><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gdeb3a9pjsj31ks0godm4.jpg" alt="like在索引上的用法"></p>
 <h3 id="避免索引失效（重点）"><a href="#避免索引失效（重点）" class="headerlink" title="避免索引失效（重点）"></a>避免索引失效（重点）</h3><ol>
 <li>全值匹配（完美的使用索引）</li>
 <li>最左前缀法则（带头大哥不能死，中间兄弟不能断）</li>
@@ -738,9 +738,9 @@ alter table phone add index idx_phone_card; #给phone表的card字段添加索�
 <li>在选择组合索引的时候，尽量选择可以能够包含当前query中的where子句中更多字段的索引</li>
 <li>尽可能通过分析统计信息和调整query的写法来达到选择合适索引的目的</li>
 </ul>
-<h4 id="order-by"><a href="#order-by" class="headerlink" title="order by"></a>order by</h4><p><img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gdea87rbuuj31su0gqgr5.jpg" alt="order by 使用覆盖索引"></p>
-<p><img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gdeaemluv8j31no084gna.jpg" alt="查询条件中有c2常量，只排c3"></p>
-<h4 id="group-by"><a href="#group-by" class="headerlink" title="group by"></a>group by</h4><p><img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gdeam0nvrrj32160gk43b.jpg" alt="group by"></p>
+<h4 id="order-by"><a href="#order-by" class="headerlink" title="order by"></a>order by</h4><p><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gdea87rbuuj31su0gqgr5.jpg" alt="order by 使用覆盖索引"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gdeaemluv8j31no084gna.jpg" alt="查询条件中有c2常量，只排c3"></p>
+<h4 id="group-by"><a href="#group-by" class="headerlink" title="group by"></a>group by</h4><p><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gdeam0nvrrj32160gk43b.jpg" alt="group by"></p>
 <p>order by也会使用覆盖索引，在执行计划上的体现是看有没有文件排序；</p>
 <p>group by基本上都要进行排序，和order by类似，索引处理不好会有临时表产生。</p>
 <h4 id="优化口诀"><a href="#优化口诀" class="headerlink" title="优化口诀"></a>优化口诀</h4><p>全值匹配我最爱，最左前缀要遵守；</p>

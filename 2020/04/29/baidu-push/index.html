@@ -572,17 +572,17 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <h2 id="检测是否被收录"><a href="#检测是否被收录" class="headerlink" title="检测是否被收录"></a>检测是否被收录</h2><p>我们要想查看自己的网站有没有被谷歌站点地图或者百度资源搜索平台收录，只需要在搜索栏输入<code>site:</code>后面跟你的域名或者地址就可以查看了，有收录的话会显示你网站中的内容，如果没有被收录进去的话会显示“没有找到相关网页”。</p>
-<p><img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/007S8ZIlgy1gear0ez96nj31au0jq46i.jpg" alt></p>
-<p><img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/007S8ZIlgy1geappoki70j316i0j4gqr.jpg" alt></p>
+<p><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/007S8ZIlgy1gear0ez96nj31au0jq46i.jpg" alt></p>
+<p><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/007S8ZIlgy1geappoki70j316i0j4gqr.jpg" alt></p>
 <p>这里可以看出，Google是成功收录了的，不过百度还没有收录。接下来看看如何才能被成功收录。</p>
 <h2 id="谷歌站点地图"><a href="#谷歌站点地图" class="headerlink" title="谷歌站点地图"></a>谷歌站点地图</h2><p>首先进入谷歌站点地图页面：<a href="https://search.google.com/search-console" target="_blank" rel="noopener">https://search.google.com/search-console</a></p>
 <p>如何使用sitemap.xml提交给谷歌站点地图网上教程很多，也很简单，这里不再赘述。</p>
-<p><img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/007S8ZIlgy1geapiibmajj31ia0mm42n.jpg" alt></p>
+<p><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/007S8ZIlgy1geapiibmajj31ia0mm42n.jpg" alt></p>
 <h2 id="百度资源搜索平台"><a href="#百度资源搜索平台" class="headerlink" title="百度资源搜索平台"></a>百度资源搜索平台</h2><p>由于特殊原因，官方也没有解释，最近提交sitemap给百度一直显示等待状态，也就是通过sitemap提交链接的这条路走不通了，不知道你是不是跟我有相同的遭遇。百度真是不让人省心啊……</p>
-<p><img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/007S8ZIlgy1gear1nudn7j31i20fojtu.jpg" alt></p>
+<p><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/007S8ZIlgy1gear1nudn7j31i20fojtu.jpg" alt></p>
 <p>接下来才是本文的重点，在sitemap提交失败的情况下，如何主动把链接推送给搜索资源搜索平台。</p>
 <h3 id="推送方式"><a href="#推送方式" class="headerlink" title="推送方式"></a>推送方式</h3><p>百度资源搜索平台提供了三种提交方式：<strong>主动推送(实时)、自动推送、sitemap</strong></p>
-<p><img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/007S8ZIlgy1geaqa9ins4j31a50u0gti.jpg" alt></p>
+<p><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/007S8ZIlgy1geaqa9ins4j31a50u0gti.jpg" alt></p>
 <h3 id="主动推送"><a href="#主动推送" class="headerlink" title="主动推送"></a>主动推送</h3><p>这里我们主要介绍如何通过主动实时推送到搜索引擎，百度也提供了示例，不过我猜非计算机行业看着还是一头雾水，下面我教你通过官方提供的接口调用地址，以post的方式推送链接给百度。废话不多说，直接上代码。</p>
 <pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">import</span> org<span class="token punctuation">.</span>junit<span class="token punctuation">.</span>Test<span class="token punctuation">;</span>
 

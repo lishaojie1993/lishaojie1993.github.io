@@ -728,7 +728,7 @@ nginx可以作为静态页面的web服务器">
 <td>负载的权重，默认为1。weight越大，表示这台服务器被访问的几率就越大。</td>
 </tr>
 </tbody></table>
-<h2 id="nginx配置动静分离"><a href="#nginx配置动静分离" class="headerlink" title="nginx配置动静分离"></a>nginx配置动静分离</h2><img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/007S8ZIlgy1gebtngozutj315s0p6tdq.jpg" alt style="zoom: 33%;">
+<h2 id="nginx配置动静分离"><a href="#nginx配置动静分离" class="headerlink" title="nginx配置动静分离"></a>nginx配置动静分离</h2><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/007S8ZIlgy1gebtngozutj315s0p6tdq.jpg" alt style="zoom: 33%;">
 
 <p>动静分离从目前实现角度来讲大致分为两种，一种是纯粹把静态文件独立成单独的域名，放在独立的服务器上，也是目前主流推崇的方案；另外一种方法就是动态跟静态文件混合在一起发布，通过nginx来分开。</p>
 <p>通过location指定不同的后缀名实现不同的请求转发。通过expires参数设置，可以使浏览器缓存过期时间，减少与服务器之前的请求和流量。<strong>具体Expires定义：给一个资源设定一个过期时间</strong>，也就是说无需去服务端验证，直接通过浏览器自身确认是否过期即可，所以不会产生额外的流量。此种方法非常适合不经常变动的资源。(如果经常更新的文件，不建议使用Expires来缓存)，比如设置3d，表示在这3天之内访问这个URL，发送一个请求，对比服务器该文件的最后更新时间有无变化，如果没有变化，则不会从服务器抓取，直接获取静态资源并返回状态码304(提示此为缓存资源)，如果有修改，则直接从服务器重新下载，返回状态码200。 </p>
@@ -749,7 +749,7 @@ nginx可以作为静态页面的web服务器">
 <span class="token attr-name">    ........</span> 
     }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>autoindex on; 是开启一个目录效果，在访问 <a href="http://10.211.55.4/data/image" target="_blank" rel="noopener">http://10.211.55.4/data/image</a> 时可以看到图片文件列表。</p>
-<h2 id="nginx配置高可用集群"><a href="#nginx配置高可用集群" class="headerlink" title="nginx配置高可用集群"></a>nginx配置高可用集群</h2><img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/007S8ZIlgy1gebv84sw12j31o20jwn90.jpg" style="zoom:33%;">
+<h2 id="nginx配置高可用集群"><a href="#nginx配置高可用集群" class="headerlink" title="nginx配置高可用集群"></a>nginx配置高可用集群</h2><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/007S8ZIlgy1gebv84sw12j31o20jwn90.jpg" style="zoom:33%;">
 
 <p>两台nginx服务器都需要安装keepalived</p>
 <pre class="line-numbers language-bash"><code class="language-bash">yum <span class="token function">install</span> keepalived -y<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
@@ -803,7 +803,7 @@ A<span class="token operator">=</span><span class="token variable"><span class="
 <p>启动keepalived命令： <code>systemctl start keepalived.service</code></p>
 <p>停止的话先停keepalived，再停nginx <code>systemctl stop keepalived.service</code></p>
 <h2 id="nginx原理与优化"><a href="#nginx原理与优化" class="headerlink" title="nginx原理与优化"></a>nginx原理与优化</h2><p>基本流程：首先客户端发送请求到nginx的master，相当于管理员，master得到任务后通知下面的worker，worker通过争抢机制得到任务后通过反向代理Tomcat来完成操作。</p>
-<p><img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/007S8ZIlgy1gebx87re57j318i0lgtn4.jpg" alt></p>
+<p><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/007S8ZIlgy1gebx87re57j318i0lgtn4.jpg" alt></p>
 <h3 id="worker-processes工作线程数"><a href="#worker-processes工作线程数" class="headerlink" title="worker_processes工作线程数"></a>worker_processes工作线程数</h3><ul>
 <li><p><strong>一个master多个worker有什么好处呢？</strong></p>
 <ul>
@@ -856,7 +856,7 @@ A<span class="token operator">=</span><span class="token variable"><span class="
 <pre class="line-numbers language-bash"><code class="language-bash">*/1 * * * * sh /usr/local/webserver/nginx/logs/access.log<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>第三步：新增split_log.sh文件，并给其增加权限，chmod 777 文件名</p>
 <p><strong>split_log.sh</strong></p>
-<p><img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/006tNbRwgy1garbdepmokj30ik0mm4ev.jpg" alt></p>
+<p><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/006tNbRwgy1garbdepmokj30ik0mm4ev.jpg" alt></p>
 
             </div>
             <hr/>

@@ -592,7 +592,7 @@
 <p>死亡：自然终止（run方法运行结束）｜异常终止（调用stop()方法）</p>
 </blockquote>
 <h2 id="线程的基本方法"><a href="#线程的基本方法" class="headerlink" title="线程的基本方法"></a>线程的基本方法</h2><p>线程相关的基本方法有 wait()，notify()，notifyAll()，sleep()，join()，yield() 等。</p>
-<p><img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gd0htefwj9j313u0r6k0t.jpg" alt></p>
+<p><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gd0htefwj9j313u0r6k0t.jpg" alt></p>
 <h3 id="线程等待-wait"><a href="#线程等待-wait" class="headerlink" title="线程等待-wait()"></a>线程等待-wait()</h3><p>调用该方法的线程进入 WAITING 状态，只有等待另外线程的通知或被中断才会返回，需要注意的是调用 wait()方法后，会<strong>释放对象的锁</strong>。因此，wait 方法一般用在同步方法或同步代码块中。</p>
 <h3 id="线程睡眠-sleep"><a href="#线程睡眠-sleep" class="headerlink" title="线程睡眠-sleep()"></a>线程睡眠-sleep()</h3><p>sleep() 导致当前线程休眠，与 wait 方法不同的是 sleep <strong>不会释放当前占有的锁</strong>，sleep(long)会导致线程进入 TIMED-WATING 状态，而 wait()方法会导致当前线程进入 WATING 状态。</p>
 <h3 id="线程让步-yield"><a href="#线程让步-yield" class="headerlink" title="线程让步-yield()"></a>线程让步-yield()</h3><p>yield() 会使当前线程让出 CPU 执行时间片，与其他线程一起重新竞争 CPU 时间片。一般情况下，优先级高的线程有更大的可能性成功竞争得到 CPU 时间片，但这又不是绝对的，有的操作系统对线程优先级并不敏感。</p>

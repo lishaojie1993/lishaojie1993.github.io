@@ -603,7 +603,7 @@
 <li><p>初始化：为类的静态变量赋予正确的初始值。（程序编写的值是真正的初始值）</p>
 </li>
 </ol>
-<p><img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/0082zybpgy1gcb1tmkh5oj30hl05j3zc.jpg" alt></p>
+<p><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/0082zybpgy1gcb1tmkh5oj30hl05j3zc.jpg" alt></p>
 <h4 id="类加载器的双亲委派模型"><a href="#类加载器的双亲委派模型" class="headerlink" title="类加载器的双亲委派模型"></a>类加载器的双亲委派模型</h4><ol>
 <li><p><strong>什么是双亲委派模型？</strong></p>
 <p>双亲委派模型会保证父类加载器先加载类。（延伸：jvm判定两个类相同，不仅类名一致，还要被同一类加载器加载）</p>
@@ -674,7 +674,7 @@
 <li><p>在<strong>消息传递</strong>的并发模型里，线程之间没有公共状态，线程之间必须通过明确的发送消息来<strong>显式</strong>进行通信，在java中典型的消息传递方式就是wait()和notify()。</p>
 </li>
 </ul>
-<p><img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/0082zybpgy1gcb0wr021kj30c80akt92.jpg" alt></p>
+<p><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/0082zybpgy1gcb0wr021kj30c80akt92.jpg" alt></p>
 <h3 id="JVM运行时数据区"><a href="#JVM运行时数据区" class="headerlink" title="JVM运行时数据区"></a>JVM运行时数据区</h3><ol>
 <li><p><strong>程序计数器</strong></p>
 <p>程序计数器是一块较小的内存空间，可以看作当前线程正在执行的字节码的行号指示器。</p>
@@ -773,7 +773,7 @@
 </ul>
 </li>
 </ul>
-<img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gcs8t3ec2uj30j409s7a4.jpg" style="zoom:50%;">
+<img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gcs8t3ec2uj30j409s7a4.jpg" style="zoom:50%;">
 
 <h5 id="KV设值类型"><a href="#KV设值类型" class="headerlink" title="KV设值类型"></a>KV设值类型</h5><ul>
 <li>公式<ul>
@@ -786,7 +786,7 @@
 </ul>
 </li>
 </ul>
-<img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gcs940eaisj30jw09mdlt.jpg" style="zoom:50%;">
+<img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gcs940eaisj30jw09mdlt.jpg" style="zoom:50%;">
 
 <ul>
 <li>两个经典参数（<strong>属于XX参数</strong>）<ul>
@@ -799,7 +799,7 @@
 <li><strong>java -XX:+PrintFlagsInitial</strong>：查看初始默认值</li>
 <li><strong>java -XX:+PrintFlagsFinal</strong>：查看修改更新，“=”是默认加载的，带“:”的是用户或者JVM修改过的</li>
 </ul>
-<p><img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gcsa2u9s1hj31a40dktnn.jpg" alt></p>
+<p><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gcsa2u9s1hj31a40dktnn.jpg" alt></p>
 <ul>
 <li><p><strong>java -XX:+PrintCommandLineFlags -version</strong>：打印命令行参数，可以查看默认的垃圾回收器。</p>
 <pre class="line-numbers language-bash"><code class="language-bash">➜  <span class="token variable"><span class="token variable">`</span>demo<span class="token variable">`</span></span> java -XX:+PrintCommandLineFlags -version
@@ -837,7 +837,7 @@ Java HotSpot<span class="token punctuation">(</span>TM<span class="token punctua
 </ul>
 </li>
 <li><p>CPU：<code>vmstat -n 2 3</code></p>
-<p><img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/0082zybpgy1gcb49fonjej3148064gne.jpg" alt></p>
+<p><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/0082zybpgy1gcb49fonjej3148064gne.jpg" alt></p>
 <blockquote>
 <p>一般vmstat工具的使用是通过两个数字参数来完成的，第一个参数是采样的时间间隔数单位是秒，第二个参数是采样的次数。查看参数主要看两方面，一前一后，前面看procs，后面看cpu。</p>
 <p>procs</p>
@@ -862,13 +862,13 @@ Java HotSpot<span class="token punctuation">(</span>TM<span class="token punctua
 </ul>
 </blockquote>
 </li>
-<li><p>内存：<code>free -m</code><img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/0082zybpgy1gcb849y0dcj314u0c442f.jpg" alt></p>
-<p>查看额外：pidstat -p 进程号 -r 采样间隔秒数<img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/0082zybpgy1gcb86vzxduj30sw070tc6.jpg" alt></p>
+<li><p>内存：<code>free -m</code><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/0082zybpgy1gcb849y0dcj314u0c442f.jpg" alt></p>
+<p>查看额外：pidstat -p 进程号 -r 采样间隔秒数<img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/0082zybpgy1gcb86vzxduj30sw070tc6.jpg" alt></p>
 </li>
-<li><p>硬盘：<code>df -h</code><img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gcb93btg9wj30y00d27o5.jpg" alt></p>
+<li><p>硬盘：<code>df -h</code><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gcb93btg9wj30y00d27o5.jpg" alt></p>
 </li>
 <li><p>磁盘IO：<code>iostat -xdk 2 3</code></p>
-<p><img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gcbap9iegoj31po0ke4iz.jpg" alt></p>
+<p><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gcbap9iegoj31po0ke4iz.jpg" alt></p>
 <blockquote>
 <p><strong>磁盘块设备分布</strong></p>
 <ul>
@@ -881,12 +881,12 @@ Java HotSpot<span class="token punctuation">(</span>TM<span class="token punctua
 </ul>
 </blockquote>
 <p><strong>查看额外：pidstat -d 采样间隔秒数 -p 进程号</strong> </p>
-<p><img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gcbau03v5mj314e0awdpt.jpg" alt></p>
+<p><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gcbau03v5mj314e0awdpt.jpg" alt></p>
 </li>
 </ul>
 <ul>
 <li><p>网络IO：<code>ifstat</code></p>
-<p><img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gcbb07rl5uj312s09wgq6.jpg" alt></p>
+<p><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gcbb07rl5uj312s09wgq6.jpg" alt></p>
 </li>
 </ul>
 <h3 id="生产环境CPU占用过高怎么办"><a href="#生产环境CPU占用过高怎么办" class="headerlink" title="生产环境CPU占用过高怎么办"></a>生产环境CPU占用过高怎么办</h3><ol>
@@ -896,12 +896,12 @@ Java HotSpot<span class="token punctuation">(</span>TM<span class="token punctua
 </li>
 <li><p><strong>定位到具体线程或者代码。(ps -mp 进程号 -o THREAD,tid,time)</strong>——tid线程ID。</p>
 <p>-m：显示所有的<strong>线程</strong>、-p：进程使用的CPU时间、-o：该参数后是用户自定义格式。</p>
-<p><img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gcbbei6igzj30nq06ugqb.jpg" alt></p>
+<p><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gcbbei6igzj30nq06ugqb.jpg" alt></p>
 </li>
 <li><p>将需要的线程ID转换为16进制格式（<strong>英文小写格式</strong>）</p>
 </li>
 <li><p><strong>jstack 进程ID | grep tid (16进制线程ID) -A60</strong>（打印60行）</p>
-<p><img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gcbbop4eloj30z40hfwqd.jpg" alt></p>
+<p><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gcbbop4eloj30z40hfwqd.jpg" alt></p>
 </li>
 <li><p>成功定位到异常代码在JavaDemo02.java中——第10行，查看代码分析原因并修复。</p>
 </li>
