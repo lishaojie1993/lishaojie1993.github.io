@@ -372,7 +372,7 @@ public class CallableDemo {
 &lt;p&gt;当某个请求需要在后端完成 N 次统计结果时，我们就可以使用该方式创建 N 个线程进行（并行）统计，而不需要同步等待其他统计操作完成后才统计另一个结果。&lt;/p&gt;
 &lt;h3 id=&quot;线程池&quot;&gt;&lt;a href=&quot;#线程池&quot; class=&quot;headerlink&quot; title=&quot;线程池&quot;&gt;&lt;/a&gt;线程池&lt;/h3&gt;&lt;p&gt;线程池是通过Executor框架实现的，该框架用到了Executor、Executors、ExecutorService、&lt;strong&gt;ThreadPoolExecutor&lt;/strong&gt;这几个类。&lt;/p&gt;
 &lt;p&gt;线程池的特点：线程复用、控制最大并发数、管理线程。&lt;/p&gt;
-&lt;h3 id=&quot;线程池的架构&quot;&gt;&lt;a href=&quot;#线程池的架构&quot; class=&quot;headerlink&quot; title=&quot;线程池的架构&quot;&gt;&lt;/a&gt;线程池的架构&lt;/h3&gt;&lt;p&gt;&lt;img src=&quot;/medias/loading.gif&quot; data-original=&quot;https://tva1.sinaimg.cn/large/00831rSTgy1gchx17f5qsj30pu0kktjt.jpg&quot; alt&gt;&lt;/p&gt;
+&lt;h3 id=&quot;线程池的架构&quot;&gt;&lt;a href=&quot;#线程池的架构&quot; class=&quot;headerlink&quot; title=&quot;线程池的架构&quot;&gt;&lt;/a&gt;线程池的架构&lt;/h3&gt;&lt;p&gt;&lt;img src=&quot;https://tva1.sinaimg.cn/large/00831rSTgy1gchx17f5qsj30pu0kktjt.jpg&quot; alt&gt;&lt;/p&gt;
 &lt;h2 id=&quot;线程池的使用&quot;&gt;&lt;a href=&quot;#线程池的使用&quot; class=&quot;headerlink&quot; title=&quot;线程池的使用&quot;&gt;&lt;/a&gt;线程池的使用&lt;/h2&gt;&lt;h3 id=&quot;三个简单线程池&quot;&gt;&lt;a href=&quot;#三个简单线程池&quot; class=&quot;headerlink&quot; title=&quot;三个简单线程池&quot;&gt;&lt;/a&gt;三个简单线程池&lt;/h3&gt;&lt;ul&gt;
 &lt;li&gt;newFixedThreadPool：执行长期的任务，性能好很多。&lt;/li&gt;
 &lt;li&gt;newSingleThreadExecutor：一个任务一个任务的执行。&lt;/li&gt;
@@ -436,7 +436,7 @@ public static ExecutorService newCachedThreadPool() {
    BlockingQueue&amp;lt;Runnable&amp;gt; workQueue,
    ThreadFactory threadFactory,
    RejectedExecutionHandler handler)&lt;/code&gt;&lt;/pre&gt;
-&lt;img src=&quot;/medias/loading.gif&quot; data-original=&quot;https://tva1.sinaimg.cn/large/00831rSTgy1gci3qd3bcpj315s0u0kjl.jpg&quot; style=&quot;zoom: 33%;&quot;&gt;
+&lt;img src=&quot;https://tva1.sinaimg.cn/large/00831rSTgy1gci3qd3bcpj315s0u0kjl.jpg&quot; style=&quot;zoom: 33%;&quot;&gt;
 
 &lt;ol&gt;
 &lt;li&gt;&lt;p&gt;&lt;code&gt;corePoolSize&lt;/code&gt;（&lt;strong&gt;线程池的常驻大小&lt;/strong&gt;）：当提交一个任务到线程池时，如果当前poolSize&amp;lt;corePoolSize时，线程池会创建一个线程来执行任务，即使其他空闲的基本线程能够执行新任务也会创建线程，等到需要执行的任务数大于线程池基本大小时就不再创建。如果调用了线程池的prestartAllCoreThreads()方法，线程池会提前创建并启动所有基本线程。&lt;/p&gt;
@@ -597,7 +597,7 @@ try {
     <summary type="html">
     
       &lt;h3 id=&quot;阻塞队列&quot;&gt;&lt;a href=&quot;#阻塞队列&quot; class=&quot;headerlink&quot; title=&quot;阻塞队列&quot;&gt;&lt;/a&gt;阻塞队列&lt;/h3&gt;&lt;p&gt;阻塞队列：顾名思义，首先它是一个队列，而一个阻塞队列在数据结构中所起的作用如下&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;/medias/loading.gif&quot; data-original=&quot;https://tva1.sinaimg.cn/large/00831rSTgy1gcfem6tcdyj30gf06gq4x.jpg&quot; alt&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://tva1.sinaimg.cn/large/00831rSTgy1gcfem6tcdyj30gf06gq4x.jpg&quot; alt&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;当阻塞队列是空时，试图从队列中获取元素的操作将被阻塞。&lt;/li&gt;
 &lt;li&gt;当阻塞队列是满时，试图往队列里添加元素的操作将被阻塞。&lt;/li&gt;
