@@ -39,7 +39,7 @@
                 <a href="/" class="waves-effect waves-light">
                     <div>
                         
-                        <img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/logo.png" class="logo-img" alt="LOGO">
+                        <img src="/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/logo.png" class="logo-img" alt="LOGO">
                         
                         <span class="logo-span">睡到自然醒</span>
                     </div>
@@ -183,7 +183,7 @@
 
     <div class="mobile-head bg-color">
         
-        <img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/logo.png" class="logo-img circle responsive-img">
+        <img src="/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/logo.png" class="logo-img circle responsive-img">
         
         <div class="logo-name">睡到自然醒</div>
         <div class="logo-desc">
@@ -881,7 +881,7 @@ end<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span>
 <li>通过 Lua 脚本来避免 Check And Set 模型的并发问题，因为在释放锁的时候因为涉及到多个Redis操作 （利用了eval命令执行Lua脚本的原子性）；</li>
 </ul>
 </blockquote>
-<h3 id="图解"><a href="#图解" class="headerlink" title="图解"></a>图解</h3><p><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/0082zybply1gbrd45hm50j31gy0lekjl.jpg" alt></p>
+<h3 id="图解"><a href="#图解" class="headerlink" title="图解"></a>图解</h3><p><img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/0082zybply1gbrd45hm50j31gy0lekjl.jpg" alt></p>
 <h3 id="加锁代码分析"><a href="#加锁代码分析" class="headerlink" title="加锁代码分析"></a>加锁代码分析</h3><p>首先，set加入了NX参数，可以保证如果已有key存在，则函数不会调用成功，也就是只有一个客户端能持有锁，满足互斥性。其次，由于我们对锁设置了过期时间，即使锁的持有者后续发生崩溃而没有解锁，锁也会因为到了过期时间而自动解锁（即key被删除），不会发生死锁。最后，因为我们将value赋值为requestId，用来标识这把锁是属于哪个请求加的，那么在客户端在解锁的时候就可以进行校验是否是同一个客户端。</p>
 <h3 id="解锁代码分析"><a href="#解锁代码分析" class="headerlink" title="解锁代码分析"></a>解锁代码分析</h3><p>将Lua代码传到jedis.eval()方法里，并使参数KEYS[1]赋值为lockKey，ARGV[1]赋值为requestId。在执行的时候，首先会获取锁对应的value值，检查是否与requestId相等，如果相等则解锁（删除key）。</p>
 <h3 id="存在的风险"><a href="#存在的风险" class="headerlink" title="存在的风险"></a>存在的风险</h3><ol>
@@ -1103,10 +1103,10 @@ end<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span>
                         <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
                     </ul>
                     <div id="alipay">
-                        <img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/reward/alipay.png" class="reward-img" alt="支付宝打赏二维码">
+                        <img src="/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/reward/alipay.png" class="reward-img" alt="支付宝打赏二维码">
                     </div>
                     <div id="wechat">
-                        <img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                        <img src="/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
                     </div>
                 </div>
             </div>
@@ -1409,7 +1409,7 @@ end<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span>
                     <div class="card-image">
                         
                         
-                        <img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/featureimages/27.jpg" class="responsive-img" alt="MD5加密的底层实现和破解">
+                        <img src="/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/featureimages/27.jpg" class="responsive-img" alt="MD5加密的底层实现和破解">
                         
                         <span class="card-title">MD5加密的底层实现和破解</span>
                     </div>
@@ -1462,7 +1462,7 @@ MD5（Message-digest-algorithm 5）就是信息摘要的一种实现，它可以
                 <a href="/2019/09/18/LinkedList-Reverse/">
                     <div class="card-image">
                         
-                        <img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/featureimages/7.jpg" class="responsive-img" alt="链表“逆序”算法">
+                        <img src="/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/featureimages/7.jpg" class="responsive-img" alt="链表“逆序”算法">
                         
                         <span class="card-title">链表“逆序”算法</span>
                     </div>

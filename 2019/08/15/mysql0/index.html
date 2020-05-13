@@ -65,7 +65,7 @@ InnoDB
                 <a href="/" class="waves-effect waves-light">
                     <div>
                         
-                        <img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/logo.png" class="logo-img" alt="LOGO">
+                        <img src="/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/logo.png" class="logo-img" alt="LOGO">
                         
                         <span class="logo-span">睡到自然醒</span>
                     </div>
@@ -209,7 +209,7 @@ InnoDB
 
     <div class="mobile-head bg-color">
         
-        <img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/logo.png" class="logo-img circle responsive-img">
+        <img src="/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/logo.png" class="logo-img circle responsive-img">
         
         <div class="logo-name">睡到自然醒</div>
         <div class="logo-desc">
@@ -720,7 +720,7 @@ ALTER TABLE table_name ADD FULLTEXT INDEX ft_index(column_name);<span aria-hidde
 </blockquote>
 <p>深入理解可参考：<a href="https://www.cnblogs.com/dreamworlds/p/5462018.html" target="_blank" rel="noopener">全文索引的深入理解</a></p>
 <h4 id="BTree索引"><a href="#BTree索引" class="headerlink" title="BTree索引"></a>BTree索引</h4><p>BTree是平衡搜索多叉树。每个节点都同时存储键值和数据，通过使用二分查找的查找方式来高效检索数据，一般来说B树的高度是很小的，一般为3左右，因此BTree是一个非常高效的查找结构。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gdf7mun0h8j30qk078wfh.jpg" alt="BTree"></p>
+<p><img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gdf7mun0h8j30qk078wfh.jpg" alt="BTree"></p>
 <blockquote>
 <p>二叉树的缺陷</p>
 <ul>
@@ -730,7 +730,7 @@ ALTER TABLE table_name ADD FULLTEXT INDEX ft_index(column_name);<span aria-hidde
 </blockquote>
 <h4 id="B-Tree索引"><a href="#B-Tree索引" class="headerlink" title="B+Tree索引"></a>B+Tree索引</h4><p>B+Tree是BTree的一个变种，非叶子结点不存储数据，只存储键值，这样相同的空间可以存储更多的键值。</p>
 <p>很多存储引擎在B+Tree的基础上进行了优化，<strong>在叶子节点添加了顺序访问指针</strong>，这样做是为了<strong>提高区间查找的效率</strong>，只要找到第一个值，然后顺着节点和指针顺序遍历就可以一次性访问到所有数据节点，极大提到了区间查询效率。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gdf7n9fwhgj30va0bgjsv.jpg" alt="优化后的B+Tree"></p>
+<p><img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gdf7n9fwhgj30va0bgjsv.jpg" alt="优化后的B+Tree"></p>
 <blockquote>
 <p><strong>B+Tree相比BTree的优点</strong></p>
 <ol>
@@ -750,9 +750,9 @@ ALTER TABLE table_name ADD FULLTEXT INDEX ft_index(column_name);<span aria-hidde
 </ul>
 <p>首先要介绍几个概念，在索引的分类中，我们可以按照索引的键是否为主键来分为“主索引”和“辅助索引”，使用主键键值建立的索引称为“主索引”，其它的称为“辅助索引”。因此主索引只能有一个，辅助索引可以有很多个。</p>
 <h4 id="MyISAM非聚簇索引"><a href="#MyISAM非聚簇索引" class="headerlink" title="MyISAM非聚簇索引"></a>MyISAM非聚簇索引</h4><p>MyISAM存储引擎采用的是非聚簇索引，MyISAM的<strong>主索引和辅助索引几乎是一样的</strong>，只是主索引不允许重复，不允许空值，他们的叶子结点的key都存储指向键值对应的数据的物理地址。<br><strong>非聚簇索引的数据表和索引表是分开存储的</strong>。<br>非聚簇索引中的数据是根据数据的插入顺序保存。因此非聚簇索引更适合单个数据的查询。插入顺序不受键值影响。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gdf8wmbse6j30tq0q6gw8.jpg" alt="非聚簇索引的主键索引和二级索引"></p>
+<p><img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gdf8wmbse6j30tq0q6gw8.jpg" alt="非聚簇索引的主键索引和二级索引"></p>
 <h4 id="InnoDB聚簇索引"><a href="#InnoDB聚簇索引" class="headerlink" title="InnoDB聚簇索引"></a>InnoDB聚簇索引</h4><p>聚簇索引的<strong>主索引的叶子结点存储的是键值对应的数据本身，辅助索引的叶子结点存储的是键值对应的数据的主键键值</strong>。因此主键的值长度越小越好，类型越简单越好。<br>聚簇索引的<strong>数据和主键索引存储在一起</strong>。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gdf8v91t4aj312y0k040u.jpg" alt="聚簇索引的主键索引和二级索引"></p>
+<p><img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gdf8v91t4aj312y0k040u.jpg" alt="聚簇索引的主键索引和二级索引"></p>
 <h4 id="聚簇索引的优点"><a href="#聚簇索引的优点" class="headerlink" title="聚簇索引的优点"></a>聚簇索引的优点</h4><ul>
 <li>聚簇索引查找目标数据时理论上比非聚簇索引要快，因为非聚簇索引定位到主键时还要多一次IO寻址。</li>
 <li>聚簇索引的数据是根据主键的顺序保存。因此适合按主键索引的区间查找，可以有更少的磁盘I/O，加快查询速度。</li>
@@ -980,10 +980,10 @@ ALTER TABLE table_name ADD FULLTEXT INDEX ft_index(column_name);<span aria-hidde
                         <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
                     </ul>
                     <div id="alipay">
-                        <img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/reward/alipay.png" class="reward-img" alt="支付宝打赏二维码">
+                        <img src="/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/reward/alipay.png" class="reward-img" alt="支付宝打赏二维码">
                     </div>
                     <div id="wechat">
-                        <img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                        <img src="/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
                     </div>
                 </div>
             </div>
@@ -1286,7 +1286,7 @@ ALTER TABLE table_name ADD FULLTEXT INDEX ft_index(column_name);<span aria-hidde
                     <div class="card-image">
                         
                         
-                        <img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/featureimages/21.jpg" class="responsive-img" alt="消息队列-MQ">
+                        <img src="/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/featureimages/21.jpg" class="responsive-img" alt="消息队列-MQ">
                         
                         <span class="card-title">消息队列-MQ</span>
                     </div>
@@ -1340,7 +1340,7 @@ ALTER TABLE table_name ADD FULLTEXT INDEX ft_index(column_name);<span aria-hidde
                     <div class="card-image">
                         
                         
-                        <img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/featureimages/12.jpg" class="responsive-img" alt="Mysql性能分析与索引优化">
+                        <img src="/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/featureimages/12.jpg" class="responsive-img" alt="Mysql性能分析与索引优化">
                         
                         <span class="card-title">Mysql性能分析与索引优化</span>
                     </div>

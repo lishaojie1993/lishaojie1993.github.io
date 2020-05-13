@@ -41,7 +41,7 @@ CallableJava 5.0 在 java.util.concurrent ">
                 <a href="/" class="waves-effect waves-light">
                     <div>
                         
-                        <img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/logo.png" class="logo-img" alt="LOGO">
+                        <img src="/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/logo.png" class="logo-img" alt="LOGO">
                         
                         <span class="logo-span">睡到自然醒</span>
                     </div>
@@ -185,7 +185,7 @@ CallableJava 5.0 在 java.util.concurrent ">
 
     <div class="mobile-head bg-color">
         
-        <img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/logo.png" class="logo-img circle responsive-img">
+        <img src="/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/logo.png" class="logo-img circle responsive-img">
         
         <div class="logo-name">睡到自然醒</div>
         <div class="logo-desc">
@@ -616,7 +616,7 @@ CallableJava 5.0 在 java.util.concurrent ">
 <p>当某个请求需要在后端完成 N 次统计结果时，我们就可以使用该方式创建 N 个线程进行（并行）统计，而不需要同步等待其他统计操作完成后才统计另一个结果。</p>
 <h3 id="线程池"><a href="#线程池" class="headerlink" title="线程池"></a>线程池</h3><p>线程池是通过Executor框架实现的，该框架用到了Executor、Executors、ExecutorService、<strong>ThreadPoolExecutor</strong>这几个类。</p>
 <p>线程池的特点：线程复用、控制最大并发数、管理线程。</p>
-<h3 id="线程池的架构"><a href="#线程池的架构" class="headerlink" title="线程池的架构"></a>线程池的架构</h3><p><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gchx17f5qsj30pu0kktjt.jpg" alt></p>
+<h3 id="线程池的架构"><a href="#线程池的架构" class="headerlink" title="线程池的架构"></a>线程池的架构</h3><p><img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gchx17f5qsj30pu0kktjt.jpg" alt></p>
 <h2 id="线程池的使用"><a href="#线程池的使用" class="headerlink" title="线程池的使用"></a>线程池的使用</h2><h3 id="三个简单线程池"><a href="#三个简单线程池" class="headerlink" title="三个简单线程池"></a>三个简单线程池</h3><ul>
 <li>newFixedThreadPool：执行长期的任务，性能好很多。</li>
 <li>newSingleThreadExecutor：一个任务一个任务的执行。</li>
@@ -680,7 +680,7 @@ CallableJava 5.0 在 java.util.concurrent ">
    BlockingQueue<span class="token operator">&lt;</span>Runnable<span class="token operator">></span> workQueue<span class="token punctuation">,</span>
    ThreadFactory threadFactory<span class="token punctuation">,</span>
    RejectedExecutionHandler handler<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gci3qd3bcpj315s0u0kjl.jpg" style="zoom: 33%;">
+<img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gci3qd3bcpj315s0u0kjl.jpg" style="zoom: 33%;">
 
 <ol>
 <li><p><code>corePoolSize</code>（<strong>线程池的常驻大小</strong>）：当提交一个任务到线程池时，如果当前poolSize&lt;corePoolSize时，线程池会创建一个线程来执行任务，即使其他空闲的基本线程能够执行新任务也会创建线程，等到需要执行的任务数大于线程池基本大小时就不再创建。如果调用了线程池的prestartAllCoreThreads()方法，线程池会提前创建并启动所有基本线程。</p>
@@ -825,7 +825,7 @@ CallableJava 5.0 在 java.util.concurrent ">
 <li>当workQueue已满，并且<kbd>workerCount</kbd> &gt;= <kbd>maximumPoolSize</kbd>，采取拒绝策略,根据不同的拒绝策略处理,默认拒绝策略是直接抛异常。</li>
 </ol>
 <p>由于创建新线程时（第1步、第3步）需要获取全局锁，所以ThreadPoolExecutor采取上述步骤的总体设计思路，是为了在执行execute()方法时，尽可能地避免获取全局锁（那将会是一个严重的可伸缩瓶颈）。</p>
-<h3 id="线程池状态转换模型"><a href="#线程池状态转换模型" class="headerlink" title="线程池状态转换模型"></a>线程池状态转换模型</h3><p><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/006tNbRwgy1gb1qb2e8lbj31lo0jiu0x.jpg" alt></p>
+<h3 id="线程池状态转换模型"><a href="#线程池状态转换模型" class="headerlink" title="线程池状态转换模型"></a>线程池状态转换模型</h3><p><img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/006tNbRwgy1gb1qb2e8lbj31lo0jiu0x.jpg" alt></p>
 <ul>
 <li><code>RUNNING</code> 自然是运行状态，指可以接受任务执行队列里的任务</li>
 <li><code>SHUTDOWN</code> 指调用了 <code>shutdown()</code> 方法，不再接受新任务了，但是队列里的任务得执行完毕。</li>
@@ -1454,10 +1454,10 @@ CallableJava 5.0 在 java.util.concurrent ">
                         <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
                     </ul>
                     <div id="alipay">
-                        <img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/reward/alipay.png" class="reward-img" alt="支付宝打赏二维码">
+                        <img src="/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/reward/alipay.png" class="reward-img" alt="支付宝打赏二维码">
                     </div>
                     <div id="wechat">
-                        <img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                        <img src="/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
                     </div>
                 </div>
             </div>
@@ -1759,7 +1759,7 @@ CallableJava 5.0 在 java.util.concurrent ">
                 <a href="/2020/02/21/SpinLock/">
                     <div class="card-image">
                         
-                        <img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/featureimages/13.jpg" class="responsive-img" alt="自旋锁-SpinLock">
+                        <img src="/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/featureimages/13.jpg" class="responsive-img" alt="自旋锁-SpinLock">
                         
                         <span class="card-title">自旋锁-SpinLock</span>
                     </div>
@@ -1810,7 +1810,7 @@ void lock(){
                 <a href="/2020/02/16/BlockingQueue/">
                     <div class="card-image">
                         
-                        <img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/featureimages/24.jpg" class="responsive-img" alt="阻塞队列-BlockingQueue">
+                        <img src="/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/featureimages/24.jpg" class="responsive-img" alt="阻塞队列-BlockingQueue">
                         
                         <span class="card-title">阻塞队列-BlockingQueue</span>
                     </div>

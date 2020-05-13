@@ -41,7 +41,7 @@
                 <a href="/" class="waves-effect waves-light">
                     <div>
                         
-                        <img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/logo.png" class="logo-img" alt="LOGO">
+                        <img src="/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/logo.png" class="logo-img" alt="LOGO">
                         
                         <span class="logo-span">睡到自然醒</span>
                     </div>
@@ -185,7 +185,7 @@
 
     <div class="mobile-head bg-color">
         
-        <img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/logo.png" class="logo-img circle responsive-img">
+        <img src="/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/logo.png" class="logo-img circle responsive-img">
         
         <div class="logo-name">睡到自然醒</div>
         <div class="logo-desc">
@@ -585,25 +585,25 @@
 <p><strong>非阻塞</strong>：如果缓冲区的数据没有准备好则直接返回，不会等待。如果数据已经准备好，也直接返回。</p>
 <h3 id="BIO"><a href="#BIO" class="headerlink" title="BIO"></a>BIO</h3><p>BIO是一种传统的网络通讯模型，<strong>同步阻塞IO</strong>。谁用谁接收，必须等待数据接收完毕后才能处理业务逻辑。</p>
 <p>它其实就是服务端创建一个ServerSocket， 然后客户端用一个Socket去连接服务端的ServerSocket， ServerSocket接收到了一个的连接请求就创建一个Socket和一个线程去跟客户端的Socket进行通讯。接着客户端和服务端就进行阻塞式的通信，客户端发送一个请求，服务端Socket进行处理后返回响应。在响应返回前，客户端那边就阻塞等待，什么事情也做不了。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/007S8ZIlgy1geacy57ninj311g0hitam.jpg" alt="BIO流程图"></p>
+<p><img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/007S8ZIlgy1geacy57ninj311g0hitam.jpg" alt="BIO流程图"></p>
 <p>采用BIO通信模型的服务端，通常由一个独立的Acceptor线程负责监听客户端的连接，接收到客户端连接之后为客户端连接创建一个新的线程处理请求消息，处理完成之后，返回应答消息给客户端，线程销毁，这就是典型的<strong>一请求一应答模型（Acceptor）</strong>。</p>
 <p>这种方式的缺点：每次一个客户端接入，都需要在服务端创建一个线程来服务这个客户端。这样大量客户端来的时候，就会造成服务端的线程数量可能达到了几千甚至几万，这样就可能会造成服务端过载过高，最后崩溃死掉。</p>
 <h3 id="NIO"><a href="#NIO" class="headerlink" title="NIO"></a>NIO</h3><p>NIO是一种<strong>同步非阻塞IO</strong>，基于Reactor模型实现。（反应堆）</p>
 <p>其实相当于就是一个线程处理大量的客户端的请求，通过一个线程轮询大量的channel，每次就获取一批有事件的channel，然后对每个请求启动一个线程处理即可。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/007S8ZIlgy1geadoo90l2j31100e0abn.jpg" alt="NIO流程图"></p>
+<p><img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/007S8ZIlgy1geadoo90l2j31100e0abn.jpg" alt="NIO流程图"></p>
 <p>NIO的核心就是非阻塞，就是用一个selector线程就可以不停轮询channel，所有客户端请求都不会阻塞，面向缓冲区，不需要等待，直接就可以进来，大不了就是等待一会排下队而已。</p>
 <p>NIO相较于BIO优化的核心是，一个客户端并不是时时刻刻都有数据进行交互，没有必要死耗着一个线程不放，所以客户端选择了让线程歇一歇，只有客户端有相应的操作的时候才发起通知，创建一个线程来处理请求。</p>
 <h3 id="AIO"><a href="#AIO" class="headerlink" title="AIO"></a>AIO</h3><p>AIO是一种<strong>异步非阻塞IO</strong>，基于Proactor模型实现。</p>
 <p>每个连接发送过来的请求，都会绑定一个Buffer，然后通知操作系统去完成异步的读，这个时间你就可以去做其他的事情，等到操作系统完成读之后，就会调用你的接口，给你操作系统异步读完的数据。这个时候你就可以拿到数据进行处理，将数据往回写。在往回写的过程，同样是给操作系统一个Buffer，让操作系统去完成写，写完了来通知你。这俩个过程都有buffer存在，数据都是通过buffer来完成读写。这里面的主要的区别在于将数据写入的缓冲区后，就不去管它，剩下的去交给操作系统去完成。操作系统写回数据也是一样，写到Buffer里面，写完后通知客户端来进行读取数据。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/007S8ZIlgy1geaedjoufbj311y0jm0us.jpg" alt="AIO流程图"></p>
+<p><img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/007S8ZIlgy1geaedjoufbj311y0jm0us.jpg" alt="AIO流程图"></p>
 <h3 id="面向流与面向缓冲区"><a href="#面向流与面向缓冲区" class="headerlink" title="面向流与面向缓冲区"></a>面向流与面向缓冲区</h3><p>Java NIO和IO之间第一个最大的区别是，IO是面向流的，NIO是面向缓冲区的。</p>
 <p>Java IO面向流意味着每次从流中读一个或多个字节，直至读取所有字节，它们没有被缓存在任何地方。此外，它不能前后移动流中的数据。如果需要前后移动从流中读取的数据，需要先将它缓存到一个缓冲区。</p>
 <p>Java NIO是将数据读取到一个它稍后处理的缓冲区，需要时可在缓冲区中前后移动。这就增加了处理过程中的灵活性。但是，还需要检查是否该缓冲区中包含所有您需要处理的数据。而且需确保当更多的数据读入缓冲区时，不要覆盖缓冲区里尚未处理的数据。</p>
-<img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/007S8ZIlgy1ge9ox59wooj31k90u0e81.jpg" style="zoom: 50%;">
+<img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/007S8ZIlgy1ge9ox59wooj31k90u0e81.jpg" style="zoom: 50%;">
 
 <h2 id="缓冲区Buffer"><a href="#缓冲区Buffer" class="headerlink" title="缓冲区Buffer"></a>缓冲区Buffer</h2><p>缓冲区实际上是一个容器对象，更直接的说，其实就是一个数组，在NIO库中，所有数据都是用缓冲区处理的。在读取数据时，它是直接读到缓冲区中的；在写入数据时，它也是写入到缓冲区中的；任何时候访问NIO中的数据，都是将它放到缓冲区中。而在面向流I/O系统中，所有数据都是直接写入或者直接将数据读取到Stream对象中。</p>
 <p>在NIO中，所有的缓冲区类型都继承于抽象类Buffer，最常用的就是ByteBuffer，对于Java中的基本类型，基本都有一个具体Buffer类型与之相对应，它们之间的继承关系如下图所示:</p>
-<p><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/007S8ZIlgy1ge98z7oixzj31ii0ca75b.jpg" alt></p>
+<p><img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/007S8ZIlgy1ge98z7oixzj31ii0ca75b.jpg" alt></p>
 <h3 id="深入剖析Buffer"><a href="#深入剖析Buffer" class="headerlink" title="深入剖析Buffer"></a>深入剖析Buffer</h3><p>在谈到缓冲区时，我们说缓冲区对象本质上是一个数组，但它其实是一个特殊的数组，缓冲区对象内置了一些机制，能够跟踪和记录缓冲区的状态变化情况，如果我们使用<code>get()</code>方法从缓冲区获取数据或者使用<code>put()</code>方法把数据写入缓冲区，都会引起缓冲区状态的变化。</p>
 <p>在缓冲区中，最重要的属性有下面三个，它们一起合作完成对缓冲区内部状态的变化跟踪：</p>
 <ul>
@@ -613,20 +613,20 @@
 <li>mark标记，调用mark()来设置mark=position，再调用reset()可以让position恢复到标记的位置。</li>
 </ul>
 <p>以上三个属性值之间有一些相对大小的关系:<code>0 &lt;= position &lt;= limit &lt;= capacity</code>。 如果我们创建一个新的容量大小为10的ByteBuffer对象，在初始化的时候position设置为0，limit和capacity被设置为10，在以后使用ByteBuffer对象过程中，capacity 的值不会再发生变化，而其它两个个将会随着使用而变化。四个属性值分别如图所示:</p>
-<p><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/007S8ZIlgy1ge99r5d805j31840f842s.jpg" alt></p>
+<p><img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/007S8ZIlgy1ge99r5d805j31840f842s.jpg" alt></p>
 <p>现在我们可以从通道中读取一些数据到缓冲区中，注意从通道读取数据，相当于往缓冲区中写入数据。如果读取4个自己的数据，则此时position的值为4，即下一个将要被写入的字节索引为4，而limit仍然是10，如下图所示：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/007S8ZIlgy1ge99rjnxexj31820ewjvi.jpg" alt></p>
+<p><img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/007S8ZIlgy1ge99rjnxexj31820ewjvi.jpg" alt></p>
 <p>下一步把读取的数据写入到输出通道中，相当于从缓冲区中读取数据，在此之前，必须调用<code>flip()</code>方法，该方法将会完成两件事情：</p>
 <ol>
 <li>把limit设置为当前的position值</li>
 <li>把position设置为0</li>
 </ol>
 <p>由于position被设置为0，所以可以保证在下一步输出时读取到的是缓冲区中的第一个字节，而limit被设置为当前的position，可以保证读取的数据正好是之前写入到缓冲区中的数据，如下图所示：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/007S8ZIlgy1ge99u8uhuoj31840f0zoq.jpg" alt></p>
+<p><img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/007S8ZIlgy1ge99u8uhuoj31840f0zoq.jpg" alt></p>
 <p>现在调用<code>get()</code>方法从缓冲区中读取数据写入到输出通道，这会导致position的增加而limit保持不变，但position不会超过limit的值，所以在读取我们之前写入到缓冲区中的4个自己之后，position和limit的值都为4，如下图所示：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/007S8ZIlgy1ge99y2in5ej317w0ewn21.jpg" alt></p>
+<p><img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/007S8ZIlgy1ge99y2in5ej317w0ewn21.jpg" alt></p>
 <p>在从缓冲区中读取数据完毕后，limit 的值仍然保持在我们调用<code>flip()</code>方法时的值，调用<code>clear()</code>方法能够把所有的状态变化设置为初始化时的值，如下图所示：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/007S8ZIlgy1ge99zh2zvij318o0esgpv.jpg" alt></p>
+<p><img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/007S8ZIlgy1ge99zh2zvij318o0esgpv.jpg" alt></p>
 <h3 id="缓冲区分配"><a href="#缓冲区分配" class="headerlink" title="缓冲区分配"></a>缓冲区分配</h3><pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">//分配指定大小的缓冲区</span>
 ByteBuffer buffer <span class="token operator">=</span> ByteBuffer<span class="token punctuation">.</span><span class="token function">allocate</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
@@ -709,7 +709,7 @@ ByteBuffer directBuffer <span class="token operator">=</span> ByteBuffer<span cl
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h2 id="通道Channel"><a href="#通道Channel" class="headerlink" title="通道Channel"></a>通道Channel</h2><p>通道是一个对象，通过它可以读取和写入数据，当然了所有数据都通过Buffer对象来处理。我们永远不会将字节直接写入通道中，相反是将数据写入包含一个或者多个字节的缓冲区。同样不会直接从通道中读取字节，而是将数据从通道读入缓冲区，再从缓冲区获取这个字节。在NIO中，提供了多种通道对象，而所有的通道对象都实现了Channel 接口。它们之间的继承关系如下图所示：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/007S8ZIlgy1ge9cbetf3bj31js0sgn08.jpg" alt></p>
+<p><img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/007S8ZIlgy1ge9cbetf3bj31js0sgn08.jpg" alt></p>
 <p>在前面我们说过，任何时候读取/写入数据，都不是直接从通道读取/写入，而是从通道读取/写入到缓冲区。</p>
 <h3 id="使用NIO读取数据"><a href="#使用NIO读取数据" class="headerlink" title="使用NIO读取数据"></a>使用NIO读取数据</h3><ol>
 <li>从FileInputStream获取Channel</li>
@@ -756,7 +756,7 @@ ByteBuffer directBuffer <span class="token operator">=</span> ByteBuffer<span cl
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h2 id="反应堆Reactor"><a href="#反应堆Reactor" class="headerlink" title="反应堆Reactor"></a>反应堆Reactor</h2><h3 id="阻塞I-O通信模型"><a href="#阻塞I-O通信模型" class="headerlink" title="阻塞I/O通信模型"></a>阻塞I/O通信模型</h3><p>假如现在你对阻塞I/O已有了一定了解，我们知道阻塞I/O在调用<code>InputStream.read()</code>方法时是阻塞的，它会一直等到数据到来时(或超时)才会返回；同样，在调用<code>ServerSocket.accept()</code>方法时，也会一直阻塞到有客户端连接才会返回，每个客户端连接过来后，服务端都会启动一个线程去处理该客户端的请求。阻塞I/O的通信模型示意图如下：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/007S8ZIlgy1ge9ellchxpj31fy0lgdss.jpg" alt></p>
+<p><img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/007S8ZIlgy1ge9ellchxpj31fy0lgdss.jpg" alt></p>
 <h3 id="阻塞I-O的缺点"><a href="#阻塞I-O的缺点" class="headerlink" title="阻塞I/O的缺点"></a>阻塞I/O的缺点</h3><ol>
 <li>当客户端多时，会创建大量的处理线程。且每个线程都要占用栈空间和一些CPU时间。</li>
 <li>阻塞可能带来频繁的上下文切换，且大部分上下文切换可能是无意义的。</li>
@@ -768,11 +768,11 @@ ByteBuffer directBuffer <span class="token operator">=</span> ByteBuffer<span cl
 <li>线程通讯：线程之间通过wait,notify 等方式通讯，保证每次上下文切换都是有意义的，减少无谓的线程切换。</li>
 </ol>
 <p><strong>NIO的底层原理是反应堆</strong>，反应堆的工作原理图如下：</p>
-<img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/007S8ZIlgy1ge9es3l3nnj31bu0jsndt.jpg" style="zoom:50%;">
+<img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/007S8ZIlgy1ge9es3l3nnj31bu0jsndt.jpg" style="zoom:50%;">
 
 <h2 id="选择器Selector"><a href="#选择器Selector" class="headerlink" title="选择器Selector"></a>选择器Selector</h2><p>传统的Server/Client模式会基于TPR (Thread per Request)，服务器会为每个客户端请求建立一个线程，由该线程单独负责处理一个客户请求。这种模式带来的一个问题就是线程数量的剧增，大量的线程会增大服务器的开销。大多数的实现为了避免这个问题，都采用了线程池模型，并设置线程池线程的最大数量，这又带来了新的问题，如果线程池中有200个线程，而有200个用户都在进行大文件下载，会导致第201个用户的请求无法及时处理，即便第201个用户只想请求一个几KB大小的页面。</p>
 <p><strong>NIO中非阻塞I/O采用了基于Reactor模式的工作方式</strong>，I/O 调用不会被阻塞，相反是注册感兴趣的特定I/O事件，如可读数据到达，新的套接字连接等等，在发生特定事件时，系统再通知我们。NIO中实现非阻塞I/O的核心对象就是Selector，Selector 就是注册各种I/O事件地方，而且当那些事件发生时，就是这个对象告诉我们所发生的事件，如下图所示:</p>
-<img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/007S8ZIlgy1ge9f56l19tj30z50u011f.jpg" style="zoom: 33%;">
+<img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/007S8ZIlgy1ge9f56l19tj30z50u011f.jpg" style="zoom: 33%;">
 
 <p>从图中可以看出，当有读或写等任何注册的事件发生时，可以从Selector中获得相应的SelectionKey，同时从SelectionKey中可以找到发生的事件和该事件所发生的具体的SelectableChannel，以获得客户端发送过来的数据。</p>
 <p>使用NIO中非阻塞I/O编写服务器处理程序，大体上可以分为下面三个步骤：</p>
@@ -1074,10 +1074,10 @@ ByteBuffer directBuffer <span class="token operator">=</span> ByteBuffer<span cl
                         <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
                     </ul>
                     <div id="alipay">
-                        <img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/reward/alipay.png" class="reward-img" alt="支付宝打赏二维码">
+                        <img src="/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/reward/alipay.png" class="reward-img" alt="支付宝打赏二维码">
                     </div>
                     <div id="wechat">
-                        <img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                        <img src="/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
                     </div>
                 </div>
             </div>
@@ -1379,7 +1379,7 @@ ByteBuffer directBuffer <span class="token operator">=</span> ByteBuffer<span cl
                 <a href="/2020/04/06/nginx/">
                     <div class="card-image">
                         
-                        <img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/featureimages/9.jpg" class="responsive-img" alt="高性能的web服务器-nginx">
+                        <img src="/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/featureimages/9.jpg" class="responsive-img" alt="高性能的web服务器-nginx">
                         
                         <span class="card-title">高性能的web服务器-nginx</span>
                     </div>
@@ -1433,7 +1433,7 @@ nginx可以作为静态页面的web服务器
                 <a href="/2020/03/08/prototype/">
                     <div class="card-image">
                         
-                        <img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/featureimages/16.jpg" class="responsive-img" alt="原型模式-Prototype Pattern">
+                        <img src="/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/featureimages/16.jpg" class="responsive-img" alt="原型模式-Prototype Pattern">
                         
                         <span class="card-title">原型模式-Prototype Pattern</span>
                     </div>

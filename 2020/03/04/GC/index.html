@@ -42,7 +42,7 @@
                 <a href="/" class="waves-effect waves-light">
                     <div>
                         
-                        <img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/logo.png" class="logo-img" alt="LOGO">
+                        <img src="/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/logo.png" class="logo-img" alt="LOGO">
                         
                         <span class="logo-span">睡到自然醒</span>
                     </div>
@@ -186,7 +186,7 @@
 
     <div class="mobile-head bg-color">
         
-        <img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/logo.png" class="logo-img circle responsive-img">
+        <img src="/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/logo.png" class="logo-img circle responsive-img">
         
         <div class="logo-name">睡到自然醒</div>
         <div class="logo-desc">
@@ -607,7 +607,7 @@
 <li><p>发生Minor GC时，虚拟机会检测之前每次晋升到老年代的平均大小是否大于老年代的剩余空间大小，如果大于，则进行一次Full GC，如果小于，则查看HandlePromotionFailure设置是否允许担保失败，如果允许，那只会进行一次Minor GC，如果不允许，则改为进行一次Full GC。</p>
 </li>
 </ul>
-<h2 id="引用-强软弱虚"><a href="#引用-强软弱虚" class="headerlink" title="引用-强软弱虚"></a>引用-强软弱虚</h2><p><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gctibb8vs6j30pu050wh2.jpg" alt></p>
+<h2 id="引用-强软弱虚"><a href="#引用-强软弱虚" class="headerlink" title="引用-强软弱虚"></a>引用-强软弱虚</h2><p><img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gctibb8vs6j30pu050wh2.jpg" alt></p>
 <ul>
 <li><p><strong>强引用</strong>：通过new出来的引用，只要强引用还存在，则不会回收。</p>
 </li>
@@ -638,9 +638,9 @@ Java HotSpot<span class="token punctuation">(</span>TM<span class="token punctua
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>可以通过设置参数修改默认垃圾收集器：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gcrgjz2dowj31d20kiauo.jpg" alt></p>
+<p><img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gcrgjz2dowj31d20kiauo.jpg" alt></p>
 <p>在程序运行时进入Terminal，通过<code>jps</code>查看进程号，再使用<code>jinfo -flag 垃圾收集器 进程号</code>查看，“+”代表使用。</p>
-<img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gcrgm07mr8j30k00bs0zp.jpg" style="zoom:50%;">
+<img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gcrgm07mr8j30k00bs0zp.jpg" style="zoom:50%;">
 
 <h2 id="部分参数说明"><a href="#部分参数说明" class="headerlink" title="部分参数说明"></a>部分参数说明</h2><ul>
 <li>DefNew：Default New Generation</li>
@@ -650,7 +650,7 @@ Java HotSpot<span class="token punctuation">(</span>TM<span class="token punctua
 <li>ParOldGen：Parallel Old Generation</li>
 </ul>
 <h2 id="Server-Client模式"><a href="#Server-Client模式" class="headerlink" title="Server/Client模式"></a>Server/Client模式</h2><p>只需要掌握Server模式即可，Client模式基本用不到。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gcrhnxxi48j30ps03wgnz.jpg" alt></p>
+<p><img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gcrhnxxi48j30ps03wgnz.jpg" alt></p>
 <p>操作系统：</p>
 <ul>
 <li>32位Windows操作系统，不论硬件如何都默认使用Client的JVM模式。</li>
@@ -795,7 +795,7 @@ Java HotSpot<span class="token punctuation">(</span>TM<span class="token punctua
 <p>G1的STW更可控，G1在停顿时间上添加了预测机制，用户可以指定停顿时间。</p>
 </blockquote>
 <p>G1将整个Java堆划分为多个大小相等的独立区域(Region)，虽然还保留有新生代和老年代的概念，但新生代和老年代不再是物理隔阂了，它们都是一部分(可以不连续)Region的集合——最大的好处是化整为零，避免全盘扫描，只需要按照区域来进行扫描即可。</p>
-<img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gcs3gh4vwej30jy0bwh0w.jpg" style="zoom:50%;">
+<img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gcs3gh4vwej30jy0bwh0w.jpg" style="zoom:50%;">
 
 <p>在G1中还有一种特殊的区域，叫Humongous(巨大的)区域，它专门用来存放巨型对象，如果一个H区装不下一个巨型对象，那么G1会寻找连续的H区来存储，为了能找到连续的H区，有时候不得不启动Full GC。</p>
 <hr>
@@ -806,9 +806,9 @@ Java HotSpot<span class="token punctuation">(</span>TM<span class="token punctua
 <li>Survivor区的数据移动到新的Survivor区，部分数据晋升到Old区。</li>
 <li>最后Eden区收拾干净了，GC结束，用户的应用程序继续执行。</li>
 </ul>
-<img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gcs3y7ikhxj30zc0bg4nr.jpg" style="zoom: 50%;">
+<img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gcs3y7ikhxj30zc0bg4nr.jpg" style="zoom: 50%;">
 
-<img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gcs3xte3dej30zu0cuqu5.jpg" style="zoom:50%;">
+<img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gcs3xte3dej30zu0cuqu5.jpg" style="zoom:50%;">
 
 <hr>
 <p>G1参数配置</p>
@@ -886,9 +886,9 @@ Java HotSpot<span class="token punctuation">(</span>TM<span class="token punctua
 </ul>
 <h3 id="生产部署和调参优化"><a href="#生产部署和调参优化" class="headerlink" title="生产部署和调参优化"></a>生产部署和调参优化</h3><p>定制化诉求：java -server -Xms1024m -Xmx1024m -XX:+UseG1GC -jar <code>jar包/war包</code></p>
 <h3 id="查看日志参数-XX-PrintGCDetails"><a href="#查看日志参数-XX-PrintGCDetails" class="headerlink" title="查看日志参数-XX:+PrintGCDetails"></a>查看日志参数-XX:+PrintGCDetails</h3><p><strong>YoungGC</strong></p>
-<p><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gctgwjxsv3j316c0dax31.jpg" alt></p>
+<p><img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gctgwjxsv3j316c0dax31.jpg" alt></p>
 <p><strong>FullGC</strong></p>
-<p><img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gcthckmrgyj32u60ngnpf.jpg" alt></p>
+<p><img src="/medias/loading.gif" data-original="https://tva1.sinaimg.cn/large/00831rSTgy1gcthckmrgyj32u60ngnpf.jpg" alt></p>
 
             </div>
             <hr/>
@@ -1091,10 +1091,10 @@ Java HotSpot<span class="token punctuation">(</span>TM<span class="token punctua
                         <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
                     </ul>
                     <div id="alipay">
-                        <img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/reward/alipay.png" class="reward-img" alt="支付宝打赏二维码">
+                        <img src="/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/reward/alipay.png" class="reward-img" alt="支付宝打赏二维码">
                     </div>
                     <div id="wechat">
-                        <img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                        <img src="/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
                     </div>
                 </div>
             </div>
@@ -1396,7 +1396,7 @@ Java HotSpot<span class="token punctuation">(</span>TM<span class="token punctua
                 <a href="/2020/03/06/jvm/">
                     <div class="card-image">
                         
-                        <img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/featureimages/6.jpg" class="responsive-img" alt="JVM底层原理与性能优化">
+                        <img src="/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/featureimages/6.jpg" class="responsive-img" alt="JVM底层原理与性能优化">
                         
                         <span class="card-title">JVM底层原理与性能优化</span>
                     </div>
@@ -1446,7 +1446,7 @@ Java HotSpot<span class="token punctuation">(</span>TM<span class="token punctua
                 <a href="/2020/03/02/OOM/">
                     <div class="card-image">
                         
-                        <img src="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/featureimages/26.jpg" class="responsive-img" alt="内存溢出-OOM">
+                        <img src="/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/lishaojie1993/lishaojie1993.github.io/medias/featureimages/26.jpg" class="responsive-img" alt="内存溢出-OOM">
                         
                         <span class="card-title">内存溢出-OOM</span>
                     </div>
